@@ -20,13 +20,13 @@ public class main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("reserve.fxml"));
 
-        Scene scene = new Scene(root, 800, 600
-        );
+        Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("fxml/logIn.fxml")));
+
+        Scene scene = new Scene(root, 800, 600);
 
         Stage stage= new Stage();
-        stage.setTitle("FXML Welcome");
+        stage.setTitle("Hotel Management");
         stage.setScene(scene);
         stage.show();
     }
