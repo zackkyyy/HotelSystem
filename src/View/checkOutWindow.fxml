@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkOutController">
+   <children>
+      <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox prefHeight="100.0" prefWidth="150.0" BorderPane.alignment="TOP_CENTER">
+               <children>
+                  <VBox prefHeight="148.0" prefWidth="800.0">
+                     <children>
+                        <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
+                           <children>
+                              <VBox prefHeight="51.0" prefWidth="102.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                    <JFXSpinner maxHeight="50.0" maxWidth="50.0" minHeight="40.0" minWidth="40.0" prefHeight="40.0" prefWidth="40.0" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <JFXButton onAction="#ShowMainPage" prefHeight="37.0" prefWidth="136.0" text="Reserve">
+                                 <HBox.margin>
+                                    <Insets left="15.0" top="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton onAction="#showCheckInWindow"  prefHeight="34.0" prefWidth="137.0" text="Check-in">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton  prefHeight="33.0" prefWidth="141.0" text="Check-out">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton onAction="#ShowGuestManagement" prefHeight="35.0" prefWidth="147.0" text="Guest Info">
+                                 <HBox.margin>
+                                    <Insets left="20.0" top="10.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <VBox prefHeight="72.0" prefWidth="157.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
+                                       <VBox.margin>
+                                          <Insets left="20.0" top="10.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Text>
+                                    <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                                       <VBox.margin>
+                                          <Insets left="10.0" top="5.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+         <right>
+            <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check OUT" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="48.0" />
+               </font>
+               <BorderPane.margin>
+                  <Insets left="250.0" top="-400.0" />
+               </BorderPane.margin>
+            </Text>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

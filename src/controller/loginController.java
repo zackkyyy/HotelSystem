@@ -1,4 +1,4 @@
-package controler;
+package controller;
 
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -31,7 +31,7 @@ public class loginController {
     }
 
     public boolean checkForLogIn() throws IOException {
-   if( (user.getText().equals("admin"))&& (pass.getText().equals("password")) ){
+   if( (user.getText().equals("1"))&& (pass.getText().equals("1")) ){
         System.out.println("right");
         return  true;
     }
@@ -42,7 +42,7 @@ public class loginController {
     }
     public void ShowMainPage (ActionEvent event) throws IOException {
         if (checkForLogIn()) {
-            Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("../fxml/MainWindow.fxml")));
+            Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
             Scene mainWindowScene = new Scene(Checkinpage);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(mainWindowScene);
