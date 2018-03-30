@@ -191,7 +191,7 @@
             </HBox>
          </left>
       </BorderPane>
-      <HBox layoutX="-2.0" layoutY="123.0" maxHeight="81.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="81.0" prefWidth="803.0" style="-fx-border-color: ; -fx-border-radius: 10px; -fx-background-color: ;" AnchorPane.bottomAnchor="396.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="123.0">
+      <HBox layoutX="-2.0" layoutY="123.0" maxHeight="81.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="81.0" prefWidth="803.0" style="-fx-border-color: #f5f3f3; -fx-border-radius: 10px; -fx-background-color: #f5f3f3;" AnchorPane.bottomAnchor="396.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="123.0">
          <children>
             <VBox>
                <children>
@@ -257,7 +257,7 @@
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
             </VBox>
-            <MenuButton fx:id="city" ellipsisString="s" mnemonicParsing="false" style="-fx-background-color: trasnparent;">
+            <MenuButton fx:id="city" ellipsisString="s" mnemonicParsing="false" style="-fx-background-color: transparent;">
                <items>
                   <MenuItem fx:id="växjö" mnemonicParsing="false" text="Växjö" />
                   <MenuItem fx:id="kalmar" mnemonicParsing="false" text="Kalmar" />

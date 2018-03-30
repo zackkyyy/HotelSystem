@@ -10,9 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,12 +46,12 @@ public class reserveController implements Initializable {
     @FXML
     private MenuItem p5;
     @FXML
-    private MenuItem vÃ¤xjÃ¶;
+    private MenuItem växjö;
     @FXML
     private MenuItem kalmar;
     @FXML
     private TextField cityName;
-
+    
     /**
      * This method runs when ever the user press on the check in option in the header
      *
@@ -61,7 +64,7 @@ public class reserveController implements Initializable {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(CheckInScene);
         app_stage.show();
-        System.out.print("s");
+        System.out.println("CheckIn window showed from reserveController");
     }
     /**
      * This method runs when ever the user press on the check out option in the header
@@ -75,6 +78,7 @@ public class reserveController implements Initializable {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
         app_stage.show();
+        System.out.println("CheckOut window showed from reserveController");
 
     }
     /**
@@ -90,6 +94,7 @@ public class reserveController implements Initializable {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(CheckInScene);
         app_stage.show();
+        System.out.println("GuestManagement window showed from reserveController");
     }
 
     /**
@@ -140,8 +145,8 @@ public class reserveController implements Initializable {
        /*
          Choose the city from the button menu
         */
-        vÃ¤xjÃ¶.setOnAction(event1 -> {
-            cityName.setText("VÃ¤xjÃ¶");
+        växjö.setOnAction(event1 -> {
+            cityName.setText("Växjö");
         });
         kalmar.setOnAction(event1 -> {
             cityName.setText("Kalmar");
@@ -173,7 +178,29 @@ public class reserveController implements Initializable {
             personsNumber.setText("5");
 
         });
+        
+        disablePreviousDates();
     }
+    
+    // Disables (grayes out) all dates before today in both the DatePickers
+    private void disablePreviousDates() {
+    	Callback<DatePicker, DateCell> dayCellFactory;
+    	
+    	dayCellFactory = new Callback<DatePicker, DateCell>() {
+    		public DateCell call(final DatePicker datePicker) {
+    			return new DateCell() {
+    				@Override public void updateItem(LocalDate item, boolean empty) {
+    					super.updateItem(item, empty);
 
+    					if(item.isBefore(LocalDate.now())) {
+    						setDisable(true);
+    					}
+    				}
+    			};
+    		}
+    	};
 
+    	checkOutField.setDayCellFactory(dayCellFactory);
+    	checkInField.setDayCellFactory(dayCellFactory);
+    }
 }

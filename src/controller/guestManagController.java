@@ -19,6 +19,7 @@ public class guestManagController {
         Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
         app_stage.show();
+        System.out.println("Main window showed from guestManagController");
     }
 
     public void showCheckInWindow(ActionEvent actionEvent) throws IOException {
@@ -27,6 +28,7 @@ public class guestManagController {
         Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         app_stage.setScene(checkInScene);
         app_stage.show();
+        System.out.println("CheckIn window showed from guestManagController");
     }
 
     public void showCheckOutWindow(ActionEvent actionEvent) throws IOException {
@@ -35,5 +37,6 @@ public class guestManagController {
         Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         app_stage.setScene(CheckoutScene);
         app_stage.show();
+        System.out.println("CheckOut window showed from guestManagController");
     }
 }
