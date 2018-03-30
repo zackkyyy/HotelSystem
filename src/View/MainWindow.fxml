@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" pickOnBounds="false" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -33,7 +33,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <JFXButton  prefHeight="37.0" prefWidth="136.0" text="Reserve">
+                  <JFXButton prefHeight="37.0" prefWidth="136.0" text="Reserve">
                      <HBox.margin>
                         <Insets left="15.0" top="10.0" />
                      </HBox.margin>
@@ -97,7 +97,7 @@
                               <Insets left="15.0" top="15.0" />
                            </HBox.margin>
                         </Text>
-                        <JFXTextField fx:id="nights" labelFloat="true" prefHeight="27.0" prefWidth="80.0" unFocusColor="WHITE">
+                        <JFXTextField fx:id="nights" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" unFocusColor="WHITE">
                            <HBox.margin>
                               <Insets left="15.0" top="7.0" />
                            </HBox.margin>
@@ -167,8 +167,11 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality" />
                               <MenuButton fx:id="quality" mnemonicParsing="false">
                                  <items>
-                                    <MenuItem mnemonicParsing="false" text="Action 1" />
-                                    <MenuItem mnemonicParsing="false" text="Action 2" />
+                                    <MenuItem mnemonicParsing="false" text="1" />
+                                    <MenuItem mnemonicParsing="false" text="2" />
+                                    <MenuItem mnemonicParsing="false" text="3" />
+                                    <MenuItem mnemonicParsing="false" text="4" />
+                                    <MenuItem mnemonicParsing="false" text="5" />
                                  </items>
                                  <HBox.margin>
                                     <Insets left="10.0" />
@@ -193,7 +196,7 @@
             <VBox>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check in" />
-                  <JFXDatePicker fx:id="checkIn" defaultColor="#fe9939" minWidth="100.0" prefHeight="27.0" prefWidth="125.0" />
+                  <JFXDatePicker fx:id="checkInField" defaultColor="#fe9939" minWidth="100.0" onAction="#calculateNights" prefHeight="27.0" prefWidth="125.0" />
                </children>
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
@@ -205,7 +208,7 @@
                </HBox.margin>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check out" />
-                  <JFXDatePicker fx:id="checkOut" defaultColor="#fe9939" minWidth="100.0" prefHeight="27.0" prefWidth="125.0" />
+                  <JFXDatePicker fx:id="checkOutField" defaultColor="#fe9939" minWidth="100.0" onAction="#calculateNights" prefHeight="27.0" prefWidth="125.0" />
                </children>
             </VBox>
             <VBox>
@@ -215,7 +218,7 @@
                         <Insets bottom="4.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField layoutY="10.0" prefHeight="25.0" prefWidth="47.0" />
+                  <TextField fx:id="personsNumber" layoutY="10.0" prefHeight="25.0" prefWidth="47.0" />
                </children>
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
@@ -223,8 +226,12 @@
             </VBox>
             <MenuButton fx:id="persons" mnemonicParsing="false" prefHeight="29.0" prefWidth="38.0" style="-fx-background-color: transparent;">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem fx:id="p1" mnemonicParsing="false" text="1" />
+                  <MenuItem fx:id="p2" mnemonicParsing="false" text="2" />
+                  <MenuItem fx:id="p3" mnemonicParsing="false" text="3" />
+                  <MenuItem fx:id="p4" mnemonicParsing="false" text="4" />
+                  <MenuItem fx:id="p5" mnemonicParsing="false" text="5" />
+                  <MenuItem fx:id="more" mnemonicParsing="false" text="more" />
                </items>
                <HBox.margin>
                   <Insets left="-5.0" top="30.0" />
@@ -240,7 +247,7 @@
                         <Insets bottom="4.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField editable="false" prefHeight="25.0" prefWidth="96.0">
+                  <TextField fx:id="cityName" prefHeight="25.0" prefWidth="96.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -252,8 +259,8 @@
             </VBox>
             <MenuButton fx:id="city" ellipsisString="s" mnemonicParsing="false" style="-fx-background-color: trasnparent;">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
+                  <MenuItem fx:id="växjö" mnemonicParsing="false" text="Växjö" />
+                  <MenuItem fx:id="kalmar" mnemonicParsing="false" text="Kalmar" />
                </items>
                <HBox.margin>
                   <Insets left="-5.0" top="30.0" />
