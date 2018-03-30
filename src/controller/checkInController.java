@@ -21,7 +21,7 @@ public class checkInController {
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(mainWindowScene);
             app_stage.show();
-            System.out.print("main window showed");
+            System.out.println("Main window showed from checkInController");
     }
 
     public void showCheckOutWindow (ActionEvent event) throws IOException {
@@ -30,6 +30,7 @@ public class checkInController {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
         app_stage.show();
+        System.out.println("CheckOut window showed from checkInController");
 
     }
     public void ShowGuestManagement (ActionEvent event) throws IOException {
@@ -38,6 +39,6 @@ public class checkInController {
         Stage app_stage = (Stage)((Node) event.getSource()    ).getScene().getWindow();
         app_stage.setScene(CheckInScene);
         app_stage.show();
-        System.out.print("s");
+        System.out.println("GuestManagement window showed from checkInController");
     }
 }

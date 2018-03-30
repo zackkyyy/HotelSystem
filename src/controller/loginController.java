@@ -32,10 +32,10 @@ public class loginController {
 
     public boolean checkForLogIn() throws IOException {
    if( (user.getText().equals("1"))&& (pass.getText().equals("1")) ){
-        System.out.println("right");
+        System.out.println("Correct login");
         return  true;
     }
-        System.out.println("false");
+        System.out.println("Incorrect login");
         System.out.println(pass.getText());
         System.out.println(user.getText());
         return false;
@@ -47,7 +47,7 @@ public class loginController {
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(mainWindowScene);
             app_stage.show();
-            System.out.print("main window showed");
+            System.out.println("Main window showed from loginController");
         }else
             sorry.setText("Sorry user name or password is wrong");
     }
