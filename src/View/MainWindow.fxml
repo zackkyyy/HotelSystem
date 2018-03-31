@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXSpinner?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
@@ -17,60 +16,62 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
    <children>
       <BorderPane layoutX="10.0" layoutY="10.0" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" pickOnBounds="false" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
-            <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" BorderPane.alignment="CENTER">
+            <HBox prefHeight="73.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" BorderPane.alignment="CENTER">
                <children>
                   <VBox prefHeight="51.0" prefWidth="102.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                        <JFXSpinner maxHeight="50.0" maxWidth="50.0" minHeight="40.0" minWidth="40.0" prefHeight="40.0" prefWidth="40.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                     </children>
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HotelLogo">
+                           <VBox.margin>
+                              <Insets left="20.0" top="27.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
                   </VBox>
-                  <JFXButton prefHeight="37.0" prefWidth="136.0" text="Reserve">
+                  <JFXButton focusTraversable="false" prefHeight="84.0" prefWidth="130.0" style="-fx-background-color: #fcb26c; -jfx-disable-visual-focus: true;" text="Reserve">
                      <HBox.margin>
-                        <Insets left="15.0" top="10.0" />
+                        <Insets left="15.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#ShowCheckInPage" prefHeight="34.0" prefWidth="137.0" text="Check-in">
+                  <JFXButton onAction="#ShowCheckInPage" prefHeight="84.0" prefWidth="130.0" style="-jfx-disable-visual-focus: true;" text="Check-in">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#showCheckOutWindow" prefHeight="33.0" prefWidth="141.0" text="Check-out">
+                  <JFXButton onAction="#showCheckOutWindow" prefHeight="84.0" prefWidth="130.0" style="-jfx-disable-visual-focus: true;" text="Check-out">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onAction="#ShowGuestManagement" prefHeight="35.0" prefWidth="147.0" text="Guest Info">
+                  <JFXButton onAction="#ShowGuestManagement" prefHeight="84.0" prefWidth="130.0" style="-jfx-disable-visual-focus: true;" text="Guest Info">
                      <HBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets />
                      </HBox.margin>
                   </JFXButton>
-                  <VBox prefHeight="72.0" prefWidth="157.0">
+                  <VBox prefHeight="72.0" prefWidth="117.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
                            <VBox.margin>
-                              <Insets left="20.0" top="10.0" />
+                              <Insets left="20.0" top="5.0" />
                            </VBox.margin>
                            <font>
                               <Font size="12.0" />
                            </font>
                         </Text>
-                        <Button mnemonicParsing="false" onAction="#calculateNights" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                        <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
                            <VBox.margin>
                               <Insets left="10.0" top="5.0" />
                            </VBox.margin>
                         </Button>
                      </children>
                      <HBox.margin>
-                        <Insets left="20.0" />
+                        <Insets left="40.0" top="10.0" />
                      </HBox.margin>
                   </VBox>
                </children>
