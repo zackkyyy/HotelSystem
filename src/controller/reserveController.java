@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -28,13 +25,17 @@ import java.util.ResourceBundle;
  */
 public class reserveController implements Initializable {
     @FXML
+    private Tab ss;
+    @FXML
+    private TabPane sss;
+    @FXML
     private JFXDatePicker checkOutField;
     @FXML
     private JFXDatePicker checkInField;
     @FXML
-    private JFXTextField nights;
+    private JFXTextField nights ,rooms;
     @FXML
-    private TextField personsNumber;
+    private MenuButton personsNumber, roomsNumber,cityName;
     @FXML
     private MenuItem p1;
     @FXML
@@ -46,12 +47,14 @@ public class reserveController implements Initializable {
     @FXML
     private MenuItem p5;
     @FXML
-    private MenuItem växjö;
+    private MenuItem vÃ¤xjÃ¶;
     @FXML
     private MenuItem kalmar;
+
     @FXML
-    private TextField cityName;
-    
+    private MenuItem r1 , r2 ,r3 ,r4, r5;
+
+
     /**
      * This method runs when ever the user press on the check in option in the header
      *
@@ -82,9 +85,9 @@ public class reserveController implements Initializable {
 
     }
     /**
-     * This method runs when ever the user press on the guest management option in the header
+     * This method runs when ever the user press on the Guest management option in the header
      *
-     * @param event guest management page requested
+     * @param event Guest management page requested
      * @throws IOException
      */
 
@@ -103,36 +106,18 @@ public class reserveController implements Initializable {
      */
     public void calculateNights() {
         Period intervalPeriod;
-        LocalDate checkIn1 = checkInField.getValue();  // get the check in date
-        LocalDate checkout = checkOutField.getValue();   // get the check out date
 
         // check that the check in is always before the check out
-        if (checkInField.getValue().isAfter(checkout)) {
-            checkOutField.setValue(checkIn1.plusDays(1));
-            checkout = checkOutField.getValue();
-            intervalPeriod = Period.between(checkIn1, checkout);
+        if (checkInField.getValue().isAfter(checkOutField.getValue())) {
+            checkOutField.setValue(checkInField.getValue().plusDays(1));
+            nights.setText("1");
+        }
+        else {
+            intervalPeriod = Period.between(checkInField.getValue(), checkOutField.getValue());
             String numberOfNights = intervalPeriod.toString().substring(1, intervalPeriod.toString().length() - 1);
             nights.setText(numberOfNights);
         }
-        // check if the check in date is not before today
-        else if (checkIn1.isBefore(LocalDate.now())) {
-            checkInField.setValue(LocalDate.now());
-            checkOutField.setValue(checkIn1.plusDays(1));
-            checkIn1 = checkInField.getValue();
-            checkout = checkOutField.getValue();
-            intervalPeriod = Period.between(checkIn1, checkout);
-            String numberOfNights = intervalPeriod.toString().substring(1, intervalPeriod.toString().length() - 1);
-            nights.setText(numberOfNights);
-        } else {
-            intervalPeriod = Period.between(checkIn1, checkout);
-            String numberOfNights = intervalPeriod.toString().substring(1, intervalPeriod.toString().length() - 1);
-            nights.setText(numberOfNights);
-        }
-
-
     }
-
-
     /**
      *  This method is @Override because this class implement Initializble
      *  Here when initialize the button or the menu items to their actions
@@ -142,11 +127,14 @@ public class reserveController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        checkInField.setValue(LocalDate.now());
+        checkOutField.setValue(LocalDate.now().plusDays(1));
+        disablePreviousDates();
        /*
          Choose the city from the button menu
         */
-        växjö.setOnAction(event1 -> {
-            cityName.setText("Växjö");
+        vÃ¤xjÃ¶.setOnAction(event1 -> {
+            cityName.setText("VÃ¤xjÃ¶");
         });
         kalmar.setOnAction(event1 -> {
             cityName.setText("Kalmar");
@@ -155,7 +143,7 @@ public class reserveController implements Initializable {
 
 
         /*
-        The following lines to decide the number of the guest
+        The following lines to decide the number of the Guest
         depending on the chosen number from the button menu
          */
         p1.setOnAction(event1 -> {
@@ -178,8 +166,32 @@ public class reserveController implements Initializable {
             personsNumber.setText("5");
 
         });
+        /*
+         * Initialize the number of room
+         */
+        r1.setOnAction(event1 ->{
+            rooms.setText("1");
+            roomsNumber.setText("1");
+        });
+        r2.setOnAction(event1 ->{
+            rooms.setText("2");
+            roomsNumber.setText("2");
+        });
+        r3.setOnAction(event1 ->{
+            rooms.setText("3");
+            roomsNumber.setText("3");
+        });
+        r4.setOnAction(event1 ->{
+            rooms.setText("4");
+            roomsNumber.setText("4");
+        });
+        r5.setOnAction(event1 ->{
+            rooms.setText("5");
+            roomsNumber.setText("5");
+        });
+
         
-        disablePreviousDates();
+
     }
     
     // Disables (grayes out) all dates before today in both the DatePickers
@@ -203,4 +215,23 @@ public class reserveController implements Initializable {
     	checkOutField.setDayCellFactory(dayCellFactory);
     	checkInField.setDayCellFactory(dayCellFactory);
     }
+    /**
+     * Setters and getters
+     */
+
+    public int getNumberOfnights(){
+        return Integer.parseInt(nights.getText());
+    }
+    public int getNumberOfRooms(){
+        return 0;
+    }
+
+    public void moveToNextTap(ActionEvent actionEvent){
+        sss.getSelectionModel().selectNext();
+    }
+    public void moveToPreviousTap(ActionEvent actionEvent){
+        sss.getSelectionModel().selectPrevious();
+    }
+
+
 }

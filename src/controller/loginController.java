@@ -17,8 +17,6 @@ import java.io.IOException;
  * Created by zack on 2018-03-29.
  */
 public class loginController {
-    String password ="password";
-    String userName ="admin";
     @FXML
     private JFXPasswordField pass;
     @FXML
@@ -42,8 +40,8 @@ public class loginController {
     }
     public void ShowMainPage (ActionEvent event) throws IOException {
         if (checkForLogIn()) {
-            Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
-            Scene mainWindowScene = new Scene(Checkinpage);
+            Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
+            Scene mainWindowScene = new Scene(CheckInPage);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(mainWindowScene);
             app_stage.show();

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXSpinner?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,7 +26,6 @@
                                         <VBox prefHeight="51.0" prefWidth="102.0">
                                             <children>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                                                <JFXSpinner maxHeight="50.0" maxWidth="50.0" minHeight="40.0" minWidth="40.0" prefHeight="40.0" prefWidth="40.0" />
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                                             </children>
                                             <HBox.margin>
@@ -35,17 +37,17 @@
                                                 <Insets left="15.0" top="10.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                                        <JFXButton onAction="#showCheckInWindow"  prefHeight="34.0" prefWidth="137.0" text="Check-in">
+                                        <JFXButton onAction="#showCheckInWindow" prefHeight="34.0" prefWidth="137.0" text="Check-in">
                                             <HBox.margin>
                                                 <Insets left="20.0" top="10.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                                        <JFXButton  onAction="#showCheckOutWindow" prefHeight="33.0" prefWidth="141.0" text="Check-out">
+                                        <JFXButton onAction="#showCheckOutWindow" prefHeight="33.0" prefWidth="141.0" text="Check-out">
                                             <HBox.margin>
                                                 <Insets left="20.0" top="10.0" />
                                             </HBox.margin>
                                         </JFXButton>
-                                        <JFXButton  prefHeight="35.0" prefWidth="147.0" text="Guest Info">
+                                        <JFXButton prefHeight="35.0" prefWidth="147.0" text="Guest Info">
                                             <HBox.margin>
                                                 <Insets left="20.0" top="10.0" />
                                             </HBox.margin>
@@ -60,7 +62,7 @@
                                                         <Font size="12.0" />
                                                     </font>
                                                 </Text>
-                                                <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                                                <Button fx:id="button" mnemonicParsing="false" onAction="#addToList" prefHeight="20.0" prefWidth="80.0" text="Log Out">
                                                     <VBox.margin>
                                                         <Insets left="10.0" top="5.0" />
                                                     </VBox.margin>
@@ -80,19 +82,227 @@
                     </BorderPane.margin>
                 </HBox>
             </top>
-            <right>
-                <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
-            </right>
-            <center>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Management" BorderPane.alignment="CENTER">
-                    <font>
-                        <Font size="48.0" />
-                    </font>
-                    <BorderPane.margin>
-                        <Insets left="250.0" top="-400.0" />
-                    </BorderPane.margin>
-                </Text>
-            </center>
+         <left>
+            <VBox BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="20.0" />
+               </BorderPane.margin>
+               <children>
+                  <JFXListView fx:id="ss" maxHeight="350.0" maxWidth="300.0" minHeight="350.0" minWidth="290.0" prefHeight="350.0" prefWidth="300.0">
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </JFXListView>
+                  <HBox prefHeight="44.0" prefWidth="300.0">
+                     <children>
+                        <JFXButton onAction="#fillGaps" prefHeight="27.0" prefWidth="77.0" text="Edit">
+                           <HBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView fill="#ff7b00" glyphName="EDIT" size="15" text="" />
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="delete" onAction="#deleteFromList" text="Delete">
+                           <HBox.margin>
+                              <Insets left="100.0" top="10.0" />
+                           </HBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView fill="#ff8400" glyphName="TRASH_ALT" size="15" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <AnchorPane prefHeight="438.0" prefWidth="480.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="27.0" layoutY="72.0" prefHeight="361.0" prefWidth="414.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="69.0">
+                     <children>
+                        <JFXTextField editable="false" focusColor="#fe9939" prefHeight="27.0" prefWidth="414.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  Guest Information" unFocusColor="#4d4d4d00">
+                           <VBox.margin>
+                              <Insets left="-10.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <HBox>
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXTextField fx:id="name" focusColor="BLACK" prefHeight="27.0" prefWidth="178.0" promptText="eg- John" unFocusColor="#fe9939">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="-22.0" />
+                                       </VBox.margin>
+                                    </JFXTextField>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXTextField fx:id="lastName" focusColor="BLACK" prefHeight="27.0" prefWidth="178.0" promptText="last name" unFocusColor="#fe9939">
+                                       <VBox.margin>
+                                          <Insets left="70.0" top="-22.0" />
+                                       </VBox.margin>
+                                    </JFXTextField>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="20.0" />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Text>
+                              <JFXTextField fx:id="address" focusColor="BLACK" prefHeight="27.0" prefWidth="298.0" text="address" unFocusColor="#fe9939">
+                                 <VBox.margin>
+                                    <Insets left="75.0" top="-22.0" />
+                                 </VBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <FontAwesomeIconView glyphName="PHONE" size="15">
+                                 <VBox.margin>
+                                    <Insets bottom="-20.0" left="380.0" />
+                                 </VBox.margin>
+                              </FontAwesomeIconView>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
+                              <JFXTextField focusColor="BLACK" prefHeight="28.0" prefWidth="251.0" promptText="07x-xxx xxxx" unFocusColor="#fe9939">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="75.0" top="-22.0" />
+                                 </VBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <FontAwesomeIconView glyphName="CREDIT_CARD" size="15">
+                                 <VBox.margin>
+                                    <Insets bottom="-20.0" left="380.0" />
+                                 </VBox.margin>
+                              </FontAwesomeIconView>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" />
+                              <JFXTextField focusColor="BLACK" maxWidth="324.0" minWidth="200.0" prefHeight="27.0" prefWidth="324.0" promptText="xxxx-xxxx-xxxx-xxxx" unFocusColor="#fe9939">
+                                 <VBox.margin>
+                                    <Insets left="75.0" top="-22.0" />
+                                 </VBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birthday" />
+                              <JFXTextField focusColor="BLACK" maxWidth="364.0" prefHeight="27.0" prefWidth="364.0" promptText="dd.mm.yyyy" unFocusColor="#fe9939">
+                                 <VBox.margin>
+                                    <Insets left="75.0" top="-22.0" />
+                                 </VBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identity nr" />
+                              <JFXTextField focusColor="BLACK" maxWidth="326.0" minWidth="200.0" prefHeight="27.0" prefWidth="326.0" promptText="xxxxxxxxxx" unFocusColor="#fe9939">
+                                 <VBox.margin>
+                                    <Insets left="75.0" top="-22.0" />
+                                 </VBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Notes">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Text>
+                              <JFXTextField focusColor="BLACK" prefHeight="27.0" prefWidth="298.0" text="notes" unFocusColor="#fe9939">
+                                 <VBox.margin>
+                                    <Insets left="75.0" top="-22.0" />
+                                 </VBox.margin>
+                              </JFXTextField>
+                           </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </center>
         </BorderPane>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="51.0" prefWidth="102.0" AnchorPane.topAnchor="-10.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+            <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+               <font>
+                  <Font name="Brush Script MT Italic" size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-5.0" />
+               </VBox.margin>
+            </Text>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
