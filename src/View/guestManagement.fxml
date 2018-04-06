@@ -13,74 +13,69 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-                <HBox prefHeight="100.0" prefWidth="150.0" BorderPane.alignment="TOP_CENTER">
-                    <children>
-                        <VBox prefHeight="148.0" prefWidth="800.0">
-                            <children>
-                                <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
-                                    <children>
-                                        <VBox prefHeight="51.0" prefWidth="102.0">
-                                            <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-                                            </children>
-                                            <HBox.margin>
-                                                <Insets left="10.0" />
-                                            </HBox.margin>
-                                        </VBox>
-                                        <JFXButton onAction="#ShowMainPage" prefHeight="37.0" prefWidth="136.0" text="Reserve">
-                                            <HBox.margin>
-                                                <Insets left="15.0" top="10.0" />
-                                            </HBox.margin>
-                                        </JFXButton>
-                                        <JFXButton onAction="#showCheckInWindow" prefHeight="34.0" prefWidth="137.0" text="Check-in">
-                                            <HBox.margin>
-                                                <Insets left="20.0" top="10.0" />
-                                            </HBox.margin>
-                                        </JFXButton>
-                                        <JFXButton onAction="#showCheckOutWindow" prefHeight="33.0" prefWidth="141.0" text="Check-out">
-                                            <HBox.margin>
-                                                <Insets left="20.0" top="10.0" />
-                                            </HBox.margin>
-                                        </JFXButton>
-                                        <JFXButton prefHeight="35.0" prefWidth="147.0" text="Guest Info">
-                                            <HBox.margin>
-                                                <Insets left="20.0" top="10.0" />
-                                            </HBox.margin>
-                                        </JFXButton>
-                                        <VBox prefHeight="72.0" prefWidth="157.0">
-                                            <children>
-                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
-                                                    <VBox.margin>
-                                                        <Insets left="20.0" top="10.0" />
-                                                    </VBox.margin>
-                                                    <font>
-                                                        <Font size="12.0" />
-                                                    </font>
-                                                </Text>
-                                                <Button fx:id="button" mnemonicParsing="false" onAction="#addToList" prefHeight="20.0" prefWidth="80.0" text="Log Out">
-                                                    <VBox.margin>
-                                                        <Insets left="10.0" top="5.0" />
-                                                    </VBox.margin>
-                                                </Button>
-                                            </children>
-                                            <HBox.margin>
-                                                <Insets left="20.0" />
-                                            </HBox.margin>
-                                        </VBox>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </children>
-                    <BorderPane.margin>
-                        <Insets />
-                    </BorderPane.margin>
-                </HBox>
+            <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
+               <children>
+                  <VBox prefHeight="51.0" prefWidth="102.0">
+                     <children>
+                        <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+                           <font>
+                              <Font name="Brush Script MT Italic" size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" top="-10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <JFXButton onAction="#ShowMainPage" prefHeight="37.0" prefWidth="136.0" text="Reserve">
+                     <HBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#showCheckInWindow" prefHeight="34.0" prefWidth="137.0" text="Check-in">
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton onAction="#showCheckOutWindow" prefHeight="33.0" prefWidth="141.0" text="Check-out">
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton prefHeight="35.0" prefWidth="147.0" text="Guest Info">
+                     <HBox.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <VBox prefHeight="72.0" prefWidth="157.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
+                           <VBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="button" mnemonicParsing="false" onAction="#addToList" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
             </top>
          <left>
             <VBox BorderPane.alignment="CENTER">
@@ -88,9 +83,14 @@
                   <Insets left="20.0" />
                </BorderPane.margin>
                <children>
-                  <JFXListView fx:id="ss" maxHeight="350.0" maxWidth="300.0" minHeight="350.0" minWidth="290.0" prefHeight="350.0" prefWidth="300.0">
+                  <JFXTextField editable="false" focusColor="#fe9939" maxWidth="250.0" prefHeight="27.0" prefWidth="181.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  List of Guests" unFocusColor="#4d4d4d00">
                      <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXListView fx:id="ss" maxHeight="401.0" maxWidth="250.0" minHeight="349.0" minWidth="228.0" prefHeight="401.0" prefWidth="250.0" style="-fx-background-radius: 4px;">
+                     <VBox.margin>
+                        <Insets />
                      </VBox.margin>
                   </JFXListView>
                   <HBox prefHeight="44.0" prefWidth="300.0">
@@ -105,7 +105,7 @@
                         </JFXButton>
                         <JFXButton fx:id="delete" onAction="#deleteFromList" text="Delete">
                            <HBox.margin>
-                              <Insets left="100.0" top="10.0" />
+                              <Insets left="70.0" top="10.0" />
                            </HBox.margin>
                            <graphic>
                               <FontAwesomeIconView fill="#ff8400" glyphName="TRASH_ALT" size="15" />

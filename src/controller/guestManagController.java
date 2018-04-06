@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import model.Guest;
 
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by zack on 2018-03-29.
@@ -78,15 +79,15 @@ public class guestManagController {
          s ="Item"+i;
             ss.getItems().add(s); }
         */
+       Random rand = new Random();
+        int randomString = rand.nextInt(1000);
 
-
-
-        guest = new Guest("Zacky", "Kharboutli ", "Stallvägen 20");
-        ss.getItems().add(guest.toString());
+        guest = new Guest(String.valueOf(randomString), "Kharboutli" , "Stallvägen 20");
+        ss.getItems().add(guest.getName()+ " "+guest.getLastName());
     }
 
     public void fillGaps(){
-        Object listOfNames1 =ss.getSelectionModel().getSelectedItem();
+
         name.setText(guest.getName());
         lastName.setText(guest.getLastName());
         address.setText(guest.getAddress());
