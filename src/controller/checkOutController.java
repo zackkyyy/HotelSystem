@@ -23,7 +23,7 @@ public class checkOutController {
         System.out.println("Main window showed from checkOutController");
     }
 
-    public void showCheckInWindow (ActionEvent event) throws IOException {
+    public void ShowCheckInPage (ActionEvent event) throws IOException {
         Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/checkInWindow.fxml")));
         Scene CheckInScene = new Scene(checkInPage);
         Stage app_stage = (Stage)((Node) event.getSource()    ).getScene().getWindow();
