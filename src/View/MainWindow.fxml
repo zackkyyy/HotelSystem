@@ -240,7 +240,7 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <HBox maxHeight="96.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="96.0" prefWidth="783.0" style="-fx-border-color: ; -fx-border-radius: 10px; -fx-background-color: ;">
+                              <HBox maxHeight="96.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="96.0" prefWidth="783.0" style=" -fx-border-radius: 10px ">
                                  <children>
                                     <VBox>
                                        <children>

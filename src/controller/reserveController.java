@@ -37,15 +37,7 @@ public class reserveController implements Initializable {
     @FXML
     private MenuButton personsNumber, roomsNumber,cityName;
     @FXML
-    private MenuItem p1;
-    @FXML
-    private MenuItem p2;
-    @FXML
-    private MenuItem p3;
-    @FXML
-    private MenuItem p4;
-    @FXML
-    private MenuItem p5;
+    private MenuItem p1 , p2 , p3 ,p4 ,p5 ;
     @FXML
     private MenuItem växjö;
     @FXML

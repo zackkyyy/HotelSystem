@@ -5,26 +5,41 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import model.Guest;
 
 import java.io.IOException;
-import java.util.Random;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 /**
  * Created by zack on 2018-03-29.
  */
-public class guestManagController {
+public class guestManagController implements Initializable {
     @FXML
-    private JFXListView ss;
+    private JFXListView list;
     @FXML
     private JFXTextField name, lastName,address ;
 
-    Guest guest;
+    private ArrayList<Guest> memberList;
+    FileHandler fileHandler;
+
+    public void readFiles() throws IOException, ParseException {
+
+    }
+    public ArrayList<Guest> getMemberList() {
+
+        return  new ArrayList<Guest>(memberList);
+    }
     public void ShowMainPage(ActionEvent actionEvent) throws IOException {
         Parent mainWindow = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
         Scene mainWindowScene = new Scene(mainWindow);
@@ -57,41 +72,51 @@ public class guestManagController {
      * Delete items from the Guest list
      * @param e
      */
-    public void deleteFromList(ActionEvent e){
+    public void deleteFromList(ActionEvent e) throws IOException {
 
-        Object listOfNames1 =ss.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setHeaderText("heder");
-        alert.setContentText("Are you sure you want to delete "+listOfNames1);
-        alert.show();
-        ss.getItems().remove(listOfNames1);
+        Object selectedItem = list.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText("Are you sure you want to delete "+selectedItem +" ?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get().equals(ButtonType.OK)) {
+            list.getItems().remove(selectedItem);
+                   }
     }
 
-    /**
-     * This method to try to add items to the list by pressing on the log out button now
-     *
-     *TODO change it later
-     * @param actionEvent
-     */
-    public void addToList(ActionEvent actionEvent) {
-       /* String s = null;
-        for (int i = 0 ; i<10 ;i++){
-         s ="Item"+i;
-            ss.getItems().add(s); }
-        */
-       Random rand = new Random();
-        int randomString = rand.nextInt(1000);
+    public void deleteGuest(Object selectedItem){
 
-        guest = new Guest(String.valueOf(randomString), "Kharboutli" , "Stallvägen 20");
-        ss.getItems().add(guest.getName()+ " "+guest.getLastName());
     }
 
     public void fillGaps(){
 
-        name.setText(guest.getName());
-        lastName.setText(guest.getLastName());
-        address.setText(guest.getAddress());
+       Object selectedItem = list.getSelectionModel().getSelectedItem();
+       for(int i=0; i<memberList.size() ;i++){
+           if (selectedItem.toString().contains(memberList.get(i).getName()) && selectedItem.toString().contains(memberList.get(i).getLastName())){
+               //System.out.println(memberList.get(i).getName() + "  " +memberList.get(i).getLastName());
+               name.setText(memberList.get(i).getName());
+               lastName.setText(memberList.get(i).getLastName());
+               address.setText(memberList.get(i).getAddress());
+           }
+       }
+    }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources)   {
+        fileHandler  = new FileHandler();
+        try {
+            memberList = fileHandler.readFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // add the guest from the file to the list
+        for (int i = 0; i<memberList.size() ;i++) {
+            list.getItems().addAll(memberList.get(i).getName() + " " +memberList.get(i).getLastName() );
+        }
+    }
+    public void saveFile() throws IOException {
+        fileHandler.writeFile(memberList);
     }
 
 }

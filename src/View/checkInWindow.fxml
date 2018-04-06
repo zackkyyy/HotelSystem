@@ -11,86 +11,86 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
-   <children>
-      <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <right>
-            <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
-         </right>
-         <center>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check IN" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="48.0" />
-               </font>
-               <BorderPane.margin>
-                  <Insets left="250.0" top="-400.0" />
-               </BorderPane.margin>
-            </Text>
-         </center>
-         <top>
-            <VBox BorderPane.alignment="CENTER">
-               <children>
-                  <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
-                     <children>
-                        <VBox prefHeight="51.0" prefWidth="102.0">
-                           <children>
-                              <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
-                                 <font>
-                                    <Font name="Brush Script MT Italic" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="25.0" />
-                                 </VBox.margin>
-                              </Text>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="10.0" top="-10.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <JFXButton onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
-                           <HBox.margin>
-                              <Insets left="15.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c;" text="Check-in">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Check-out">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </JFXButton>
-                        <JFXButton onAction="#ShowGuestManagement" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Guest Info">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </JFXButton>
-                        <VBox prefHeight="52.0" prefWidth="124.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
-                                 <VBox.margin>
-                                    <Insets left="20.0" top="10.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="12.0" />
-                                 </font>
-                              </Text>
-                              <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
-                                 <VBox.margin>
-                                    <Insets left="10.0" />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <HBox.margin>
-                              <Insets bottom="5.0" left="20.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </top>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <right>
+                <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
+            </right>
+            <center>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check IN" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                    <BorderPane.margin>
+                        <Insets left="250.0" top="-400.0" />
+                    </BorderPane.margin>
+                </Text>
+            </center>
+            <top>
+                <VBox BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939 ; -fx-border-color: #111111; -fx-border-image-width: 3px;">
+                            <children>
+                                <VBox prefHeight="51.0" prefWidth="102.0">
+                                    <children>
+                                        <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+                                            <font>
+                                                <Font name="Brush Script MT Italic" size="18.0" />
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets top="25.0" />
+                                            </VBox.margin>
+                                        </Text>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets left="10.0" top="-10.0" />
+                                    </HBox.margin>
+                                </VBox>
+                                <JFXButton onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
+                                    <HBox.margin>
+                                        <Insets left="15.0" />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <JFXButton prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c; " text="Check-in">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <JFXButton onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Check-out">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <JFXButton onAction="#ShowGuestManagement" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Guest Info">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </JFXButton>
+                                <VBox prefHeight="52.0" prefWidth="124.0">
+                                    <children>
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
+                                            <VBox.margin>
+                                                <Insets left="20.0" top="10.0" />
+                                            </VBox.margin>
+                                            <font>
+                                                <Font size="12.0" />
+                                            </font>
+                                        </Text>
+                                        <Button mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                                            <VBox.margin>
+                                                <Insets left="10.0" />
+                                            </VBox.margin>
+                                        </Button>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets bottom="5.0" left="20.0" />
+                                    </HBox.margin>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </top>
+        </BorderPane>
+    </children>
 </AnchorPane>

@@ -1,4 +1,7 @@
 package model;
+
+import java.io.IOException;
+
 /**
  * Created by zack on 2018-03-31.
  */
@@ -9,12 +12,16 @@ public class Guest {
     String address;
 
 
-    public Guest(String name, String lastName, String address) {
+    public Guest(String name, String lastName, String address) throws IOException {
         this.name=name;
         this.lastName=lastName;
         this.address=address;
 
     }
+
+    /**
+     * Empty constructor.
+     */
     public Guest (){
 
     }
