@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
    <children>
       <BorderPane prefHeight="623.0" prefWidth="813.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0">
          <right>
@@ -72,19 +72,19 @@
             <AnchorPane prefHeight="600.0" prefWidth="81.0" style="-fx-background-color: FE9939;" BorderPane.alignment="CENTER" />
          </left>
          <center>
-            <AnchorPane prefHeight="604.0" prefWidth="451.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="692.0" prefWidth="669.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <Text fill="#fe9939" fontSmoothingType="LCD" layoutX="47.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel" AnchorPane.bottomAnchor="373.76953125" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="174.23046875">
+                  <Text fill="#fe9939" fontSmoothingType="LCD" layoutX="47.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel" AnchorPane.bottomAnchor="373.76953125" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="174.23046875">
                      <font>
                         <Font name="Brush Script MT Italic" size="38.0" />
                      </font>
                   </Text>
-                  <Text fill="#141413" fontSmoothingType="LCD" layoutX="110.0" layoutY="213.23046875" strokeType="OUTSIDE" strokeWidth="0.0" text=" Management System" AnchorPane.bottomAnchor="373.76953125" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="174.23046875">
+                  <Text fill="#141413" fontSmoothingType="LCD" layoutX="110.0" layoutY="213.23046875" strokeType="OUTSIDE" strokeWidth="0.0" text=" Management System" AnchorPane.bottomAnchor="373.76953125" AnchorPane.leftAnchor="210.0" AnchorPane.topAnchor="174.23046875">
                      <font>
                         <Font name="Brush Script MT Italic" size="38.0" />
                      </font>
                   </Text>
-                  <JFXButton layoutX="20.0" layoutY="556.0" prefHeight="23.0" prefWidth="138.0" text=" Contact us" AnchorPane.bottomAnchor="10.0">
+                  <JFXButton layoutX="20.0" layoutY="556.0" prefHeight="23.0" prefWidth="138.0" text=" Contact us" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="PHONE_SQUARE" size="18" text="" />
                      </graphic>
@@ -92,12 +92,12 @@
                         <Font size="15.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton layoutX="295.0" layoutY="563.0" prefHeight="29.0" prefWidth="117.0" text=" About us" AnchorPane.bottomAnchor="10.0">
+                  <JFXButton layoutX="295.0" layoutY="563.0" prefHeight="29.0" prefWidth="117.0" text=" About us" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="75.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="USERS" size="18" text="" />
                      </graphic>
                   </JFXButton>
-                  <FontAwesomeIconView glyphName="GITHUB" layoutX="202.0" layoutY="585.0" size="25" AnchorPane.bottomAnchor="10.0" />
+                  <FontAwesomeIconView glyphName="GITHUB" layoutX="202.0" layoutY="585.0" size="25" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="325.0" />
                </children>
             </AnchorPane>
          </center>

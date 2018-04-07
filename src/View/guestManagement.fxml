@@ -13,13 +13,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
             <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
                <children>
-                  <VBox prefHeight="51.0" prefWidth="102.0">
+                  <VBox prefHeight="52.0" prefWidth="102.0">
                      <children>
                         <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
                            <font>
@@ -34,10 +34,22 @@
                         <Insets left="10.0" top="-10.0" />
                      </HBox.margin>
                   </VBox>
-                  <JFXButton onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve" />
-                  <JFXButton onAction="#showCheckInWindow" prefHeight="58.0" prefWidth="140.0" text="Check-in" />
-                  <JFXButton onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" text="Check-out" />
-                  <JFXButton prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #fcb26c;" text="Guest Info" />
+                  <JFXButton onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin></JFXButton>
+                  <JFXButton onAction="#showCheckInWindow" prefHeight="58.0" prefWidth="140.0" text="Check-in">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin></JFXButton>
+                  <JFXButton onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" text="Check-out">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin></JFXButton>
+                  <JFXButton prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #fcb26c;" text="Guest Info">
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin></JFXButton>
                   <VBox prefHeight="52.0" prefWidth="124.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
@@ -48,28 +60,31 @@
                               <Font size="12.0" />
                            </font>
                         </Text>
-                        <Button fx:id="button" mnemonicParsing="false"  prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                        <Button fx:id="button" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
                            <VBox.margin>
                               <Insets left="10.0" />
                            </VBox.margin>
                         </Button>
                      </children>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
                   </VBox>
                </children>
             </HBox>
             </top>
          <left>
-            <VBox BorderPane.alignment="CENTER">
+            <VBox prefHeight="616.0" prefWidth="298.0" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="20.0" />
                </BorderPane.margin>
                <children>
-                  <JFXTextField editable="false" focusColor="#fe9939" maxWidth="250.0" prefHeight="27.0" prefWidth="181.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  List of Guests" unFocusColor="#4d4d4d00">
+                  <JFXTextField editable="false" focusColor="#fe9939" maxWidth="285.0" prefHeight="27.0" prefWidth="285.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  List of Guests" unFocusColor="#4d4d4d00">
                      <VBox.margin>
-                        <Insets top="40.0" />
+                        <Insets top="80.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXListView fx:id="list" maxHeight="401.0" maxWidth="250.0" minHeight="349.0" minWidth="228.0" prefHeight="401.0" prefWidth="250.0" style="-fx-background-radius: 4px;">
+                  <JFXListView fx:id="list" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -100,13 +115,9 @@
          <center>
             <AnchorPane prefHeight="438.0" prefWidth="480.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="27.0" layoutY="72.0" prefHeight="361.0" prefWidth="414.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="69.0">
+                  <VBox layoutX="37.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="334.0" prefWidth="608.0" AnchorPane.rightAnchor="20.0">
                      <children>
-                        <JFXTextField editable="false" focusColor="#fe9939" prefHeight="27.0" prefWidth="414.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  Guest Information" unFocusColor="#4d4d4d00">
-                           <VBox.margin>
-                              <Insets left="-10.0" />
-                           </VBox.margin>
-                        </JFXTextField>
+                        <JFXTextField editable="false" focusColor="#fe9939" prefHeight="27.0" prefWidth="414.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  Guest Information" unFocusColor="#4d4d4d00" />
                         <HBox>
                            <children>
                               <VBox>
@@ -116,7 +127,7 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
-                                    <JFXTextField fx:id="name" focusColor="BLACK" prefHeight="27.0" prefWidth="178.0" promptText="eg- John" unFocusColor="#fe9939">
+                                    <JFXTextField fx:id="name" focusColor="BLACK" prefHeight="27.0" prefWidth="212.0" promptText="eg- John" unFocusColor="#fe9939">
                                        <VBox.margin>
                                           <Insets left="75.0" top="-22.0" />
                                        </VBox.margin>
@@ -130,7 +141,7 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Text>
-                                    <JFXTextField fx:id="lastName" focusColor="BLACK" prefHeight="27.0" prefWidth="178.0" promptText="last name" unFocusColor="#fe9939">
+                                    <JFXTextField fx:id="lastName" focusColor="BLACK" prefHeight="27.0" prefWidth="273.0" promptText="last name" unFocusColor="#fe9939">
                                        <VBox.margin>
                                           <Insets left="70.0" top="-22.0" />
                                        </VBox.margin>
@@ -141,9 +152,6 @@
                                  </HBox.margin>
                               </VBox>
                            </children>
-                           <VBox.margin>
-                              <Insets top="15.0" />
-                           </VBox.margin>
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -161,9 +169,6 @@
                                  </VBox.margin>
                               </JFXTextField>
                            </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -172,7 +177,7 @@
                            <children>
                               <FontAwesomeIconView glyphName="PHONE" size="15">
                                  <VBox.margin>
-                                    <Insets bottom="-20.0" left="380.0" />
+                                    <Insets bottom="-20.0" left="580.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
@@ -185,9 +190,6 @@
                                  </VBox.margin>
                               </JFXTextField>
                            </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -196,19 +198,16 @@
                            <children>
                               <FontAwesomeIconView glyphName="CREDIT_CARD" size="15">
                                  <VBox.margin>
-                                    <Insets bottom="-20.0" left="380.0" />
+                                    <Insets bottom="-20.0" left="580.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" />
-                              <JFXTextField focusColor="BLACK" maxWidth="324.0" minWidth="200.0" prefHeight="27.0" prefWidth="324.0" promptText="xxxx-xxxx-xxxx-xxxx" unFocusColor="#fe9939">
+                              <JFXTextField focusColor="BLACK" minWidth="200.0" prefHeight="27.0" prefWidth="324.0" promptText="xxxx-xxxx-xxxx-xxxx" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
                               </JFXTextField>
                            </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -216,15 +215,12 @@
                         <VBox>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birthday" />
-                              <JFXTextField focusColor="BLACK" maxWidth="364.0" prefHeight="27.0" prefWidth="364.0" promptText="dd.mm.yyyy" unFocusColor="#fe9939">
+                              <JFXTextField focusColor="BLACK" prefHeight="27.0" prefWidth="364.0" promptText="dd.mm.yyyy" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
                               </JFXTextField>
                            </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -232,15 +228,12 @@
                         <VBox>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identity nr" />
-                              <JFXTextField focusColor="BLACK" maxWidth="326.0" minWidth="200.0" prefHeight="27.0" prefWidth="326.0" promptText="xxxxxxxxxx" unFocusColor="#fe9939">
+                              <JFXTextField focusColor="BLACK" prefHeight="27.0" prefWidth="326.0" promptText="xxxxxxxxxx" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
                               </JFXTextField>
                            </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
                            <padding>
                               <Insets top="10.0" />
                            </padding>
@@ -263,10 +256,12 @@
                            </padding>
                         </VBox>
                      </children>
-                     <padding>
-                        <Insets left="10.0" top="10.0" />
-                     </padding>
                   </VBox>
+                  <JFXButton fx:id="save" layoutX="433.0" layoutY="329.0" style="-fx-background-color: grey;" text="Save" AnchorPane.rightAnchor="27.0">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ff8400" glyphName="SAVE" size="15" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </center>

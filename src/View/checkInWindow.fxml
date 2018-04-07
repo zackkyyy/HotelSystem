@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
     <children>
-        <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #fff; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <right>
                 <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
             </right>
@@ -29,9 +29,9 @@
             <top>
                 <VBox BorderPane.alignment="CENTER">
                     <children>
-                        <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939 ; -fx-border-color: #111111; -fx-border-image-width: 3px;">
+                        <HBox minHeight="54.0" prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: FE9939 ; -fx-border-color: #111111; -fx-border-image-width: 3px;">
                             <children>
-                                <VBox prefHeight="51.0" prefWidth="102.0">
+                                <VBox prefHeight="62.0" prefWidth="102.0">
                                     <children>
                                         <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
                                             <font>
@@ -46,24 +46,24 @@
                                         <Insets left="10.0" top="-10.0" />
                                     </HBox.margin>
                                 </VBox>
-                                <JFXButton onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
+                                <JFXButton onAction="#ShowMainPage" prefHeight="52.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
                                     <HBox.margin>
-                                        <Insets left="15.0" />
+                                        <Insets left="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXButton prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c; " text="Check-in">
+                                <JFXButton prefHeight="52.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c; " text="Check-in">
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets left="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXButton onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Check-out">
+                                <JFXButton onAction="#showCheckOutWindow" prefHeight="52.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Check-out">
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets left="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
-                                <JFXButton onAction="#ShowGuestManagement" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Guest Info">
+                                <JFXButton onAction="#ShowGuestManagement" prefHeight="52.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Guest Info">
                                     <HBox.margin>
-                                        <Insets />
+                                        <Insets left="50.0" />
                                     </HBox.margin>
                                 </JFXButton>
                                 <VBox prefHeight="52.0" prefWidth="124.0">
@@ -83,7 +83,7 @@
                                         </Button>
                                     </children>
                                     <HBox.margin>
-                                        <Insets bottom="5.0" left="20.0" />
+                                        <Insets bottom="5.0" left="50.0" />
                                     </HBox.margin>
                                 </VBox>
                             </children>

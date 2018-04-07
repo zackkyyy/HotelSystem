@@ -23,10 +23,12 @@ public class main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("../View/Untitled.fxml")));
 
 
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1024, 720);
         Stage stage= new Stage();
         stage.setTitle("Hotel Management");
         stage.setScene(scene);
+        stage.setMinWidth(1024);
+        stage.setMinHeight(740);
         stage.show();
     }
 
