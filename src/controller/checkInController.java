@@ -8,9 +8,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 /**
- * Created by zack on 2018-03-29.
+ * Created by IntelliJ IDEA.
+ *
+ * This class is the controller for the check in window. All functions
+ * in the check in will be handled here
+ *
+ * @User: Zacky Kharboutli
+ * @Date: 2018-03-29
+ * @Project : HotelSystem
  */
 public class checkInController {
 

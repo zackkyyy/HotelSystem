@@ -167,7 +167,7 @@
                                           <Insets left="100.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeWidth="0.5">
+                                          <Circle fill="#c1ffbc" radius="18.0" stroke="#00d727" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -364,6 +364,9 @@
                                        </HBox.margin>
                                        <children>
                                           <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
+                                             <effect>
+                                                <BoxBlur />
+                                             </effect>
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -388,7 +391,10 @@
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.5" style="-fx-fill: green;">
+                                          <Circle fill="#c1ffbc" radius="18.0" stroke="#00d727" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
+                                             <effect>
+                                                <BoxBlur />
+                                             </effect>
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -410,9 +416,12 @@
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.5">
+                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
+                                             <effect>
+                                                <BoxBlur />
+                                             </effect>
                                              <VBox.margin>
-                                                <Insets left="5.0" />
+                                                <Insets left="10.0" />
                                              </VBox.margin>
                                           </Circle>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
@@ -476,6 +485,9 @@
                                        </HBox.margin>
                                        <children>
                                           <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
+                                             <effect>
+                                                <BoxBlur />
+                                             </effect>
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -500,7 +512,10 @@
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.5">
+                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
+                                             <effect>
+                                                <BoxBlur />
+                                             </effect>
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -522,7 +537,14 @@
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.5" style="-fx-fill: green;" />
+                                          <Circle fill="#c1ffbc" radius="18.0" stroke="#00d727" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
+                                             <effect>
+                                                <BoxBlur />
+                                             </effect>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Circle>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
                                              <VBox.margin>
                                                 <Insets top="5.0" />

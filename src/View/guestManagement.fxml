@@ -181,7 +181,7 @@
                                  </VBox.margin>
                               </FontAwesomeIconView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
-                              <JFXTextField focusColor="BLACK" prefHeight="28.0" prefWidth="251.0" promptText="07x-xxx xxxx" unFocusColor="#fe9939">
+                              <JFXTextField fx:id="phoneNr" focusColor="BLACK" prefHeight="28.0" prefWidth="251.0" promptText="07x-xxx xxxx" unFocusColor="#fe9939">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -257,11 +257,16 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <JFXButton fx:id="save" layoutX="433.0" layoutY="329.0" style="-fx-background-color: grey;" text="Save" AnchorPane.rightAnchor="27.0">
+                  <JFXButton fx:id="save" layoutX="433.0" layoutY="329.0" onAction="#editGuestInfo" style="-fx-background-color: grey;" text="Save" AnchorPane.rightAnchor="27.0">
                      <graphic>
                         <FontAwesomeIconView fill="#ff8400" glyphName="SAVE" size="15" />
                      </graphic>
                   </JFXButton>
+                  <Text fontSmoothingType="LCD" layoutX="-84.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Managing" wrappingWidth="467.4588928222656" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="Brush Script MT Italic" size="46.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </center>

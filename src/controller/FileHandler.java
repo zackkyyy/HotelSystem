@@ -38,8 +38,9 @@ public class FileHandler {
         Scanner scan = new Scanner(membersFile);
 
         while (scan.hasNext()) {
+
             String[] temp = scan.nextLine().split(";");
-            membersList.add(new Guest(temp[0], temp[1], temp[2]));
+            membersList.add(new Guest(temp[0], temp[1], temp[2] , temp [3]) );
         }
         scan.close();
 
@@ -53,8 +54,7 @@ public class FileHandler {
         StringBuilder members = new StringBuilder();
         PrintWriter writer = new PrintWriter(membersFile);
         for(Guest m: memberlist){
-            members.append(m.getName()+";"+m.getLastName()+";"+m.getAddress()+"\n");
-
+            members.append(m.getName()+";"+m.getLastName()+";"+m.getAddress()+";"+m.getPhoneNr()+"\n");
         }
         //write the members file
         membersFile.createNewFile();

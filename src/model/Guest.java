@@ -10,13 +10,14 @@ public class Guest {
     String name;
     String lastName;
     String address;
+    String phoneNr;
 
 
-    public Guest(String name, String lastName, String address) throws IOException {
+    public Guest(String name, String lastName, String address, String phoneNr ) throws IOException {
         this.name=name;
         this.lastName=lastName;
         this.address=address;
-
+        this.phoneNr=phoneNr;
     }
 
     /**
@@ -36,6 +37,7 @@ public class Guest {
     public String getAddress (){
         return address;
     }
+    public String getPhoneNr() { return phoneNr; }
     public void setName(String name){
         this.name=name;
     }
@@ -44,6 +46,10 @@ public class Guest {
     }
     public void setLastName(String lastName ){
         this.lastName=lastName;
+    }
+
+    public void setPhoneNr(String phoneNr) {
+        this.phoneNr = phoneNr;
     }
 
 

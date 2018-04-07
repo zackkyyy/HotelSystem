@@ -21,31 +21,26 @@ import java.time.Period;
 import java.util.ResourceBundle;
 
 /**
- * Created by zack on 2018-03-29.
+ * Created by IntelliJ IDEA.
+ *
+ * This class is the controller for the reserve window.
+ *
+ * @User: Zacky Kharboutli
+ * @Date: 2018-03-29
+ * @Project : HotelSystem
  */
 public class reserveController implements Initializable {
-    @FXML
-    private Tab ss;
+
     @FXML
     private TabPane sss;
     @FXML
-    private JFXDatePicker checkOutField;
-    @FXML
-    private JFXDatePicker checkInField;
-    @FXML
     private JFXTextField nights ,rooms;
+    @FXML
+    private JFXDatePicker checkOutField, checkInField;
     @FXML
     private MenuButton personsNumber, roomsNumber,cityName;
     @FXML
-    private MenuItem p1 , p2 , p3 ,p4 ,p5 ;
-    @FXML
-    private MenuItem växjö;
-    @FXML
-    private MenuItem kalmar;
-
-    @FXML
-    private MenuItem r1 , r2 ,r3 ,r4, r5;
-
+    private MenuItem p1 , p2 , p3 ,p4 ,p5,r1 , r2 ,r3 ,r4, r5, kalmar, växjö ;
 
     /**
      * This method runs when ever the user press on the check in option in the header
