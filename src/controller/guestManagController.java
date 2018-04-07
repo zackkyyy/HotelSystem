@@ -81,11 +81,19 @@ public class guestManagController implements Initializable {
 
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
             list.getItems().remove(selectedItem);
-                   }
+            deleteGuest(selectedItem);
+            }
     }
 
-    public void deleteGuest(Object selectedItem){
-
+    public void deleteGuest(Object selectedItem) throws IOException {
+        for (int i =0 ; i<memberList.size(); i++ ){
+            if (selectedItem.toString().contains(memberList.get(i).getName())
+                    && selectedItem.toString().contains(memberList.get(i).getLastName())){
+                System.out.println(memberList.get(i).getName());
+                this.memberList.remove(memberList.get(i));
+            }
+            fileHandler.writeFile(memberList);
+        }
     }
 
     public void fillGaps(){
