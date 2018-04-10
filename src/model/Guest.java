@@ -11,9 +11,11 @@ public class Guest {
     String lastName;
     String address;
     String phoneNr;
+    String id;
 
 
-    public Guest(String name, String lastName, String address, String phoneNr ) throws IOException {
+    public Guest(String  id , String name, String lastName, String address, String phoneNr ) throws IOException {
+        this.id=id;
         this.name=name;
         this.lastName=lastName;
         this.address=address;
@@ -52,5 +54,12 @@ public class Guest {
         this.phoneNr = phoneNr;
     }
 
+    public String toString(Guest g){
+        return g.getName()+ " "+g.getLastName();
 
+    }
+
+    public String getId() {
+        return id;
+    }
 }

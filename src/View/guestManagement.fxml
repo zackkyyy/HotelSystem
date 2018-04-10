@@ -6,6 +6,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,7 +14,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.guestManagController">
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -84,28 +86,23 @@
                         <Insets top="80.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXListView fx:id="list" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
+                  <JFXListView fx:id="list" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillGaps" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </JFXListView>
                   <HBox prefHeight="44.0" prefWidth="300.0">
                      <children>
-                        <JFXButton onAction="#fillGaps" prefHeight="27.0" prefWidth="77.0" text="Edit">
-                           <HBox.margin>
-                              <Insets left="20.0" top="10.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <FontAwesomeIconView fill="#ff7b00" glyphName="EDIT" size="15" text="" />
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton fx:id="delete" onAction="#deleteFromList" text="Delete">
+                        <JFXButton fx:id="delete" buttonType="RAISED" onAction="#deleteFromList" style="-fx-border-radius: 5px; -fx-border-color: black;" text="Delete">
                            <HBox.margin>
                               <Insets left="70.0" top="10.0" />
                            </HBox.margin>
                            <graphic>
                               <FontAwesomeIconView fill="#ff8400" glyphName="TRASH_ALT" size="15" />
                            </graphic>
+                           <effect>
+                              <BoxBlur />
+                           </effect>
                         </JFXButton>
                      </children>
                   </HBox>
@@ -115,9 +112,38 @@
          <center>
             <AnchorPane prefHeight="438.0" prefWidth="480.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="37.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="334.0" prefWidth="608.0" AnchorPane.rightAnchor="20.0">
+                  <JFXButton cache="true" cacheHint="QUALITY" cacheShape="false" centerShape="false" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" layoutX="584.0" layoutY="558.0" maxHeight="70.0" maxWidth="100.0" minHeight="70.0" minWidth="100.0" onAction="#AddGuest" prefHeight="70.0" prefWidth="100.0" scaleShape="false" style="-jfx-disable-visual-focus: true;" text=".">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ff5e00" fontSmoothingType="LCD" glyphName="PLUS" onMouseClicked="#AddGuest" size="60" smooth="false" strikethrough="true" textAlignment="CENTER" style="-fx-focus-color: transparent; -fx-faint-focus-color: transparent;"  wrappingWidth="81.11417007446289" />
+                     </graphic>
+                  </JFXButton>
+                  <VBox layoutX="37.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="348.0" prefWidth="656.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <JFXTextField editable="false" focusColor="#fe9939" prefHeight="27.0" prefWidth="414.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  Guest Information" unFocusColor="#4d4d4d00" />
+                        <VBox>
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Id">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Text>
+                                    <JFXTextField fx:id="idField" editable="false" focusColor="BLACK" prefHeight="27.0" prefWidth="298.0" text="xxxxxxxxxxxxxxx" unFocusColor="#fe9939">
+                                       <VBox.margin>
+                                          <Insets left="75.0" top="-22.0" />
+                                       </VBox.margin>
+                                    </JFXTextField>
+                                 </children>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
                         <HBox>
                            <children>
                               <VBox>
@@ -177,7 +203,7 @@
                            <children>
                               <FontAwesomeIconView glyphName="PHONE" size="15">
                                  <VBox.margin>
-                                    <Insets bottom="-20.0" left="580.0" />
+                                    <Insets bottom="-20.0" left="625.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
@@ -198,11 +224,11 @@
                            <children>
                               <FontAwesomeIconView glyphName="CREDIT_CARD" size="15">
                                  <VBox.margin>
-                                    <Insets bottom="-20.0" left="580.0" />
+                                    <Insets bottom="-20.0" left="625.0" />
                                  </VBox.margin>
                               </FontAwesomeIconView>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" />
-                              <JFXTextField focusColor="BLACK" minWidth="200.0" prefHeight="27.0" prefWidth="324.0" promptText="xxxx-xxxx-xxxx-xxxx" unFocusColor="#fe9939">
+                              <JFXTextField fx:id="credit" focusColor="BLACK" minWidth="200.0" prefHeight="27.0" prefWidth="324.0" promptText="xxxx-xxxx-xxxx-xxxx" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
@@ -215,7 +241,7 @@
                         <VBox>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birthday" />
-                              <JFXTextField focusColor="BLACK" prefHeight="27.0" prefWidth="364.0" promptText="dd.mm.yyyy" unFocusColor="#fe9939">
+                              <JFXTextField fx:id="birthday" focusColor="BLACK" prefHeight="27.0" prefWidth="364.0" promptText="dd.mm.yyyy" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
@@ -228,7 +254,7 @@
                         <VBox>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identity nr" />
-                              <JFXTextField focusColor="BLACK" prefHeight="27.0" prefWidth="326.0" promptText="xxxxxxxxxx" unFocusColor="#fe9939">
+                              <JFXTextField fx:id="identityNr" focusColor="BLACK" prefHeight="27.0" prefWidth="326.0" promptText="xxxxxxxxxx" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
@@ -245,7 +271,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Text>
-                              <JFXTextField focusColor="BLACK" prefHeight="27.0" prefWidth="298.0" text="notes" unFocusColor="#fe9939">
+                              <JFXTextField fx:id="notes" focusColor="BLACK" prefHeight="27.0" prefWidth="298.0" text="notes" unFocusColor="#fe9939">
                                  <VBox.margin>
                                     <Insets left="75.0" top="-22.0" />
                                  </VBox.margin>
@@ -257,16 +283,11 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <JFXButton fx:id="save" layoutX="433.0" layoutY="329.0" onAction="#editGuestInfo" style="-fx-background-color: grey;" text="Save" AnchorPane.rightAnchor="27.0">
+                  <JFXButton fx:id="save" layoutX="433.0" layoutY="329.0" onAction="#editGuestInfo" style="-fx-border-color: black; -fx-border-radius: 5px;" text="Save" AnchorPane.bottomAnchor="250.0" AnchorPane.rightAnchor="27.0">
                      <graphic>
                         <FontAwesomeIconView fill="#ff8400" glyphName="SAVE" size="15" />
                      </graphic>
                   </JFXButton>
-                  <Text fontSmoothingType="LCD" layoutX="-84.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Managing" wrappingWidth="467.4588928222656" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0">
-                     <font>
-                        <Font name="Brush Script MT Italic" size="46.0" />
-                     </font>
-                  </Text>
                </children>
             </AnchorPane>
          </center>
