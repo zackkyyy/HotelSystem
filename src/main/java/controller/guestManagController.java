@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.mongodb.client.MongoCollection;
@@ -14,13 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import model.Guest;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -40,12 +42,11 @@ public class guestManagController implements Initializable {
     @FXML
     private JFXListView list;
     @FXML
-    private JFXTextField name, lastName, address, phoneNr, idField, identityNr, credit, notes, birthday, name1, lastName1, address1, phoneNr1;
-
-    private ArrayList<Guest> memberList;
+    private JFXTextField name, lastName, address, phoneNr, idField, identityNr, credit, notes;
+    @FXML
+    private JFXDatePicker birthday;
     private DataBase db;
     private MongoCollection persons;
-
     private MongoCursor<Document> cursor;
     private Document doc;
 
@@ -58,37 +59,14 @@ public class guestManagController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        db = new DataBase();
-        persons = db.getPersonsCollection();
-        // db.mongoClient.getDatabase("hotelSystem").getCollection("persons");
-        cursor = persons.find().iterator();
-
-        for (int i = 0; i < persons.count(); i++) {
-            // list.getItems().add(doc.getString("name")+" "+ doc.getString("last name"));
-            Document doc = cursor.next();
-            String id = "" + doc.getObjectId("_id");
-            String name = doc.getString("name");
-            String lastname = doc.getString("last name");
-            String address = doc.getString("address");
-            String phoneNr = doc.getString("phone nr");
-
-
-            Guest gst = null;
-            try {
-                gst = new Guest(id, name, lastname, address, phoneNr);
-
-                list.getItems().addAll(gst.toString(gst));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-        }
+        getGuestFromDb();
+        list.getSelectionModel().selectFirst();
+        fillFields();
     }
 
 
     public void ShowMainPage(ActionEvent actionEvent) throws IOException {
-        Parent mainWindow = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
+        Parent mainWindow = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));
         Scene mainWindowScene = new Scene(mainWindow);
         Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
@@ -97,7 +75,7 @@ public class guestManagController implements Initializable {
     }
 
     public void showCheckInWindow(ActionEvent actionEvent) throws IOException {
-        Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/checkInWindow.fxml")));
+        Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
         Scene checkInScene = new Scene(CheckInPage);
         Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         app_stage.setScene(checkInScene);
@@ -106,29 +84,13 @@ public class guestManagController implements Initializable {
     }
 
     public void showCheckOutWindow(ActionEvent actionEvent) throws IOException {
-        Parent CheckOutPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/checkOutWindow.fxml")));
+        Parent CheckOutPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkOutWindow.fxml")));
         Scene CheckoutScene = new Scene(CheckOutPage);
         Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         app_stage.setScene(CheckoutScene);
         app_stage.show();
         System.out.println("CheckOut window showed from guestManagController");
     }
-    /*
-     * Delete items from the Guest list
-     * @param e
-
-    public void deleteFromList(ActionEvent e) throws IOException {
-
-        Object selectedItem = list.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setContentText("Are you sure you want to delete "+selectedItem +" ?");
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-            deleteGuest(selectedItem);
-        }
-    }
-     */
 
     /**
      * This method is called when ever a guest is deleted from the list.
@@ -153,11 +115,10 @@ public class guestManagController implements Initializable {
                 if (result.isPresent() && result.get().equals(ButtonType.OK)) {
                     persons.deleteOne(doc);
                     list.getItems().remove(selected);
-
+                    list.getItems().remove(0, list.getItems().size());
+                    getGuestFromDb();
                 }
-
             }
-
         }
     }
 
@@ -165,16 +126,20 @@ public class guestManagController implements Initializable {
      * A method that get the information of the chosen guest from
      * the list and show his/her information to the
      */
-    public void fillGaps() {
+    public void fillFields() {
+        cancelAllEdited();
+
+
         String selectedItem = list.getSelectionModel().getSelectedItem().toString();
+        System.out.println(selectedItem + " the selected one");
         cursor = persons.find().iterator();
         for (int i = 0; i < persons.count(); i++) {
             doc = cursor.next();
 
             if (selectedItem.contains(doc.getString("name") + " " + doc.getString("last name"))
                     && selectedItem.length() == doc.getString("name").length() + doc.getString("last name").length() + 1) {
-                System.out.println(doc.toString());
-                //   name.setText(this.doc.getString("name"));
+
+                // fill the fields by getting information from the database
                 idField.setText("" + doc.getObjectId("_id"));
                 name.setText(doc.getString("name"));
                 lastName.setText(doc.getString("last name"));
@@ -183,10 +148,11 @@ public class guestManagController implements Initializable {
                 identityNr.setText(doc.getString("identity nr"));
                 notes.setText(doc.getString("notes"));
                 credit.setText(doc.getString("credit card"));
-                birthday.setText(doc.getString("birthday"));
+                birthday.setValue(doc.getDate("birthday").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             }
 
         }
+
 
     }
 
@@ -196,7 +162,7 @@ public class guestManagController implements Initializable {
      *
      * @throws IOException
      */
-    public void editGuestInfo() throws IOException {
+    public void editGuestInfo() throws IOException, ParseException {
         ObjectId objectId = null;
 
         Object selectedItem = list.getSelectionModel().getSelectedItem();
@@ -212,6 +178,7 @@ public class guestManagController implements Initializable {
         alert.setContentText("Are you sure you want to delete " + selectedItem + " ?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get().equals(ButtonType.OK)) {
+            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(birthday.getValue().toString());
             persons.updateOne(eq("_id", objectId), new Document("$set",
                     new Document("last name", lastName.getText())
                             .append("name", name.getText())
@@ -220,9 +187,11 @@ public class guestManagController implements Initializable {
                             .append("credit card", credit.getText())
                             .append("notes", notes.getText())
                             .append("identity nr", identityNr.getText())
-                            .append("birthday", birthday.getText())));
-        }
+                            .append("birthday", date)));
+            list.getItems().remove(0, list.getItems().size());
+            getGuestFromDb();
 
+        }
 
     }
 
@@ -231,6 +200,29 @@ public class guestManagController implements Initializable {
         addGuestController controller = new addGuestController();
         controller.showStage();
 
+    }
 
+    public void cancelAllEdited() {
+        name.cancelEdit();
+        lastName.cancelEdit();
+        identityNr.cancelEdit();
+        address.cancelEdit();
+        credit.cancelEdit();
+        notes.cancelEdit();
+        phoneNr.cancelEdit();
+    }
+
+    public void getGuestFromDb() {
+        list.getItems().removeAll();
+        db = new DataBase();
+        persons = db.getPersonsCollection();
+        cursor = persons.find().iterator();
+
+        for (int i = 0; i < persons.count(); i++) {
+            Document doc = cursor.next();
+            String name = doc.getString("name");
+            String lastname = doc.getString("last name");
+            list.getItems().addAll(name + " " + lastname);
+        }
     }
 }

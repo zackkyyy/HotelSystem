@@ -40,7 +40,7 @@ public class loginController {
     }
     public void ShowMainPage (ActionEvent event) throws IOException {
         if (checkForLogIn()) {
-            Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
+            Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));
             Scene mainWindowScene = new Scene(CheckInPage);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(mainWindowScene);

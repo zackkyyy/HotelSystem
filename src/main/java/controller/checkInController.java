@@ -22,7 +22,7 @@ public class checkInController {
 
 
     public void ShowMainPage (ActionEvent event) throws IOException {
-            Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/MainWindow.fxml")));
+            Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));
             Scene mainWindowScene = new Scene(Checkinpage);
             Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             app_stage.setScene(mainWindowScene);
@@ -31,7 +31,7 @@ public class checkInController {
     }
 
     public void showCheckOutWindow (ActionEvent event) throws IOException {
-        Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/checkOutWindow.fxml")));
+        Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkOutWindow.fxml")));
         Scene mainWindowScene = new Scene(Checkinpage);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
@@ -40,7 +40,7 @@ public class checkInController {
 
     }
     public void ShowGuestManagement (ActionEvent event) throws IOException {
-        Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/guestManagement.fxml")));
+        Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/guestManagement.fxml")));
         Scene CheckInScene = new Scene(checkInPage);
         Stage app_stage = (Stage)((Node) event.getSource()    ).getScene().getWindow();
         app_stage.setScene(CheckInScene);

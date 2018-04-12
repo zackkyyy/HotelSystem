@@ -49,7 +49,7 @@ public class reserveController implements Initializable {
      * @throws IOException
      */
     public void ShowCheckInPage(ActionEvent event) throws IOException {
-        Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/checkInWindow.fxml")));
+        Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
         Scene CheckInScene = new Scene(checkInPage);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(CheckInScene);
@@ -63,7 +63,7 @@ public class reserveController implements Initializable {
      * @throws IOException
      */
     public void showCheckOutWindow(ActionEvent event) throws IOException {
-        Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/checkOutWindow.fxml")));
+        Parent Checkinpage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkOutWindow.fxml")));
         Scene mainWindowScene = new Scene(Checkinpage);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
@@ -79,7 +79,7 @@ public class reserveController implements Initializable {
      */
 
     public void ShowGuestManagement(ActionEvent event) throws IOException {
-        Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("../View/guestManagement.fxml")));
+        Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/guestManagement.fxml")));
         Scene CheckInScene = new Scene(checkInPage);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(CheckInScene);
