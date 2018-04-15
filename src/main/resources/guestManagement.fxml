@@ -19,105 +19,110 @@
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-            <HBox prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
+            <AnchorPane>
                <children>
-                  <VBox prefHeight="52.0" prefWidth="102.0">
+                  <HBox layoutY="9.0" prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
                            <font>
                               <Font name="Brush Script MT Italic" size="18.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets top="25.0" />
-                           </VBox.margin>
+                           <HBox.margin>
+                              <Insets left="20.0" top="15.0" />
+                           </HBox.margin>
                         </Text>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#showCheckInWindow" prefHeight="58.0" prefWidth="140.0" text="Check-in">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" text="Check-out">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #fcb26c;" text="Guest Info">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="52.0" prefWidth="124.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="button" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </VBox>
                      </children>
-                     <HBox.margin>
-                        <Insets left="10.0" top="-10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <JFXButton onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin></JFXButton>
-                  <JFXButton onAction="#showCheckInWindow" prefHeight="58.0" prefWidth="140.0" text="Check-in">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin></JFXButton>
-                  <JFXButton onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" text="Check-out">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin></JFXButton>
-                  <JFXButton prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #fcb26c;" text="Guest Info">
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin></JFXButton>
-                  <VBox prefHeight="52.0" prefWidth="124.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
-                           <VBox.margin>
-                              <Insets left="20.0" top="10.0" />
-                           </VBox.margin>
-                           <font>
-                              <Font size="12.0" />
-                           </font>
-                        </Text>
-                        <Button fx:id="button" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="50.0" />
-                     </HBox.margin>
-                  </VBox>
+                  </HBox>
                </children>
-            </HBox>
+            </AnchorPane>
             </top>
          <left>
-            <VBox prefHeight="616.0" prefWidth="298.0" BorderPane.alignment="CENTER">
+            <AnchorPane BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets left="20.0" />
                </BorderPane.margin>
                <children>
-                  <JFXTextField editable="false" focusColor="#fe9939" maxWidth="285.0" prefHeight="27.0" prefWidth="285.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  List of Guests" unFocusColor="#4d4d4d00">
-                     <VBox.margin>
-                        <Insets top="80.0" />
-                     </VBox.margin>
-                  </JFXTextField>
-                  <JFXListView fx:id="list" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillFields" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </JFXListView>
-                  <HBox prefHeight="44.0" prefWidth="300.0">
+                  <VBox prefHeight="616.0" prefWidth="298.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                      <children>
-                        <JFXButton fx:id="delete" buttonType="RAISED" onAction="#deleteFromList" style="-fx-border-radius: 5px; -fx-border-color: black;" text="Delete">
-                           <HBox.margin>
-                              <Insets left="70.0" top="10.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <FontAwesomeIconView fill="#ff8400" glyphName="TRASH_ALT" size="15" />
-                           </graphic>
-                           <effect>
-                              <BoxBlur />
-                           </effect>
-                        </JFXButton>
+                        <JFXTextField editable="false" focusColor="#fe9939" maxWidth="285.0" prefHeight="27.0" prefWidth="285.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  List of Guests" unFocusColor="#4d4d4d00">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXListView fx:id="list" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillFields" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </JFXListView>
+                        <HBox prefHeight="44.0" prefWidth="300.0">
+                           <children>
+                              <JFXButton fx:id="delete" buttonType="RAISED" onAction="#deleteFromList" style="-fx-border-radius: 5px; -fx-border-color: black;" text="Delete">
+                                 <HBox.margin>
+                                    <Insets left="70.0" top="10.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <FontAwesomeIconView fill="#ff8400" glyphName="TRASH_ALT" size="15" />
+                                 </graphic>
+                                 <effect>
+                                    <BoxBlur />
+                                 </effect>
+                              </JFXButton>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </VBox>
+            </AnchorPane>
          </left>
          <center>
             <AnchorPane prefHeight="438.0" prefWidth="480.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton cache="true" cacheHint="QUALITY" cacheShape="false" centerShape="false" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" layoutX="584.0" layoutY="558.0" maxHeight="70.0" maxWidth="100.0" minHeight="70.0" minWidth="100.0" onAction="#AddGuest" prefHeight="70.0" prefWidth="100.0" scaleShape="false" text=".">
+                  <JFXButton cache="true" cacheHint="QUALITY" cacheShape="false" centerShape="false" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" layoutX="584.0" layoutY="558.0" maxHeight="70.0" maxWidth="100.0" minHeight="70.0" minWidth="100.0" onAction="#AddGuest" prefHeight="70.0" prefWidth="100.0" scaleShape="false" text="." AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="22.0">
                      <graphic>
                         <FontAwesomeIconView fill="#ff5e00" fontSmoothingType="LCD" glyphName="PLUS" onMouseClicked="#AddGuest" size="60" smooth="false" strikethrough="true" textAlignment="CENTER" wrappingWidth="81.11417007446289" />
                      </graphic>
                   </JFXButton>
-                  <VBox layoutX="37.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="348.0" prefWidth="656.0" AnchorPane.rightAnchor="20.0">
+                  <VBox layoutX="37.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="348.0" prefWidth="656.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
                      <children>
                         <JFXTextField editable="false" focusColor="#fe9939" prefHeight="27.0" prefWidth="414.0" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  Guest Information" unFocusColor="#4d4d4d00" />
                         <VBox>
@@ -274,13 +279,16 @@
                               <Insets top="10.0" />
                            </padding>
                         </VBox>
+                        <JFXButton fx:id="save" onAction="#editGuestInfo" style="-fx-border-color: black; -fx-border-radius: 5px;" text="Save">
+                           <graphic>
+                              <FontAwesomeIconView fill="#ff8400" glyphName="SAVE" size="15" />
+                           </graphic>
+                           <VBox.margin>
+                              <Insets left="550.0" top="40.0" />
+                           </VBox.margin>
+                        </JFXButton>
                      </children>
                   </VBox>
-                  <JFXButton fx:id="save" layoutX="433.0" layoutY="329.0" onAction="#editGuestInfo" style="-fx-border-color: black; -fx-border-radius: 5px;" text="Save" AnchorPane.bottomAnchor="250.0" AnchorPane.rightAnchor="27.0">
-                     <graphic>
-                        <FontAwesomeIconView fill="#ff8400" glyphName="SAVE" size="15" />
-                     </graphic>
-                  </JFXButton>
                </children>
             </AnchorPane>
          </center>

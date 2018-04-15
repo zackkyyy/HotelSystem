@@ -1,7 +1,8 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import com.mongodb.client.MongoCollection;
+import controller.database.DataBase;
+import controller.database.guestController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,13 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import org.bson.Document;
+import model.Guest;
 
 import java.io.IOException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,14 +26,13 @@ import java.util.ResourceBundle;
 public class addGuestController {
     @FXML
     private JFXTextField name, lastName, address, phoneNr, identityNr, creditCard;
-    private MongoCollection persons;
-    DataBase db;
-    Stage stage;
-    Scene scene;
-    String errMsg;
-    guestManagController guestManagController;
-    URL url;
-    ResourceBundle resources;
+    private DataBase db;
+    private Stage stage;
+    private Scene scene;
+    private String errMsg;
+    private guestManagController guestManagController;
+
+
 
     public void showStage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("/addGuest.fxml")));
@@ -53,22 +49,21 @@ public class addGuestController {
     }
 
     public void SaveNewGuest(ActionEvent actionEvent) {
-        Document doc=null;
-        db = new DataBase();
-        persons = db.getDatabase().getCollection("persons");
+        db=new DataBase();
+        guestManagController=new guestManagController();
+        guestController guestController = new guestController();
         if (checkFields()) {
-            try {
-                java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(LocalDate.now().toString());
+                Guest newGuest = new Guest();
+                newGuest.setName(name.getText());
+                newGuest.setLastName(lastName.getText());
+                newGuest.setAddress(address.getText());
+                newGuest.setPhoneNr(phoneNr.getText());
+                newGuest.setIdentityNr(identityNr.getText());
+                newGuest.setCreditCard(creditCard.getText());
+                guestController.createNewGuest(newGuest , db);
+                // save and empty the fields
+              //  guestManagController.updateList();
 
-                 doc = new Document("name", name.getText())
-                        .append("last name", lastName.getText())
-                        .append("phone nr", phoneNr.getText())
-                        .append("address", address.getText())
-                        .append("credit card", creditCard.getText())
-                        .append("identity nr", identityNr.getText())
-                        .append("birthday", date)
-                        .append("notes","");
-                persons.insertOne(doc);
 
                 name.setText("");
                 lastName.setText("");
@@ -76,13 +71,7 @@ public class addGuestController {
                 address.setText("");
                 creditCard.setText("");
                 identityNr.setText("");
-              //  final Node source = (Node) e.getSource();
 
-            } catch (Exception e) {
-                System.out.println(e.getClass().getName() + ": " + e.getMessage());
-//          display the error message
-                System.out.println("Failed to save");
-            }
         }
 
         else if (!checkFields()) {
@@ -93,15 +82,10 @@ public class addGuestController {
 
     }
 
-    private Scene getScene() {
-        return scene;
-    }
-
     public boolean checkFields() {
         if (name.getText().isEmpty()  ) {
             errMsg = "The name field is empty";
             return false;
-
         }else if(name.getText().matches(".*\\d+.*")){
             errMsg = "Name field has an invalid input";
             return false;

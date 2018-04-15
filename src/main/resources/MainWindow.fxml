@@ -7,11 +7,16 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -23,9 +28,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
    <children>
-      <TabPane fx:id="sss" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
+      <TabPane fx:id="tabPane" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
          <tabs>
-            <Tab fx:id="ss" closable="false" text="sssss">
+            <Tab closable="false" text="Findroom">
                <content>
                   <BorderPane pickOnBounds="false" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: white;">
                      <right>
@@ -118,7 +123,7 @@
                                        </VBox.margin>
                                     </Text>
                                     <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939" />
-                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint room" toggleColor="#fe9939" />
+                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
                                     <HBox prefHeight="31.0" prefWidth="132.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
@@ -167,7 +172,7 @@
                                           <Insets left="100.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="#c1ffbc" radius="18.0" stroke="#00d727" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
+                                          <Circle fill="#b5b5b5" radius="18.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -175,7 +180,7 @@
                                                 <BoxBlur />
                                              </effect>
                                           </Circle>
-                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find room">
+                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -347,14 +352,88 @@
                            </BorderPane.margin>
                         </VBox>
                      </top>
+                     <bottom>
+                        <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/reservePage.css" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
+                            <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
+                              <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
+                              <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
+                              <TableColumn fx:id="roomNrCol1" prefWidth="130.0" text="room id" />
+                              <TableColumn fx:id="floorCol" prefWidth="130.0" text="floor" />
+                              <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
+                              <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
+                          </columns>
+                        </TableView>
+                     </bottom>
+                     <center>
+                        <HBox prefHeight="36.0" prefWidth="459.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label prefHeight="23.0" prefWidth="154.0" text="Search for room" textAlignment="CENTER">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXTextField fx:id="searchRoom" focusColor="#ff9321" maxHeight="25.0" minHeight="25.0" onKeyPressed="#findRoom" onMousePressed="#findRoom" prefHeight="25.0" prefWidth="165.0" promptText="Enter a room number" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="2.0" top="8.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin>
+                              </FontAwesomeIconView>
+                              <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" text="City" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="CLOSE" size="17" />
+                                 </graphic>
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="7.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                              <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" text="Type" visible="false">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="CLOSE" size="17" />
+                                 </graphic>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" top="7.0" />
+                                 </HBox.margin>
+                              </JFXButton>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets left="-190.0" top="240.0" />
+                           </BorderPane.margin>
+                        </HBox>
+                     </center>
                   </BorderPane>
                </content>
             </Tab>
-            <Tab closable="false" text="Untitled Tab">
+            <Tab closable="false" text="Guest">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
                      <children>
-                        <BorderPane prefHeight="547.0" prefWidth="801.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane prefHeight="547.0" prefWidth="801.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <top>
                               <HBox prefHeight="80.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -371,7 +450,7 @@
                                                 <Insets left="10.0" />
                                              </VBox.margin>
                                           </Circle>
-                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find room">
+                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -391,7 +470,7 @@
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="#c1ffbc" radius="18.0" stroke="#00d727" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
+                                          <Circle fill="#2bbbd8" radius="18.0" stroke="#171717" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
                                              <effect>
                                                 <BoxBlur />
                                              </effect>
@@ -421,7 +500,7 @@
                                                 <BoxBlur />
                                              </effect>
                                              <VBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="5.0" />
                                              </VBox.margin>
                                           </Circle>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
@@ -442,24 +521,254 @@
                                           <Insets left="200.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#moveToNextTap" text="Next">
-                                       <HBox.margin>
-                                          <Insets left="200.0" />
-                                       </HBox.margin>
-                                    </Button>
                                  </children>
                               </HBox>
                            </bottom>
+                           <left>
+                              <VBox prefHeight="477.0" prefWidth="577.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find an existing guest">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="44.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #FE9939;">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
+                                             </graphic>
+                                          </Label>
+                                          <JFXTextField fx:id="search" focusColor="#ff9321" onMousePressed="#findGuest" prefHeight="33.0" prefWidth="539.0" promptText="   Enter a search" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin></JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin></HBox>
+                                    <BorderPane prefHeight="350.0" prefWidth="568.0" style="-fx-background-color: white;">
+                                       <top>
+                                          <VBox prefHeight="66.0" prefWidth="546.0" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets bottom="20.0" />
+                                             </BorderPane.margin>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new guest">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets top="30.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                                <Separator maxWidth="577.0" minWidth="300.0" prefHeight="11.0" prefWidth="577.0" style="-fx-border-radius: 10px;">
+                                                   <effect>
+                                                      <InnerShadow />
+                                                   </effect>
+                                                </Separator>
+                                             </children>
+                                          </VBox>
+                                       </top>
+                                       <center>
+                                          <VBox BorderPane.alignment="CENTER">
+                                             <children>
+                                                <VBox minWidth="500.0" prefHeight="100.0" prefWidth="500.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox maxWidth="200.0" prefHeight="31.0" prefWidth="565.0">
+                                                         <children>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="13.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <JFXTextField fx:id="name" focusColor="BLACK" minWidth="200.0" prefHeight="27.0" prefWidth="200.0" unFocusColor="#fe9939">
+                                                                     <VBox.margin>
+                                                                        <Insets left="75.0" top="-22.0" />
+                                                                     </VBox.margin>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="13.0" />
+                                                                     </font>
+                                                                  </Text>
+                                                                  <JFXTextField fx:id="lastName" focusColor="BLACK" maxWidth="212.0" minWidth="200.0" prefHeight="27.0" prefWidth="212.0" unFocusColor="#fe9939">
+                                                                     <VBox.margin>
+                                                                        <Insets left="70.0" top="-22.0" />
+                                                                     </VBox.margin>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                               <HBox.margin>
+                                                                  <Insets left="25.0" />
+                                                               </HBox.margin>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                      <VBox>
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
+                                                               <font>
+                                                                  <Font name="System Bold" size="13.0" />
+                                                               </font>
+                                                            </Text>
+                                                            <JFXTextField fx:id="address" focusColor="BLACK" minHeight="31.0" minWidth="500.0" unFocusColor="#fe9939">
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minHeight="31.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
+                                                            <JFXTextField fx:id="phoneNr" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="28.0" prefWidth="506.0" unFocusColor="#fe9939">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox>
+                                                         <children>
+                                                            <FontAwesomeIconView glyphName="CREDIT_CARD" size="15">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-20.0" left="350.0" />
+                                                               </VBox.margin>
+                                                            </FontAwesomeIconView>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cridet card" />
+                                                            <JFXTextField fx:id="creditCard" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="31.0" prefWidth="499.0" unFocusColor="#fe9939">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="31.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identity nr" />
+                                                            <JFXTextField fx:id="identityNr" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="28.0" prefWidth="503.0" unFocusColor="#fe9939">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </VBox>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets left="25.0" top="10.0" />
+                                 </BorderPane.margin>
+                              </VBox>
+                           </left>
+                           <right>
+                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                       <VBox.margin>
+                                          <Insets top="3.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nights:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="nights1" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="rooms1" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="18.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="54.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField prefHeight="21.0" prefWidth="80.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" top="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#moveToNextTap" text="Continue">
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets right="15.0" top="-150.0" />
+                                 </BorderPane.margin>
+                              </VBox>
+                           </right>
                         </BorderPane>
                      </children>
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab closable="false" text="Guest">
+            <Tab closable="false" text="Confirmation">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white;">
+                        <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -492,7 +801,7 @@
                                                 <Insets left="10.0" />
                                              </VBox.margin>
                                           </Circle>
-                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find room">
+                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -537,7 +846,7 @@
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="#c1ffbc" radius="18.0" stroke="#00d727" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
+                                          <Circle fill="#2bbbd8" radius="18.0" stroke="#0a0a0a" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
                                              <effect>
                                                 <BoxBlur />
                                              </effect>
@@ -562,7 +871,7 @@
             </Tab>
          </tabs>
       </TabPane>
-      <HBox prefHeight="54.0" prefWidth="1029.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;">
+      <HBox layoutX="10.0" layoutY="10.0" maxHeight="54.0" prefHeight="54.0" prefWidth="1029.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox prefHeight="52.0" prefWidth="102.0">
                <children>
@@ -609,7 +918,7 @@
                         <Font size="12.0" />
                      </font>
                   </Text>
-                  <Button mnemonicParsing="false" onAction="#calculateNights" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                  <Button mnemonicParsing="false" onAction="#addToTable" prefHeight="20.0" prefWidth="80.0" text="Log Out">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>
