@@ -19,6 +19,9 @@ public class Reservation {
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private int price;
+    private Boolean checkedIn;
+
+
     public Reservation(){
 
     }

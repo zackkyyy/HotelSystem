@@ -30,7 +30,7 @@ public class addGuestController {
     private Stage stage;
     private Scene scene;
     private String errMsg;
-    private guestManagController guestManagController;
+    public guestManagController guestManagController;
 
 
 
@@ -50,7 +50,6 @@ public class addGuestController {
 
     public void SaveNewGuest(ActionEvent actionEvent) {
         db=new DataBase();
-        guestManagController=new guestManagController();
         guestController guestController = new guestController();
         if (checkFields()) {
                 Guest newGuest = new Guest();
@@ -61,9 +60,6 @@ public class addGuestController {
                 newGuest.setIdentityNr(identityNr.getText());
                 newGuest.setCreditCard(creditCard.getText());
                 guestController.createNewGuest(newGuest , db);
-                // save and empty the fields
-              //  guestManagController.updateList();
-
 
                 name.setText("");
                 lastName.setText("");

@@ -10,9 +10,6 @@
     -fx-background-color: transparent;
 }
 
-/* Spaltenköpfe
-    Struktur column-header-background -> column-header */
-
 .table-view .column-header-background{
     -fx-background-color: linear-gradient(#FE9939 0%, whitesmoke 100%);
 }
@@ -21,6 +18,7 @@
     -fx-background-color: transparent;
     -fx-text-fill: Black;
     -fx-wrap-text: true;
+
 }
 
 .table-view .column-header {
@@ -29,6 +27,7 @@
 
 .table-view .table-cell{
     -fx-text-fill: black;
+    -fx-text-alignment: CENTER;
 }
 /**
 .table-row-cell{

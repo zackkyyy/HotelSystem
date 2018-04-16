@@ -1,7 +1,9 @@
 package controller;
 
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import controller.database.DataBase;
@@ -41,8 +43,7 @@ import java.util.ResourceBundle;
  * @Project : HotelSystem
  */
 public class reserveController implements Initializable {
-    @FXML
-    private TextField ss;
+
     @FXML
     private TabPane tabPane;
     @FXML
@@ -54,15 +55,9 @@ public class reserveController implements Initializable {
     @FXML
     private MenuButton personsNumber, roomsNumber,cityName;
     @FXML
-    private MenuItem p1 , p2 , p3 ,p4 ,p5,r1 , r2 ,r3 ,r4, r5, kalmar, växjö ;
+    private MenuItem p1 , p2 , p3 ,p4 ,r1 , r2 ,r3 ,r4, r5, kalmar, växjö ;
     @FXML
-    private TableColumn<model.Room, Integer> roomNrCol;
-    @FXML
-    private TableColumn<model.Room, Integer> roomTypeCol;
-    @FXML
-    private TableColumn<model.Room, Integer> priceCol;
-    @FXML
-    private TableColumn<model.Room, Integer> cityCol;
+    private TableColumn<model.Room, Integer> roomNrCol,roomTypeCol,priceCol,cityCol;
     @FXML
     private TableColumn<model.Room, Integer> roomIdCol;
     @FXML
@@ -70,9 +65,10 @@ public class reserveController implements Initializable {
     @FXML
     private TableColumn<model.Room, Integer> qualityCol;
     @FXML
-    private TableColumn<model.Room, Integer> bookedCol;
+    private TableColumn<Room, Integer> bookedCol;
     @FXML
     private FontAwesomeIconView removeRoomSearch;
+
     private DataBase db = new DataBase();
     private MongoCollection persons;
     private MongoCursor<Document> cursor;
@@ -80,10 +76,6 @@ public class reserveController implements Initializable {
     private MongoCollection roomsList;
     @FXML
     private TableView table;
-    TreeItem<Room> root =null;
-    private JFXTreeTableColumn<Room , String > roomNr  , city , price  , roomType;
-    @FXML
-    private JFXListView list1;
     private roomController roomController;
     private ObservableList<Room> listOfRooms;
     /**
@@ -113,6 +105,21 @@ public class reserveController implements Initializable {
         app_stage.setScene(mainWindowScene);
         app_stage.show();
         System.out.println("CheckOut window showed from reserveController");
+
+    }
+    /**
+     * This method runs when ever the user press on log out option in the header
+     *
+     * @param event log out button pressed
+     * @throws IOException
+     */
+    public void showLogInWindow(ActionEvent event) throws IOException {
+        Parent LogInWindow = FXMLLoader.load(getClass().getResource(String.valueOf("/Untitled.fxml")));
+        Scene mainWindowScene = new Scene(LogInWindow);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(mainWindowScene);
+        app_stage.show();
+        System.out.println("log in showed from reserveController");
 
     }
     /**
@@ -157,6 +164,7 @@ public class reserveController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         checkInField.setValue(LocalDate.now());
         checkOutField.setValue(LocalDate.now().plusDays(1));
         disablePreviousDates();
@@ -172,6 +180,7 @@ public class reserveController implements Initializable {
         });
         p2.setOnAction(event1 -> {
             personsNumber.setText("2");
+            filterByType("2");
 
         });
         p3.setOnAction(event1 -> {
@@ -181,12 +190,10 @@ public class reserveController implements Initializable {
         });
         p4.setOnAction(event1 -> {
             personsNumber.setText("4");
+            filterByType("4");
 
         });
-        p5.setOnAction(event1 -> {
-            personsNumber.setText("5");
 
-        });
         /*
          * Initialize the number of Room
          */
@@ -246,16 +253,6 @@ public class reserveController implements Initializable {
      * Setters and getters
      */
 
-    public int getNumberOfnights(){
-        return Integer.parseInt(nights.getText());
-    }
-    public int getNumberOfRooms(){
-        return 0;
-    }
-
-    public String getCityChoosen() {
-        return String.valueOf(cityName.getText());
-    }
 
     public void moveToNextTap()
     {
@@ -279,7 +276,7 @@ public class reserveController implements Initializable {
     public void addToTable() {
         roomController=new roomController();
         table.getItems().remove(0,table.getItems().size());
-        listOfRooms= FXCollections.observableArrayList(roomController.arrayListOfRoom());
+        listOfRooms= FXCollections.observableArrayList(roomController.getAllRoom());
         table.setItems(listOfRooms);
         roomNrCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomNr"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("price"));
@@ -290,33 +287,59 @@ public class reserveController implements Initializable {
 
 
     public void filterByCity(String string  ) {
-        ObservableList<Room> list = table.getItems();
+        ObservableList<Room> list;
         roomController=new roomController();
-        roomController.filterByCity(cityName.getText() , list);
-        table.getItems().removeAll();
-        listOfRooms= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), list));
-        table.setItems( listOfRooms);
-        removeCitySearch.setVisible(true);
-
+        if(!removeCitySearch.isVisible()) {
+            list = table.getItems();
+            table.getItems().removeAll();
+            listOfRooms = FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), list));
+            table.setItems(listOfRooms);
+            removeCitySearch.setVisible(true);
+        }else if (removeCitySearch.isVisible()&&!removeTypeSearch.isVisible()){
+            list=FXCollections.observableArrayList(roomController.getAllRoom());
+            table.getItems().removeAll();
+            listOfRooms=FXCollections.observableArrayList( roomController.filterByCity(cityName.getText(), list));
+            table.setItems(listOfRooms);
+        }else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()){
+            list=FXCollections.observableArrayList(roomController.getAllRoom());
+            ObservableList<Room>   filteredByRoom= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), list));
+            listOfRooms= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), filteredByRoom));
+          table.getItems().removeAll();
+            table.setItems(listOfRooms);
+        }
     }
 
     public void filterByType(String string  ) {
-        ObservableList<Room> list = table.getItems();
+        ObservableList<Room> list ;
         roomController=new roomController();
-        //roomController.filterByRoomType(personsNumber.getText() , list);
-        table.getItems().removeAll();
-        listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), list));
-        table.setItems( listOfRooms);
-        removeTypeSearch.setVisible(true);
-    }
+        if(!removeTypeSearch.isVisible()){
+            list = table.getItems();
+            table.getItems().removeAll();
+            listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), list));
+            table.setItems( listOfRooms);
+            removeTypeSearch.setVisible(true);
+        }else if (removeTypeSearch.isVisible()&&!removeCitySearch.isVisible()){
+            list=FXCollections.observableArrayList(roomController.getAllRoom());
+            table.getItems().removeAll();
+            listOfRooms=FXCollections.observableArrayList( roomController.filterByRoomType(personsNumber.getText(), list));
+            table.setItems(listOfRooms);
+        }else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()){
+            list=FXCollections.observableArrayList(roomController.getAllRoom());
+            ObservableList<Room>   filteredByCity= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), list));
+            listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), filteredByCity));
+            table.getItems().removeAll();
+            table.setItems(listOfRooms);
+        }
+
+        }
 
     public void removeCitySearch(){
         roomController=new roomController();
-        listOfRooms= FXCollections.observableArrayList(roomController.arrayListOfRoom());
+        listOfRooms= FXCollections.observableArrayList(roomController.getAllRoom());
         if (removeTypeSearch.isVisible()){
             listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), listOfRooms));
             table.setItems(listOfRooms);
-        }else {
+        } else{
             table.getItems().removeAll();
             table.setItems(listOfRooms);
         }
@@ -324,7 +347,7 @@ public class reserveController implements Initializable {
     }
     public void removeTypeSearch(){
         roomController=new roomController();
-        listOfRooms= FXCollections.observableArrayList(roomController.arrayListOfRoom());
+        listOfRooms= FXCollections.observableArrayList(roomController.getAllRoom());
         if (removeCitySearch.isVisible()){
             listOfRooms= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), listOfRooms));
             table.setItems(listOfRooms);
@@ -333,6 +356,7 @@ public class reserveController implements Initializable {
             table.setItems(listOfRooms);
         }
         removeTypeSearch.setVisible(false);
+        personsNumber.setText("1");
     }
     public void findRoom(){
         db = new DataBase();

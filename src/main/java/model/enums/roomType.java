@@ -16,14 +16,6 @@ public enum roomType {
         public String toString() {
             return "Single";
         }
-
-        public roomType toRoomType (String s){
-            if(SINGLE.toString() == s ){
-                return SINGLE;
-
-            }else
-                return null;
-        }
     },
 
     DOUBLE {

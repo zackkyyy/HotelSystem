@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
@@ -286,8 +287,6 @@
                                                 <MenuItem fx:id="p2" mnemonicParsing="false" text="2" />
                                                 <MenuItem fx:id="p3" mnemonicParsing="false" text="3" />
                                                 <MenuItem fx:id="p4" mnemonicParsing="false" text="4" />
-                                                <MenuItem fx:id="p5" mnemonicParsing="false" text="5" />
-                                                <MenuItem fx:id="more" mnemonicParsing="false" text="more" />
                                              </items>
                                              <opaqueInsets>
                                                 <Insets />
@@ -353,79 +352,82 @@
                         </VBox>
                      </top>
                      <bottom>
-                        <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/reservePage.css" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
-                            <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
-                              <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
-                              <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
-                              <TableColumn fx:id="roomNrCol1" prefWidth="130.0" text="room id" />
-                              <TableColumn fx:id="floorCol" prefWidth="130.0" text="floor" />
-                              <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
-                              <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
-                          </columns>
-                        </TableView>
-                     </bottom>
-                     <center>
-                        <HBox prefHeight="36.0" prefWidth="459.0" BorderPane.alignment="CENTER">
+                        <Pane BorderPane.alignment="CENTER">
                            <children>
-                              <Label prefHeight="23.0" prefWidth="154.0" text="Search for room" textAlignment="CENTER">
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets top="10.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <JFXTextField fx:id="searchRoom" focusColor="#ff9321" maxHeight="25.0" minHeight="25.0" onKeyPressed="#findRoom" onMousePressed="#findRoom" prefHeight="25.0" prefWidth="165.0" promptText="Enter a room number" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
-                                 <font>
-                                    <Font size="12.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="2.0" top="8.0" />
-                                 </HBox.margin>
-                              </JFXTextField>
-                              <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
-                                 <HBox.margin>
-                                    <Insets top="15.0" />
-                                 </HBox.margin>
-                              </FontAwesomeIconView>
-                              <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" text="City" visible="false">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="CLOSE" size="17" />
-                                 </graphic>
-                                 <HBox.margin>
-                                    <Insets left="5.0" top="7.0" />
-                                 </HBox.margin>
-                              </JFXButton>
-                              <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" text="Type" visible="false">
-                                 <graphic>
-                                    <FontAwesomeIconView glyphName="CLOSE" size="17" />
-                                 </graphic>
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="5.0" top="7.0" />
-                                 </HBox.margin>
-                              </JFXButton>
+                              <VBox prefHeight="236.0" prefWidth="1020.0">
+                                 <children>
+                                    <HBox prefHeight="36.0" prefWidth="459.0">
+                                       <children>
+                                          <Label prefHeight="23.0" prefWidth="154.0" text="Search for room" textAlignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <JFXTextField fx:id="searchRoom" focusColor="#ff9321" maxHeight="25.0" minHeight="25.0" onKeyPressed="#findRoom" onMousePressed="#findRoom" prefHeight="25.0" prefWidth="165.0" promptText="Enter a room number" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="2.0" top="8.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                          <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </FontAwesomeIconView>
+                                          <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" text="City" textFill="#f10000" visible="false">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </JFXButton>
+                                          <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" text="Type" textFill="#f10000" visible="false">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </JFXButton>
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="table" prefHeight="200.0" prefWidth="995.0" stylesheets="@css/reservePage.css">
+                                      <columns>
+                                        <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
+                                        <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
+                                          <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
+                                          <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
+                                          <TableColumn fx:id="roomNrCol1" prefWidth="130.0" text="room id" />
+                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="floor" />
+                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
+                                          <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
                            </children>
-                           <BorderPane.margin>
-                              <Insets left="-190.0" top="240.0" />
-                           </BorderPane.margin>
-                        </HBox>
-                     </center>
+                        </Pane>
+                     </bottom>
                   </BorderPane>
                </content>
             </Tab>
@@ -768,7 +770,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -910,15 +912,12 @@
             </JFXButton>
             <VBox prefHeight="52.0" prefWidth="124.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
+                  <Label fx:id="nameLabel" text="Label" textAlignment="CENTER">
                      <VBox.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets left="20.0" />
                      </VBox.margin>
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Text>
-                  <Button mnemonicParsing="false" onAction="#addToTable" prefHeight="20.0" prefWidth="80.0" text="Log Out">
+                  </Label>
+                  <Button mnemonicParsing="false" onAction="#showLogInWindow" prefHeight="20.0" prefWidth="80.0" text="Log Out">
                      <VBox.margin>
                         <Insets left="10.0" />
                      </VBox.margin>

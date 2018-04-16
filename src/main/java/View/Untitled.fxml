@@ -72,9 +72,51 @@
                               </AnchorPane>
                           </content>
                         </Tab>
-                        <Tab  text="Manager">
+                        <Tab text="Manager">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox fx:id="tabpane1" minHeight="146.0" minWidth="200.0" prefHeight="146.0" prefWidth="214.0" styleClass="logIN.css">
+                                       <children>
+                                          <FontAwesomeIconView glyphName="ENVELOPE_ALT" size="15.0">
+                                             <VBox.margin>
+                                                <Insets bottom="-25.0" top="25.0" />
+                                             </VBox.margin>
+                                          </FontAwesomeIconView>
+                                          <JFXTextField fx:id="user1" alignment="CENTER" maxHeight="30.0" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="User Name" />
+                                          <FontAwesomeIconView glyphName="KEY" size="15.0">
+                                             <VBox.margin>
+                                                <Insets bottom="-35.0" top="10.0" />
+                                             </VBox.margin>
+                                          </FontAwesomeIconView>
+                                          <JFXPasswordField fx:id="pass1" alignment="CENTER" maxWidth="200.0" minHeight="30.0" minWidth="50.0" prefWidth="200.0" promptText="Password">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </JFXPasswordField>
+                                          <HBox prefHeight="27.0" prefWidth="200.0">
+                                             <children>
+                                                <Button layoutX="168.0" layoutY="222.0" mnemonicParsing="false" onAction="#ShowMainPage" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: black; -fx-border-radius: 46; -fx-background-radius: 46; -fx-text-fill: fff; -fx-alignment: center;" styleClass="button_app" text="Log in">
+                                                   <HBox.margin>
+                                                      <Insets left="14.0" top="20.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                          <Text fx:id="sorry1" boundsType="VISUAL" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0">
+                                             <VBox.margin>
+                                                <Insets left="-10.0" top="20.0" />
+                                             </VBox.margin>
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
                           </content>
                         </Tab>
                      </tabs>

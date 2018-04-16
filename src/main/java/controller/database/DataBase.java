@@ -16,12 +16,11 @@ import org.bson.Document;
 
 
 public class DataBase {
-    private  MongoCollection roomsColl;
     MongoClientURI clientURI;
     MongoClient mongoClient;
     MongoDatabase database;
     String uri;
-    MongoCollection persons;
+    MongoCollection persons , userColl ,roomsColl;
     Document doc;
 
     public DataBase() {
@@ -31,6 +30,7 @@ public class DataBase {
         database = mongoClient.getDatabase("hotelSystem");
         persons = database.getCollection("persons");
         roomsColl = database.getCollection("rooms");
+        userColl= database.getCollection("users");
     }
 
     public MongoCollection getPersonsCollection() {
@@ -39,5 +39,9 @@ public class DataBase {
 
     public MongoCollection getRoomsColl() {
         return roomsColl;
+    }
+
+    public MongoCollection getUsersCollection() {
+        return userColl;
     }
 }

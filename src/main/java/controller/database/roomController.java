@@ -55,7 +55,7 @@ public class roomController {
             return roomType.TRIPLE;
         }else  if(room_type.contains("Double")){
             return roomType.DOUBLE;
-        }else  if(room_type.contains("apartment")){
+        }else  if(room_type.contains("Apartment")){
             return roomType.APARTMENT;
         }
         else return null;
@@ -149,7 +149,7 @@ public class roomController {
      * @return
      *          list of room in array list
      */
-    public ArrayList<Room> arrayListOfRoom() {
+    public ArrayList<Room> getAllRoom() {
          db= new DataBase();
         rooms=db.getRoomsColl();
         cursor = rooms.find().iterator();
