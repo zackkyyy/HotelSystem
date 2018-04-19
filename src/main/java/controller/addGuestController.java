@@ -1,15 +1,13 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import controller.database.DataBase;
-import controller.database.guestController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import model.DataBase;
 import model.Guest;
 
 import java.io.IOException;
@@ -48,9 +46,9 @@ public class addGuestController {
 
     }
 
-    public void SaveNewGuest(ActionEvent actionEvent) {
+    public void SaveNewGuest() {
         db=new DataBase();
-        guestController guestController = new guestController();
+        DBParser guestController = new DBParser();
         if (checkFields()) {
                 Guest newGuest = new Guest();
                 newGuest.setName(name.getText());
@@ -61,13 +59,7 @@ public class addGuestController {
                 newGuest.setCreditCard(creditCard.getText());
                 guestController.createNewGuest(newGuest , db);
 
-                name.setText("");
-                lastName.setText("");
-                phoneNr.setText("");
-                address.setText("");
-                creditCard.setText("");
-                identityNr.setText("");
-
+            clearFeilds();
         }
 
         else if (!checkFields()) {
@@ -111,5 +103,14 @@ public class addGuestController {
 
         }
         return true;
+    }
+    public void clearFeilds(){
+        name.setText("");
+        lastName.setText("");
+        phoneNr.setText("");
+        address.setText("");
+        creditCard.setText("");
+        identityNr.setText("");
+
     }
 }

@@ -6,8 +6,6 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import controller.database.DataBase;
-import controller.database.roomController;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +21,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import model.DataBase;
+import model.Guest;
 import model.Room;
 import org.bson.Document;
 import org.controlsfx.control.textfield.TextFields;
@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -49,7 +50,7 @@ public class reserveController implements Initializable {
     @FXML
     private JFXButton removeCitySearch ,removeTypeSearch;
     @FXML
-    private JFXTextField nights ,rooms ,search , searchRoom;
+    private JFXTextField nights ,rooms ,search , searchRoom , name , lastName, address, phoneNr,identityNr,creditCard;
     @FXML
     private JFXDatePicker checkOutField, checkInField;
     @FXML
@@ -68,7 +69,8 @@ public class reserveController implements Initializable {
     private TableColumn<Room, Integer> bookedCol;
     @FXML
     private FontAwesomeIconView removeRoomSearch;
-
+    @FXML
+    private Label errorLabel,errorMsg ,romNr, romType,gstNr, gstID, gstName, gstCredit, romCity, gstPhone,depDate, arrDate ;
     private DataBase db = new DataBase();
     private MongoCollection persons;
     private MongoCursor<Document> cursor;
@@ -76,8 +78,10 @@ public class reserveController implements Initializable {
     private MongoCollection roomsList;
     @FXML
     private TableView table;
-    private roomController roomController;
+    private DBParser dbParser;
     private ObservableList<Room> listOfRooms;
+    private Guest customer;
+    private ObservableList<Room> bookedRoom;
     /**
      * This method runs when ever the user press on the check in option in the header
      *
@@ -164,7 +168,7 @@ public class reserveController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         checkInField.setValue(LocalDate.now());
         checkOutField.setValue(LocalDate.now().plusDays(1));
         disablePreviousDates();
@@ -204,6 +208,8 @@ public class reserveController implements Initializable {
         r2.setOnAction(event1 ->{
             rooms.setText("2");
             roomsNumber.setText("2");
+
+
         });
         r3.setOnAction(event1 ->{
             rooms.setText("3");
@@ -227,11 +233,11 @@ public class reserveController implements Initializable {
             filterByCity("Växjö");
         });
     }
-    
+
     // Disables (grayes out) all dates before today in both the DatePickers
     private void disablePreviousDates() {
     	Callback<DatePicker, DateCell> dayCellFactory;
-    	
+
     	dayCellFactory = new Callback<DatePicker, DateCell>() {
     		public DateCell call(final DatePicker datePicker) {
     			return new DateCell() {
@@ -256,12 +262,58 @@ public class reserveController implements Initializable {
 
     public void moveToNextTap()
     {
-        tabPane.getSelectionModel().selectNext();
+        if (tabPane.getSelectionModel().isSelected(1)){
+            Guest gst = getCustomer();
+            System.out.println(gst.getName()+ "hahahahahahahahahaha");
+            gstName.setText(gst.getName()+" "+gst.getLastName());
+            gstCredit.setText(gst.getCreditCard());
+            gstID.setText(gst.getIdentityNr());
+            gstPhone.setText(gst.getPhoneNr());
+            gstCredit.setText(gst.getCreditCard());
+            tabPane.getSelectionModel().selectNext();
+           // if(gst!=null){
+
+            //}
+            //else {
+              //  System.out.println("choose a guest");
+            //}
+        }
+        if (tabPane.getSelectionModel().isSelected(0)){
+            if(Integer.parseInt(roomsNumber.getText())== table.getSelectionModel().getSelectedItems().size()) {
+                bookedRoom = table.getSelectionModel().getSelectedItems();
+                for (int i = 0; i < bookedRoom.size(); i++) {
+                    String s= bookedRoom.get(i).getRoomNr() + " ";
+                    String city=bookedRoom.get(i).getStringCity();
+                    String type = bookedRoom.get(i).getRoomType().toString();
+                    romNr.setText(s);
+                    romCity.setText(city);
+                    romType.setText(type);
+                    gstNr.setText(personsNumber.getText());
+                }
+
+                errorLabel.setVisible(false);
+                tabPane.getSelectionModel().selectNext();
+            }
+
+            else{
+                int a=Integer.parseInt(roomsNumber.getText());
+                int b =table.getSelectionModel().getSelectedItems().size();
+                if (a>b){
+                errorLabel.setText(("you need to select " +(a - b) + " more"));
+                errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setText(("More selected rooms than what you wanted"));
+                    errorLabel.setVisible(true);
+                }
+            }
+
+        }
     }
+
     public void moveToPreviousTap(){
         tabPane.getSelectionModel().selectPrevious();
     }
-    public void findGuest(){
+    public void autoCompletation(){
         db = new DataBase();
         persons = db.getPersonsCollection();
         cursor = persons.find().iterator();
@@ -270,40 +322,47 @@ public class reserveController implements Initializable {
             doc = cursor.next();
             listOfNames[i]=doc.getString("name")+" "+doc.getString("last name");
         }
-       TextFields.bindAutoCompletion(search,listOfNames);
+        try {
+            TextFields.bindAutoCompletion(search,listOfNames);
+        }catch (Exception e){
+            search.setText("");
+        }
         }
 
     public void addToTable() {
-        roomController=new roomController();
+        dbParser =new DBParser();
         table.getItems().remove(0,table.getItems().size());
-        listOfRooms= FXCollections.observableArrayList(roomController.getAllRoom());
+        listOfRooms= FXCollections.observableArrayList(dbParser.getAllRoom());
         table.setItems(listOfRooms);
         roomNrCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomNr"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("price"));
         cityCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("city"));
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomType"));
         searchRoom.clear();
+        removeTypeSearch.setVisible(false);
+        removeCitySearch.setVisible(false);
+
     }
 
 
     public void filterByCity(String string  ) {
         ObservableList<Room> list;
-        roomController=new roomController();
+        dbParser =new DBParser();
         if(!removeCitySearch.isVisible()) {
             list = table.getItems();
             table.getItems().removeAll();
-            listOfRooms = FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), list));
+            listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
             table.setItems(listOfRooms);
             removeCitySearch.setVisible(true);
         }else if (removeCitySearch.isVisible()&&!removeTypeSearch.isVisible()){
-            list=FXCollections.observableArrayList(roomController.getAllRoom());
+            list=FXCollections.observableArrayList(dbParser.getAllRoom());
             table.getItems().removeAll();
-            listOfRooms=FXCollections.observableArrayList( roomController.filterByCity(cityName.getText(), list));
+            listOfRooms=FXCollections.observableArrayList( dbParser.filterByCity(cityName.getText(), list));
             table.setItems(listOfRooms);
         }else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()){
-            list=FXCollections.observableArrayList(roomController.getAllRoom());
-            ObservableList<Room>   filteredByRoom= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), list));
-            listOfRooms= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), filteredByRoom));
+            list=FXCollections.observableArrayList(dbParser.getAllRoom());
+            ObservableList<Room>   filteredByRoom= FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
+            listOfRooms= FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), filteredByRoom));
           table.getItems().removeAll();
             table.setItems(listOfRooms);
         }
@@ -311,22 +370,22 @@ public class reserveController implements Initializable {
 
     public void filterByType(String string  ) {
         ObservableList<Room> list ;
-        roomController=new roomController();
+        dbParser =new DBParser();
         if(!removeTypeSearch.isVisible()){
             list = table.getItems();
             table.getItems().removeAll();
-            listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), list));
+            listOfRooms= FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
             table.setItems( listOfRooms);
             removeTypeSearch.setVisible(true);
         }else if (removeTypeSearch.isVisible()&&!removeCitySearch.isVisible()){
-            list=FXCollections.observableArrayList(roomController.getAllRoom());
+            list=FXCollections.observableArrayList(dbParser.getAllRoom());
             table.getItems().removeAll();
-            listOfRooms=FXCollections.observableArrayList( roomController.filterByRoomType(personsNumber.getText(), list));
+            listOfRooms=FXCollections.observableArrayList( dbParser.filterByRoomType(personsNumber.getText(), list));
             table.setItems(listOfRooms);
         }else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()){
-            list=FXCollections.observableArrayList(roomController.getAllRoom());
-            ObservableList<Room>   filteredByCity= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), list));
-            listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), filteredByCity));
+            list=FXCollections.observableArrayList(dbParser.getAllRoom());
+            ObservableList<Room>   filteredByCity= FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
+            listOfRooms= FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), filteredByCity));
             table.getItems().removeAll();
             table.setItems(listOfRooms);
         }
@@ -334,10 +393,10 @@ public class reserveController implements Initializable {
         }
 
     public void removeCitySearch(){
-        roomController=new roomController();
-        listOfRooms= FXCollections.observableArrayList(roomController.getAllRoom());
+        dbParser =new DBParser();
+        listOfRooms= FXCollections.observableArrayList(dbParser.getAllRoom());
         if (removeTypeSearch.isVisible()){
-            listOfRooms= FXCollections.observableArrayList(roomController.filterByRoomType(personsNumber.getText(), listOfRooms));
+            listOfRooms= FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), listOfRooms));
             table.setItems(listOfRooms);
         } else{
             table.getItems().removeAll();
@@ -346,10 +405,10 @@ public class reserveController implements Initializable {
         removeCitySearch.setVisible(false);
     }
     public void removeTypeSearch(){
-        roomController=new roomController();
-        listOfRooms= FXCollections.observableArrayList(roomController.getAllRoom());
+        dbParser =new DBParser();
+        listOfRooms= FXCollections.observableArrayList(dbParser.getAllRoom());
         if (removeCitySearch.isVisible()){
-            listOfRooms= FXCollections.observableArrayList(roomController.filterByCity(cityName.getText(), listOfRooms));
+            listOfRooms= FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), listOfRooms));
             table.setItems(listOfRooms);
         }else {
             table.getItems().removeAll();
@@ -363,13 +422,87 @@ public class reserveController implements Initializable {
         roomsList = db.getRoomsColl();
         cursor = roomsList.find().iterator();
         String searchedRoom = searchRoom.getText();
-        for (int i = 0; i < roomsList.count(); i++) {
-            doc = cursor.next();
-            if (doc.getInteger("room nr").toString().equals(searchedRoom)) {
-                table.getItems().remove(0, table.getItems().size());
-                table.getItems().add(roomController.createRoom(doc));
+        if(!searchRoom.getText().isEmpty()) {
+            for (int i = 0; i < roomsList.count(); i++) {
+                doc = cursor.next();
+                if (doc.getInteger("room nr").toString().equals(searchedRoom) && !doc.getBoolean("is booked")) {
+                    table.getItems().remove(0, table.getItems().size());
+                    table.getItems().add(dbParser.createRoom(doc));
+                }
             }
+        }else
+        {
+            addToTable();
         }
     }
+
+    public Guest getCustomer() {
+        Guest gst= new Guest();
+        String ss = search.getText();
+        ArrayList<Guest> guests = dbParser.getGuestsInArray();
+        if(!search.getText().equals("")) {
+            for (int i = 0; i < guests.size() - 1; i++) {
+                if (((guests.get(i).getName() + " " + guests.get(i).getLastName()).equals(ss))) {
+                    gst = guests.get(i);
+                }else {
+                    search.setText("");
+                    errorMsg.setText("wrong name");
+                    getCustomer();
+                }
+            }
+        }else{
+            gst=saveNewCustomer();
+
+        }
+
+        return gst;
+    }
+
+
+    public Guest saveNewCustomer(){
+            if(checkFields()) {
+                Guest gst = new Guest(name.getText(), lastName.getText(), address.getText(), phoneNr.getText(), creditCard.getText(), identityNr.getText());
+                dbParser.createNewGuest(gst, db);
+                return gst;
+            }
+        errorMsg.setVisible(true);
+         return   saveNewCustomer();
+    }
+
+    public boolean checkFields(){
+        if (name.getText().isEmpty()  ) {
+            errorMsg.setText("Name field should not be empty");
+            return false;
+        }else if(name.getText().matches(".*\\d+.*")){
+            errorMsg.setText("Name field should have only letters");
+            return false;
+        } else if (lastName.getText().isEmpty()) {
+            errorMsg.setText("Last name field should not be empty");
+            return false;
+        } else if (lastName.getText().matches(".*\\d+.*")) {
+            errorMsg.setText("Last name field should have only letters");
+            return false;
+
+        } else if (address.getText().isEmpty()) {
+            errorMsg.setText("Address field should not be empty");
+            return false;
+
+        } else  if (identityNr.getText().isEmpty()) {
+            errorMsg.setText("ID number field should not be empty");
+            return false;
+
+        } else if (creditCard.getText().isEmpty()) {
+            errorMsg.setText("Credit card field should not be empty");
+            return false;
+
+        } else if (phoneNr.getText().isEmpty()) {
+            errorMsg.setText("Phone nr field should not be empty");
+            return false;
+
+        }
+        return true;
+    }
+
+
 }
 

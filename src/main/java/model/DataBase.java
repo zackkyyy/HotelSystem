@@ -1,4 +1,4 @@
-package controller.database;
+package model;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;

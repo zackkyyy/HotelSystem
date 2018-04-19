@@ -37,6 +37,15 @@ public class Guest {
 
     }
 
+    public Guest(String name, String lastName, String address, String phoneNr, String creditCard, String identityNr) {
+        this.identityNr=identityNr;
+        this.name=name;
+        this.lastName=lastName;
+        this.address=address;
+        this.phoneNr=phoneNr;
+        this.creditCard=creditCard;
+    }
+
 
     public String getName(){
         return name ;

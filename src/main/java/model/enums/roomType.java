@@ -32,6 +32,7 @@ public enum roomType {
         public String toString() {
             return "Triple";
         }
+
     },
     APARTMENT {
 
@@ -39,6 +40,21 @@ public enum roomType {
         public String toString() {
             return "Apartment";
         }
+
     };
+
+        public static roomType toEnum(String str){
+            str=str.toUpperCase();
+            if(str==APARTMENT.toString()){
+                return APARTMENT;
+            }else if(str==SINGLE.toString()){
+                return SINGLE;
+            }else if(str==DOUBLE.toString()){
+                return DOUBLE;
+            }else if(str==TRIPLE.toString()){
+                return TRIPLE;
+            }
+            return null;
+        }
 
 }

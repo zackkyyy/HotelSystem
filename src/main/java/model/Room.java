@@ -79,6 +79,9 @@ public class Room extends RecursiveTreeObject<Room> {
     public model.enums.city getCity() {
         return city;
     }
+    public String getStringCity(){
+        return city.toString();
+    }
 
     public void setCity(model.enums.city city) {
         this.city = city;

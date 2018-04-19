@@ -3,7 +3,6 @@ package controller;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
-import controller.database.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +32,7 @@ public class loginController {
     }
 
     public boolean checkForLogIn() throws IOException {
-        UserController userController = new UserController();
+        DBParser userController = new DBParser();
         if(userController.validateLogging(user.getText() , pass.getText())){
             return true;
         }

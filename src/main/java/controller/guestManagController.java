@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import controller.database.DataBase;
-import controller.database.guestController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import model.DataBase;
 import model.Guest;
 import org.bson.Document;
 
@@ -49,7 +48,7 @@ public class guestManagController implements Initializable {
     private MongoCollection persons;
     private MongoCursor<Document> cursor;
     private Document doc;
-    private guestController guestController;
+    private DBParser guestController;
     /**
      * Initializing the scene for the guest management window
      *
@@ -178,7 +177,7 @@ public class guestManagController implements Initializable {
         temporaryGst.setIdentityNr(identityNr.getText());
         temporaryGst.setBirthday(birthday.getValue());
 
-        guestController= new guestController();
+        guestController= new DBParser();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText("Are you sure you want to edit " + selectedItem + " ?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -208,7 +207,7 @@ public class guestManagController implements Initializable {
     public void getGuestFromDb() {
         list.getItems().removeAll();
         db = new DataBase();
-        guestController=new guestController();
+        guestController=new DBParser();
         list.getItems().removeAll();
         for (int i = 0 ; i<guestController.getGuestNames(db).length;i++){
             list.getItems().add(guestController.getGuestNames(db)[i]);

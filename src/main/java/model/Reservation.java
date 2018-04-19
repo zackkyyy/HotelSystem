@@ -13,49 +13,67 @@ import java.time.LocalDate;
 
 public class Reservation {
 
-    private String guest_ID;
+    private String guestName;
     private String reservation_ID;
-    private String room_ID;
+    private String roomNr;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private int price;
     private Boolean checkedIn;
 
-
     public Reservation(){
 
     }
 
-    public Reservation(String reservation_ID , String guest_ID , String room_ID , LocalDate arrival, LocalDate departureDate , int price){
-        this.arrivalDate = arrival;
+    public Reservation(String guestName, String reservation_ID, String roomNr, LocalDate arrivalDate, LocalDate departureDate, int price, Boolean checkedIn) {
+        this.guestName = guestName;
+        this.reservation_ID = reservation_ID;
+        this.roomNr = roomNr;
+        this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
-        this.guest_ID=guest_ID;
-        this.reservation_ID=reservation_ID;
-        this.room_ID=room_ID;
-        this.price=price;
+        this.price = price;
+        this.checkedIn = checkedIn;
     }
 
-    /**
-     * Setters and getters
-     */
-    public LocalDate getArrivalDate() {
-        return arrivalDate;
+    public String getGuestName() {
+
+        return guestName;
     }
 
-    public LocalDate getDepartureDate() {
-        return departureDate;
-    }
-
-    public String getGuest_ID() {
-        return guest_ID;
+    public void setGuestName(String guestName) {
+        this.guestName = guestName;
     }
 
     public String getReservation_ID() {
         return reservation_ID;
     }
 
-    public String getRoom_ID() {
-        return room_ID;
+    public void setReservation_ID(String reservation_ID) {
+        this.reservation_ID = reservation_ID;
+    }
+
+    public String getRoomNr() {
+        return roomNr;
+    }
+
+    public void setRoomNr(String roomNr) {
+        this.roomNr = roomNr;
+    }
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(LocalDate arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
     }
 
     public int getPrice() {
@@ -66,29 +84,11 @@ public class Reservation {
         this.price = price;
     }
 
-    public void setReservation_ID(String reservation_ID) {
-        this.reservation_ID = reservation_ID;
+    public Boolean getCheckedIn() {
+        return checkedIn;
     }
 
-    public void setArrivalDate(LocalDate arrivalDate) {
-        this.arrivalDate = arrivalDate;
+    public void setCheckedIn(Boolean checkedIn) {
+        this.checkedIn = checkedIn;
     }
-
-    public void setGuest_ID(String guest_ID) {
-        this.guest_ID = guest_ID;
-    }
-
-    public void setRoom_ID(String room_ID) {
-        this.room_ID = room_ID;
-    }
-
-    public void setDepartureDate(LocalDate departureDate) {
-        this.departureDate = departureDate;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
 }

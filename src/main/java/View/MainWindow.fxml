@@ -409,6 +409,11 @@
                                                 <Font size="11.0" />
                                              </font>
                                           </JFXButton>
+                                          <Label fx:id="errorLabel" textFill="#fc0000" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="270.0" top="-60.0" />
+                                             </HBox.margin>
+                                          </Label>
                                        </children>
                                     </HBox>
                                     <TableView fx:id="table" prefHeight="200.0" prefWidth="995.0" stylesheets="@css/reservePage.css">
@@ -435,7 +440,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
                      <children>
-                        <BorderPane prefHeight="547.0" prefWidth="801.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <BorderPane layoutX="-2.0" prefHeight="547.0" prefWidth="801.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
                            <top>
                               <HBox prefHeight="80.0" prefWidth="800.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -541,7 +546,7 @@
                                                 <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
                                              </graphic>
                                           </Label>
-                                          <JFXTextField fx:id="search" focusColor="#ff9321" onMousePressed="#findGuest" prefHeight="33.0" prefWidth="539.0" promptText="   Enter a search" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                          <JFXTextField fx:id="search" focusColor="#ff9321" onMousePressed="#autoCompletation" prefHeight="33.0" prefWidth="525.0" promptText="   Enter a search" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -675,6 +680,11 @@
                                                       </VBox>
                                                    </children>
                                                 </VBox>
+                                                <Label fx:id="errorMsg" prefHeight="17.0" prefWidth="501.0" textFill="RED">
+                                                   <VBox.margin>
+                                                      <Insets left="15.0" top="15.0" />
+                                                   </VBox.margin>
+                                                </Label>
                                              </children>
                                           </VBox>
                                        </center>
@@ -866,6 +876,261 @@
                                  </children>
                               </HBox>
                            </top>
+                           <center>
+                              <VBox prefHeight="421.0" prefWidth="719.0" spacing="8.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text fill="#973c3c" fontSmoothingType="LCD" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Details" textAlignment="CENTER" underline="true">
+                                       <VBox.margin>
+                                          <Insets left="200.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="Bangla MN" size="27.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival Date">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="arrDate" prefHeight="17.0" prefWidth="159.0" text="Label">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Departure Date">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="depDate" prefHeight="17.0" prefWidth="151.0" text="Label">
+                                             <HBox.margin>
+                                                <Insets left="27.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox maxWidth="502.0" prefHeight="32.0" prefWidth="502.0" style="-fx-background-color: #4d4d4d;">
+                                       <children>
+                                          <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Room Information" wrappingWidth="225.80406188964844">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets top="3.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <VBox>
+                                       <children>
+                                          <HBox spacing="25.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room nr ">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room type">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest nr">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="25.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <HBox prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="romNr" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="romType" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="gstNr" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="romCity" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="-20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox maxWidth="498.0" prefHeight="29.0" prefWidth="498.0" style="-fx-background-color: #4d4d4d;">
+                                       <children>
+                                          <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Guest Information" wrappingWidth="225.80406188964844">
+                                             <font>
+                                                <Font name="System Bold" size="20.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets top="3.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Name">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstName" prefHeight="17.0" prefWidth="78.0" text="Single" />
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstPhone" layoutX="112.0" prefHeight="17.0" prefWidth="295.0">
+                                             <HBox.margin>
+                                                <Insets left="45.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID number">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstID" prefHeight="17.0" prefWidth="296.0">
+                                             <HBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstCredit" prefHeight="17.0" prefWidth="287.0">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#moveToNextTap" text="Confirm ">
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets left="50.0" right="30.0" top="50.0" />
+                                 </BorderPane.margin>
+                                 <padding>
+                                    <Insets left="100.0" />
+                                 </padding>
+                              </VBox>
+                           </center>
+                           <right>
+                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                       <VBox.margin>
+                                          <Insets top="3.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nights:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="nights11" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="rooms11" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="18.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="54.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField prefHeight="21.0" prefWidth="80.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" top="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </right>
                         </BorderPane>
                      </children>
                   </AnchorPane>
