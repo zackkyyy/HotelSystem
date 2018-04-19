@@ -1,5 +1,7 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 
 /**
@@ -11,11 +13,9 @@ import java.time.LocalDate;
  */
 
 
-public class Reservation {
-
-    private String guestName;
-    private String reservation_ID;
-    private String roomNr;
+    public class Reservation {
+    private ObjectId room;
+    private ObjectId guest;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private int price;
@@ -25,39 +25,29 @@ public class Reservation {
 
     }
 
-    public Reservation(String guestName, String reservation_ID, String roomNr, LocalDate arrivalDate, LocalDate departureDate, int price, Boolean checkedIn) {
-        this.guestName = guestName;
-        this.reservation_ID = reservation_ID;
-        this.roomNr = roomNr;
+    public Reservation(ObjectId room, ObjectId guest, LocalDate arrivalDate, LocalDate departureDate, int price, Boolean checkedIn) {
+        this.room = room;
+        this.guest = guest;
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;
         this.price = price;
         this.checkedIn = checkedIn;
     }
 
-    public String getGuestName() {
-
-        return guestName;
+    public ObjectId getRoom() {
+        return room;
     }
 
-    public void setGuestName(String guestName) {
-        this.guestName = guestName;
+    public void setRoom(ObjectId room) {
+        this.room = room;
     }
 
-    public String getReservation_ID() {
-        return reservation_ID;
+    public ObjectId getGuest() {
+        return guest;
     }
 
-    public void setReservation_ID(String reservation_ID) {
-        this.reservation_ID = reservation_ID;
-    }
-
-    public String getRoomNr() {
-        return roomNr;
-    }
-
-    public void setRoomNr(String roomNr) {
-        this.roomNr = roomNr;
+    public void setGuest(ObjectId guest) {
+        this.guest = guest;
     }
 
     public LocalDate getArrivalDate() {

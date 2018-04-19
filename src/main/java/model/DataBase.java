@@ -20,7 +20,7 @@ public class DataBase {
     MongoClient mongoClient;
     MongoDatabase database;
     String uri;
-    MongoCollection persons , userColl ,roomsColl;
+    MongoCollection persons , userColl ,roomsColl,reservations;
     Document doc;
 
     public DataBase() {
@@ -31,6 +31,7 @@ public class DataBase {
         persons = database.getCollection("persons");
         roomsColl = database.getCollection("rooms");
         userColl= database.getCollection("users");
+        reservations=database.getCollection("reservations");
     }
 
     public MongoCollection getPersonsCollection() {
@@ -44,4 +45,6 @@ public class DataBase {
     public MongoCollection getUsersCollection() {
         return userColl;
     }
+
+    public MongoCollection getReservationsCollection(){return reservations;}
 }

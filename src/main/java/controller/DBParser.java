@@ -3,10 +3,7 @@ package controller;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import javafx.collections.ObservableList;
-import model.DataBase;
-import model.Guest;
-import model.Room;
-import model.User;
+import model.*;
 import model.enums.city;
 import model.enums.roomType;
 import org.bson.Document;
@@ -15,7 +12,9 @@ import org.bson.types.ObjectId;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -35,6 +34,7 @@ public class DBParser {
     private MongoCollection rooms;
     private DataBase db = new DataBase();
     private MongoCollection users;
+    private MongoCollection reservations;
 
     public void createNewGuest(Guest newGuest , DataBase db) {
         db= new DataBase();
@@ -121,6 +121,18 @@ public class DBParser {
         return listOfGuest;
     }
 
+    public ObjectId getGuestID(Guest gst){
+        ObjectId id =null;
+        persons=db.getPersonsCollection();
+        cursor=persons.find().iterator();
+        for (int i = 0; i < persons.count(); i++) {
+            doc = cursor.next();
+            if (doc.getString("identity nr").equals(gst.getIdentityNr())){
+                id =doc.getObjectId("_id");
+            }
+        }
+        return id;
+    }
     /**
      *  Convert a String to city
      *
@@ -171,7 +183,7 @@ public class DBParser {
 
             if (list.get(i).getCity().toString().equals(string)) {
 
-                listOfRooms.add(createRoom(list.get(i)));
+                listOfRooms.add(list.get(i));
             }
         }
         return listOfRooms;
@@ -193,24 +205,24 @@ public class DBParser {
             if (string.equals("1")) {
                 if (list.get(i).getRoomType().toString().equals("Single")) {
 
-                    listOfRooms.add(createRoom(list.get(i)));
+                    listOfRooms.add(list.get(i));
                 }
             } else if (string.equals("2")) {
                 if (list.get(i).getRoomType().toString().equals("Double")) {
 
-                    listOfRooms.add(createRoom(list.get(i)));
+                    listOfRooms.add(list.get(i));
                 }
             }
             else if (string.equals("3")) {
                 if (list.get(i).getRoomType().toString().equals("Triple")) {
 
-                    listOfRooms.add(createRoom(list.get(i)));
+                    listOfRooms.add(list.get(i));
                 }
             }
             else if (string.equals("4")) {
                 if (list.get(i).getRoomType().toString().equals("Apartment")) {
 
-                    listOfRooms.add(createRoom(list.get(i)));
+                    listOfRooms.add(list.get(i));
                 }
             }
         }
@@ -218,23 +230,7 @@ public class DBParser {
 
     }
 
-    /**
-     *  Create a room to be added to the list from the parameter
-     *  this method is created to avoid duplicate codes
-     *
-     * @param room
-     * @return   a new room
-     *
-     */
-    public Room createRoom(Room room){
-        model.enums.roomType roomType = (room.getRoomType());
-        boolean booked = room.isBooked();
-        int roomNr = room.getRoomNr();
-        int price = room.getPrice();
-        city city = room.getCity();
-        Room room1 = new Room(roomType, booked, roomNr, price, city);
-        return room1;
-    }
+
 
     /**
      *   This method generate an array list of rooms from the database
@@ -262,6 +258,21 @@ public class DBParser {
         }
         return listOfRooms;
     }
+    public ObjectId getRoomID(Room room){
+        ObjectId id =null;
+        rooms=db.getRoomsColl();
+        cursor=rooms.find().iterator();
+       String s= String.valueOf(room.getRoomNr());
+
+        for (int i = 0; i < rooms.count(); i++) {
+            doc = cursor.next();
+            if (doc.getInteger("room nr")==room.getRoomNr() && doc.getString("city").equals(room.getCity().toString()) ){
+                id =doc.getObjectId("_id");
+            }
+        }
+        return id;
+    }
+
     public Room createRoom(Document doc){
         roomType roomType = toRoomType(doc.getString("room type"));
         boolean booked =doc.getBoolean("is booked");
@@ -364,5 +375,23 @@ public class DBParser {
         }
 
         return false;
+    }
+
+    public void saveReservationToDB(Reservation reservation) {
+        reservations=db.getReservationsCollection();
+        Date ArrivalDate = Date.from(reservation.getArrivalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        doc = new Document("guest", reservation.getGuest())
+                .append("room", reservation.getRoom())
+                .append("arrival", ArrivalDate)
+                .append("departure", departureDate)
+                .append("price", reservation.getPrice())
+                .append("is cheekedIn", reservation.getCheckedIn());
+
+        reservations.insertOne( doc);
+
+
+
     }
 }

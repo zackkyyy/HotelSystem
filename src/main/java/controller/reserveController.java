@@ -19,12 +19,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.DataBase;
 import model.Guest;
+import model.Reservation;
 import model.Room;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
@@ -45,6 +48,8 @@ import java.util.ResourceBundle;
  */
 public class reserveController implements Initializable {
 
+    @FXML
+    private VBox Vbox;
     @FXML
     private TabPane tabPane;
     @FXML
@@ -263,13 +268,12 @@ public class reserveController implements Initializable {
     public void moveToNextTap()
     {
         if (tabPane.getSelectionModel().isSelected(1)){
-            Guest gst = getCustomer();
-            System.out.println(gst.getName()+ "hahahahahahahahahaha");
-            gstName.setText(gst.getName()+" "+gst.getLastName());
-            gstCredit.setText(gst.getCreditCard());
-            gstID.setText(gst.getIdentityNr());
-            gstPhone.setText(gst.getPhoneNr());
-            gstCredit.setText(gst.getCreditCard());
+            customer = getCustomer();
+            gstName.setText(customer.getName()+" "+customer.getLastName());
+            gstCredit.setText(customer.getCreditCard());
+            gstID.setText(customer.getIdentityNr());
+            gstPhone.setText(customer.getPhoneNr());
+            gstCredit.setText(customer.getCreditCard());
             tabPane.getSelectionModel().selectNext();
            // if(gst!=null){
 
@@ -437,23 +441,19 @@ public class reserveController implements Initializable {
     }
 
     public Guest getCustomer() {
+        // TODO fix Error when search is not to be used
         Guest gst= new Guest();
         String ss = search.getText();
         ArrayList<Guest> guests = dbParser.getGuestsInArray();
-        if(!search.getText().equals("")) {
-            for (int i = 0; i < guests.size() - 1; i++) {
+
+            for (int i = 0; i < guests.size() ; i++) {
                 if (((guests.get(i).getName() + " " + guests.get(i).getLastName()).equals(ss))) {
                     gst = guests.get(i);
                 }else {
                     search.setText("");
                     errorMsg.setText("wrong name");
-                    getCustomer();
                 }
             }
-        }else{
-            gst=saveNewCustomer();
-
-        }
 
         return gst;
     }
@@ -504,5 +504,21 @@ public class reserveController implements Initializable {
     }
 
 
+
+
+    public void createReservation(ActionEvent actionEvent) {
+        //TODO reservation Confirmation
+        Reservation reservation = new Reservation();
+        ObjectId guestID=dbParser.getGuestID(customer);
+        ObjectId roomID=dbParser.getRoomID(bookedRoom.get(0));
+        reservation.setGuest(guestID);
+        reservation.setRoom(roomID);
+        reservation.setArrivalDate(checkInField.getValue());
+        reservation.setDepartureDate(checkOutField.getValue());
+        reservation.setCheckedIn(false);
+        reservation.setPrice(bookedRoom.get(0).getPrice());
+        dbParser.saveReservationToDB(reservation);
+
+    }
 }
 
