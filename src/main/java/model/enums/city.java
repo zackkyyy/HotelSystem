@@ -28,10 +28,10 @@ public enum  city {
     };
 
     public static city toEnum(String str){
-        str=str.toUpperCase();
-        if(str.equals(KALMAR.toString())){
+
+        if(str.equals("Kalmar")){
             return KALMAR;
-        }else if(str.equals(VÄXJÖ.toString())){
+        }else if(str.equals("Växjö")){
             return VÄXJÖ;
         }
         return null;

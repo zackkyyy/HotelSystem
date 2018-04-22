@@ -17,11 +17,11 @@ public class Room extends RecursiveTreeObject<Room> {
     private roomType roomType;
     private boolean booked;
     private int roomNr;
-    private int price ;
+    private Double price ;
     private city city;
 
 
-    public Room(roomType roomType,Boolean booked, int roomNr, int price, city city) {
+    public Room(roomType roomType,Boolean booked, int roomNr, Double price, city city) {
         this.city=city;
         this.booked = booked;
         this.roomNr = roomNr;
@@ -68,11 +68,11 @@ public class Room extends RecursiveTreeObject<Room> {
         this.roomNr = roomNr;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

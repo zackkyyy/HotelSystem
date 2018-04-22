@@ -279,7 +279,7 @@
                                           <BoxBlur />
                                        </effect>
                                     </JFXButton>
-                                    <JFXButton fx:id="save1" onAction="#editUserInfo" prefHeight="29.0" prefWidth="74.0" style="-fx-border-color: black; -fx-border-radius: 5px;" text="Add">
+                                    <JFXButton onAction="#addRoom" prefHeight="29.0" prefWidth="74.0" style="-fx-border-color: black; -fx-border-radius: 5px;" text="Add">
                                        <HBox.margin>
                                           <Insets right="20.0" />
                                        </HBox.margin>

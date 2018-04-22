@@ -15,6 +15,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -89,7 +90,7 @@
                                           <Insets top="15.0" />
                                        </HBox.margin>
                                     </Text>
-                                    <JFXTextField prefHeight="21.0" prefWidth="80.0">
+                                    <JFXTextField fx:id="totalPrice" prefHeight="21.0" prefWidth="80.0" unFocusColor="WHITE">
                                        <HBox.margin>
                                           <Insets left="15.0" />
                                        </HBox.margin>
@@ -696,7 +697,7 @@
                               </VBox>
                            </left>
                            <right>
-                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-background-color: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import javafx.scene.shape.Rectangle?&gt;&lt;Rectangle arcHeight=&quot;5.0&quot; arcWidth=&quot;5.0&quot; fill=&quot;#ff9000&quot; height=&quot;60.0&quot; layoutY=&quot;50.0&quot; rotate=&quot;-10.0&quot; stroke=&quot;TRANSPARENT&quot; strokeType=&quot;INSIDE&quot; width=&quot;1023.0&quot; xmlns=&quot;http://javafx.com/javafx/8.0.111&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot; /&gt;;" BorderPane.alignment="CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
                                        <VBox.margin>
@@ -750,7 +751,7 @@
                                                 <Insets top="15.0" />
                                              </HBox.margin>
                                           </Text>
-                                          <JFXTextField prefHeight="21.0" prefWidth="80.0">
+                                          <JFXTextField fx:id="totalPrice1" prefHeight="21.0" prefWidth="80.0">
                                              <HBox.margin>
                                                 <Insets left="15.0" />
                                              </HBox.margin>
@@ -784,14 +785,9 @@
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTap" text="back">
+                                    <Button mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
                                        <HBox.margin>
-                                          <Insets left="200.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="Save">
-                                       <HBox.margin>
-                                          <Insets left="50.0" />
+                                          <Insets left="700.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
@@ -877,22 +873,25 @@
                               </HBox>
                            </top>
                            <center>
-                              <VBox prefHeight="421.0" prefWidth="719.0" spacing="8.0" BorderPane.alignment="CENTER">
+                              <VBox fx:id="VBox" prefHeight="421.0" prefWidth="719.0" spacing="8.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <Text fill="#973c3c" fontSmoothingType="LCD" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Details" textAlignment="CENTER" underline="true">
                                        <VBox.margin>
-                                          <Insets left="200.0" />
+                                          <Insets left="150.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Bangla MN" size="27.0" />
                                        </font>
                                     </Text>
-                                    <HBox>
+                                    <HBox prefHeight="20.0" prefWidth="579.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival Date">
                                              <font>
                                                 <Font name="Serif Bold Italic" size="17.0" />
                                              </font>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
                                           </Text>
                                           <Label fx:id="arrDate" prefHeight="17.0" prefWidth="159.0" text="Label">
                                              <HBox.margin>
@@ -1004,7 +1003,11 @@
                                                 <Font name="Serif Bold Italic" size="17.0" />
                                              </font>
                                           </Text>
-                                          <Label fx:id="gstName" prefHeight="17.0" prefWidth="78.0" text="Single" />
+                                          <Label fx:id="gstName" prefHeight="17.0" prefWidth="205.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                             </HBox.margin>
+                                          </Label>
                                        </children>
                                     </HBox>
                                     <HBox>
@@ -1049,11 +1052,6 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <Button mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
-                                       <VBox.margin>
-                                          <Insets left="50.0" />
-                                       </VBox.margin>
-                                    </Button>
                                  </children>
                                  <BorderPane.margin>
                                     <Insets left="50.0" right="30.0" top="50.0" />
@@ -1118,7 +1116,7 @@
                                                 <Insets top="15.0" />
                                              </HBox.margin>
                                           </Text>
-                                          <JFXTextField prefHeight="21.0" prefWidth="80.0">
+                                          <JFXTextField fx:id="totalPrice2" prefHeight="21.0" prefWidth="80.0">
                                              <HBox.margin>
                                                 <Insets left="15.0" />
                                              </HBox.margin>
@@ -1131,6 +1129,9 @@
                                  </children>
                               </VBox>
                            </right>
+                           <left>
+                              <Button mnemonicParsing="false" onAction="#moveToPreviousTap" text="back" BorderPane.alignment="CENTER" />
+                           </left>
                         </BorderPane>
                      </children>
                   </AnchorPane>

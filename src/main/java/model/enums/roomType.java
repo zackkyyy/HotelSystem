@@ -44,14 +44,13 @@ public enum roomType {
     };
 
         public static roomType toEnum(String str){
-            str=str.toUpperCase();
-            if(str==APARTMENT.toString()){
+            if(str.equals("APARTMENT")){
                 return APARTMENT;
-            }else if(str==SINGLE.toString()){
+            }else if(str.equals("Single")){
                 return SINGLE;
-            }else if(str==DOUBLE.toString()){
+            }else if(str.equals("Double")){
                 return DOUBLE;
-            }else if(str==TRIPLE.toString()){
+            }else if(str.equals("Triple")){
                 return TRIPLE;
             }
             return null;

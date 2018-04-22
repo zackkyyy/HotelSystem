@@ -154,14 +154,17 @@ public class DBParser {
      * @return  @enum roomType
      */
     private roomType toRoomType(String room_type) {
-        if (room_type.equals("single")){
+        if (room_type.equals("Single")){
             return roomType.SINGLE;
-        }else  if(room_type.contains("triple")){
+        }else  if(room_type.contains("Triple")){
             return roomType.TRIPLE;
         }else  if(room_type.contains("Double")){
             return roomType.DOUBLE;
         }else  if(room_type.contains("Apartment")){
             return roomType.APARTMENT;
+        }
+        else if (room_type.equals("")){
+            return null;
         }
         else return null;
 
@@ -250,7 +253,7 @@ public class DBParser {
                 roomType roomType = toRoomType(doc.getString("room type"));
                 boolean booked = doc.getBoolean("is booked");
                 int roomNr = doc.getInteger("room nr");
-                int price = doc.getInteger("price");
+                Double price = doc.getDouble("price");
                 city city = toCity(doc.getString("city"));
                 Room room = new Room(roomType, booked, roomNr, price, city);
                 listOfRooms.add(room);
@@ -277,7 +280,7 @@ public class DBParser {
         roomType roomType = toRoomType(doc.getString("room type"));
         boolean booked =doc.getBoolean("is booked");
         int roomNr =doc.getInteger("room nr");
-        int price =doc.getInteger("price");
+        Double price =doc.getDouble("price");
         city city = toCity(doc.getString("city"));
         Room room1 = new Room(roomType, booked, roomNr, price, city);
         return room1;
@@ -305,12 +308,20 @@ public class DBParser {
         }
         rooms.updateOne(eq("_id", objectId), new Document("$set",
                 new Document("room nr", temporaryRoom.getRoomNr())
-                        .append("room type", temporaryRoom.getRoomType())
+                        .append("room type", temporaryRoom.getRoomType().toString())
                         .append("price", temporaryRoom.getPrice())
-                        .append("city", temporaryRoom.getCity())));
+                        .append("city", temporaryRoom.getCity().toString())));
 
     }
 
+    public void refreshRoomStatue(Room room){
+            rooms.updateOne(eq("room nr", room.getRoomNr() ), new Document("$set",
+                    new Document("room nr", room.getRoomNr())
+                            .append("room type", room.getRoomType().toString())
+                            .append("price", room.getPrice())
+                            .append("is booked", room.isBooked())
+                            .append("city", room.getCity().toString())));
+        }
 
 
     public Object[] getUserNames(DataBase db) {
@@ -394,4 +405,17 @@ public class DBParser {
 
 
     }
+
+    public void createNewRoom(Room room, DataBase db) {
+        db = new DataBase();
+        rooms =db.getRoomsColl();
+        doc = new Document("room nr" , room.getRoomNr())
+                .append("room type", room.getRoomType().toString())
+                .append("price",room.getPrice())
+                .append("is booked",false)
+                .append("city",room.getCity().toString());
+
+        rooms.insertOne(doc);
+    }
+
 }

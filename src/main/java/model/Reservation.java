@@ -18,14 +18,14 @@ import java.time.LocalDate;
     private ObjectId guest;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
-    private int price;
+    private Double price;
     private Boolean checkedIn;
 
     public Reservation(){
 
     }
 
-    public Reservation(ObjectId room, ObjectId guest, LocalDate arrivalDate, LocalDate departureDate, int price, Boolean checkedIn) {
+    public Reservation(ObjectId room, ObjectId guest, LocalDate arrivalDate, LocalDate departureDate, Double price, Boolean checkedIn) {
         this.room = room;
         this.guest = guest;
         this.arrivalDate = arrivalDate;
@@ -66,11 +66,11 @@ import java.time.LocalDate;
         this.departureDate = departureDate;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

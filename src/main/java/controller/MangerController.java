@@ -4,12 +4,12 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
-import model.DataBase;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import model.DataBase;
 import model.Room;
 import model.User;
 import org.bson.Document;
@@ -161,7 +161,7 @@ public class MangerController {
                     // fill the fields by getting information from the database
                     roomNr.setText(String.valueOf(doc.getInteger("room nr")));
                     roomType.setText(doc.getString("room type"));
-                    price.setText(String.valueOf(doc.getInteger("price")));
+                    price.setText(String.valueOf(doc.getDouble("price")));
                     city.setText(doc.getString("city"));
                 }
 
@@ -215,7 +215,7 @@ public class MangerController {
 
             temporaryRoom.setRoomType(model.enums.roomType.toEnum(roomType.getText()));
             temporaryRoom.setCity(model.enums.city.toEnum(city.getText()));
-            temporaryRoom.setPrice(Integer.parseInt(price.getText()));
+            temporaryRoom.setPrice(Double.valueOf(price.getText()));
             temporaryRoom.setRoomNr(Integer.parseInt(roomNr.getText()));
                 roomController = new DBParser();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -230,6 +230,19 @@ public class MangerController {
 
         }
 
+    }
+    public void addRoom(){
+        db=new DataBase();
+        roomController= new DBParser();
+        Room room = new Room();
+        room.setRoomNr((Integer.parseInt(roomNr.getText())));
+        room.setPrice(Double.valueOf(price.getText()));
+        room.setCity(model.enums.city.toEnum(city.getText()));
+        room.setRoomType(model.enums.roomType.toEnum(roomType.getText()));
+        roomController.createNewRoom(room, db);
+        roomList.getItems().remove(0,roomList.getItems().size());
+
+        getDataFromDB();
     }
 
     public void addUser (){

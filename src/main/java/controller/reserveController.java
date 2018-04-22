@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -49,13 +50,16 @@ import java.util.ResourceBundle;
 public class reserveController implements Initializable {
 
     @FXML
-    private VBox Vbox;
+    private Pane pane;
+    @FXML
+    private VBox VBox;
     @FXML
     private TabPane tabPane;
     @FXML
     private JFXButton removeCitySearch ,removeTypeSearch;
     @FXML
-    private JFXTextField nights ,rooms ,search , searchRoom , name , lastName, address, phoneNr,identityNr,creditCard;
+    private JFXTextField nights ,rooms ,search , searchRoom , name , lastName,
+            address, phoneNr,identityNr,creditCard,totalPrice,totalPrice1,totalPrice2;
     @FXML
     private JFXDatePicker checkOutField, checkInField;
     @FXML
@@ -173,6 +177,7 @@ public class reserveController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        errorMsg.setVisible(false);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         checkInField.setValue(LocalDate.now());
         checkOutField.setValue(LocalDate.now().plusDays(1));
@@ -268,31 +273,35 @@ public class reserveController implements Initializable {
     public void moveToNextTap()
     {
         if (tabPane.getSelectionModel().isSelected(1)){
-            customer = getCustomer();
-            gstName.setText(customer.getName()+" "+customer.getLastName());
-            gstCredit.setText(customer.getCreditCard());
-            gstID.setText(customer.getIdentityNr());
-            gstPhone.setText(customer.getPhoneNr());
-            gstCredit.setText(customer.getCreditCard());
-            tabPane.getSelectionModel().selectNext();
-           // if(gst!=null){
 
-            //}
-            //else {
-              //  System.out.println("choose a guest");
-            //}
+            customer = getCustomer();
+            if(customer!=null){
+                gstName.setText(customer.getName()+" "+customer.getLastName());
+                gstCredit.setText(customer.getCreditCard());
+                gstID.setText(customer.getIdentityNr());
+                gstPhone.setText(customer.getPhoneNr());
+                gstCredit.setText(customer.getCreditCard());
+                tabPane.getSelectionModel().selectNext();
+                arrDate.setText(checkInField.getValue().toString());
+                depDate.setText(checkOutField.getValue().toString());
+            }else {
+                System.out.println("no customer chosen");
+            }
         }
         if (tabPane.getSelectionModel().isSelected(0)){
             if(Integer.parseInt(roomsNumber.getText())== table.getSelectionModel().getSelectedItems().size()) {
                 bookedRoom = table.getSelectionModel().getSelectedItems();
                 for (int i = 0; i < bookedRoom.size(); i++) {
                     String s= bookedRoom.get(i).getRoomNr() + " ";
-                    String city=bookedRoom.get(i).getStringCity();
-                    String type = bookedRoom.get(i).getRoomType().toString();
+                    String city= bookedRoom.get(i).getStringCity();
                     romNr.setText(s);
                     romCity.setText(city);
-                    romType.setText(type);
                     gstNr.setText(personsNumber.getText());
+                    Double total =bookedRoom.get(i).getPrice() * Integer.parseInt( nights.getText());
+                    totalPrice.setText(String.valueOf(total));
+                    totalPrice1.setText(String.valueOf(total));
+                    totalPrice2.setText(String.valueOf(total));
+
                 }
 
                 errorLabel.setVisible(false);
@@ -316,6 +325,7 @@ public class reserveController implements Initializable {
 
     public void moveToPreviousTap(){
         tabPane.getSelectionModel().selectPrevious();
+        errorMsg.setVisible(false);
     }
     public void autoCompletation(){
         db = new DataBase();
@@ -440,33 +450,45 @@ public class reserveController implements Initializable {
         }
     }
 
-    public Guest getCustomer() {
-        // TODO fix Error when search is not to be used
-        Guest gst= new Guest();
+    public Guest getCustomerFromSearch() {
+        Guest gst=null;
         String ss = search.getText();
         ArrayList<Guest> guests = dbParser.getGuestsInArray();
-
             for (int i = 0; i < guests.size() ; i++) {
-                if (((guests.get(i).getName() + " " + guests.get(i).getLastName()).equals(ss))) {
-                    gst = guests.get(i);
-                }else {
+                if (!((guests.get(i).getName() + " " + guests.get(i).getLastName()).equals(ss))) {
                     search.setText("");
                     errorMsg.setText("wrong name");
+                    errorMsg.setVisible(true);
+                }else {
+                    gst = guests.get(i);
                 }
             }
 
         return gst;
     }
 
+    public Guest getCustomer(){
+        Guest gst;
+        if (!search.getText().equals("")){
+            gst=getCustomerFromSearch();
+            System.out.println("Customer found in list");
+        }else {
+            gst=saveNewCustomer();
+            System.out.println("Customer is created");
+        }
+        return gst;
+    }
 
     public Guest saveNewCustomer(){
-            if(checkFields()) {
-                Guest gst = new Guest(name.getText(), lastName.getText(), address.getText(), phoneNr.getText(), creditCard.getText(), identityNr.getText());
+        Guest gst = null;
+        if(!checkFields()) {
+                errorMsg.setVisible(true);
+            }else {
+              gst  = new Guest(name.getText(), lastName.getText(), address.getText(), phoneNr.getText(), creditCard.getText(), identityNr.getText());
                 dbParser.createNewGuest(gst, db);
-                return gst;
             }
-        errorMsg.setVisible(true);
-         return   saveNewCustomer();
+            return gst;
+
     }
 
     public boolean checkFields(){
@@ -506,7 +528,7 @@ public class reserveController implements Initializable {
 
 
 
-    public void createReservation(ActionEvent actionEvent) {
+    public void createReservation(ActionEvent actionEvent) throws InterruptedException {
         //TODO reservation Confirmation
         Reservation reservation = new Reservation();
         ObjectId guestID=dbParser.getGuestID(customer);
@@ -517,6 +539,8 @@ public class reserveController implements Initializable {
         reservation.setDepartureDate(checkOutField.getValue());
         reservation.setCheckedIn(false);
         reservation.setPrice(bookedRoom.get(0).getPrice());
+        bookedRoom.get(0).setBooked(true);
+        dbParser.refreshRoomStatue(bookedRoom.get(0));
         dbParser.saveReservationToDB(reservation);
 
     }
