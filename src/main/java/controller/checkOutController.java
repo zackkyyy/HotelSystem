@@ -13,7 +13,7 @@ import java.io.IOException;
  * This class is the controller for the check out window. All functions
  * in the check out will be handled here
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-03-29
  * @Project : HotelSystem
  */

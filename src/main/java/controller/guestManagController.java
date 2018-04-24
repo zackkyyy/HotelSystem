@@ -33,11 +33,12 @@ import java.util.ResourceBundle;
  * This class is the controller for the guest Management window.
  * All functions for the guest managing will be handled here
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-03-29
  * @Project : HotelSystem
  */
 public class guestManagController implements Initializable {
+
     @FXML
     private JFXListView list;
     @FXML
@@ -95,10 +96,9 @@ public class guestManagController implements Initializable {
      * This method is called when ever a guest is deleted from the list.
      * It delete the chosen guest from the text file which is used as database
      *
-     * @throws IOException
      */
 
-    public void deleteFromList(ActionEvent e) throws IOException {
+    public void deleteFromList(ActionEvent e) {
         persons=db.getPersonsCollection();
         String selected = list.getSelectionModel().getSelectedItem().toString();
         cursor = persons.find().iterator();
@@ -161,9 +161,8 @@ public class guestManagController implements Initializable {
      * A method to let the clerk edit the guest information from the guest management window
      * It gets the information from the textfield and save it to the guest information
      *
-     * @throws IOException
      */
-    public void editGuestInfo() throws IOException, ParseException {
+    public void editGuestInfo() throws ParseException {
         Object selectedItem = list.getSelectionModel().getSelectedItem();
         Guest temporaryGst = new Guest();
         db = new DataBase();

@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-10
  * @Project : HotelSystem
  */

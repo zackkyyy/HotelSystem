@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-13
  * @Project : HotelSystem
  */

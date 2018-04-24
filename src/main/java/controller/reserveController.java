@@ -28,7 +28,6 @@ import model.Guest;
 import model.Reservation;
 import model.Room;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.io.IOException;
@@ -43,7 +42,7 @@ import java.util.ResourceBundle;
  *
  * This class is the controller for the reserve window.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-03-29
  * @Project : HotelSystem
  */
@@ -528,11 +527,11 @@ public class reserveController implements Initializable {
 
 
 
-    public void createReservation(ActionEvent actionEvent) throws InterruptedException {
+    public void createReservation(ActionEvent actionEvent) {
         //TODO reservation Confirmation
         Reservation reservation = new Reservation();
-        ObjectId guestID=dbParser.getGuestID(customer);
-        ObjectId roomID=dbParser.getRoomID(bookedRoom.get(0));
+        String guestID= customer.getName()+""+customer.getLastName();
+        int roomID=bookedRoom.get(0).getRoomNr();
         reservation.setGuest(guestID);
         reservation.setRoom(roomID);
         reservation.setArrivalDate(checkInField.getValue());

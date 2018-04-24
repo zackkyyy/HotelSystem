@@ -3,7 +3,7 @@ package model;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-16
  * @Project : HotelSystem
  */

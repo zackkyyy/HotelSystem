@@ -21,7 +21,7 @@ import static com.mongodb.client.model.Filters.eq;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-18
  * @Project : HotelSystem
  */
@@ -417,5 +417,35 @@ public class DBParser {
 
         rooms.insertOne(doc);
     }
-
+    public int getRoomNumberByID(ObjectId id){
+        rooms=db.getRoomsColl();
+        cursor=rooms.find().iterator();
+        int roomNr = 0;
+        for (int i = 0; i < rooms.count(); i++) {
+            doc = cursor.next();
+            if (doc.getObjectId("_id").equals(id)){
+                roomNr=doc.getInteger("room nr");
+            }
+        }
+        return roomNr;
+    }
+        public ArrayList<Reservation> getAllReservations() {
+            db= new DataBase();
+            reservations=db.getReservationsCollection();
+            cursor = reservations.find().iterator();
+            ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
+            Reservation reservation ;
+            for (int i = 0; i < reservations.count(); i++) {
+                doc = cursor.next();
+               LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+               LocalDate departureDate =doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Double price =doc.getDouble("price");
+                int roomID =doc.getInteger("room");
+                String guestID =doc.getString("guest");
+                reservation= new Reservation( roomID,  guestID,  arrivalDate,  departureDate,  price);
+                listOfReservation.add(reservation);
+                System.out.println(reservation.toString());
+            }
+            return listOfReservation;
+    }
 }
