@@ -530,7 +530,7 @@ public class reserveController implements Initializable {
     public void createReservation(ActionEvent actionEvent) {
         //TODO reservation Confirmation
         Reservation reservation = new Reservation();
-        String guestID= customer.getName()+""+customer.getLastName();
+        String guestID= customer.getName()+" "+customer.getLastName();
         int roomID=bookedRoom.get(0).getRoomNr();
         reservation.setGuest(guestID);
         reservation.setRoom(roomID);

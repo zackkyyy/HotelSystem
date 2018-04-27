@@ -437,15 +437,15 @@ public class DBParser {
             Reservation reservation ;
             for (int i = 0; i < reservations.count(); i++) {
                 doc = cursor.next();
-               LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-               LocalDate departureDate =doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                Double price =doc.getDouble("price");
-                int roomID =doc.getInteger("room");
-                String guestID =doc.getString("guest");
-                reservation= new Reservation( roomID,  guestID,  arrivalDate,  departureDate,  price);
-                listOfReservation.add(reservation);
-                System.out.println(reservation.toString());
-            }
+                    LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    Double price = doc.getDouble("price");
+                    int roomID = doc.getInteger("room");
+                    String guestID = doc.getString("guest");
+                    reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+                    listOfReservation.add(reservation);
+                    System.out.println(reservation.toString());
+                }
             return listOfReservation;
     }
 }
