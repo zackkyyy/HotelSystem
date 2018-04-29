@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
     <children>
@@ -12,16 +19,6 @@
             <right>
                 <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
             </right>
-            <center>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check IN" BorderPane.alignment="CENTER">
-                    <font>
-                        <Font size="48.0" />
-                    </font>
-                    <BorderPane.margin>
-                        <Insets left="250.0" top="-400.0" />
-                    </BorderPane.margin>
-                </Text>
-            </center>
             <top>
                 <VBox BorderPane.alignment="CENTER">
                     <children>
@@ -87,6 +84,48 @@
                     </children>
                 </VBox>
             </top>
+         <bottom>
+            <VBox maxWidth="300.0" prefHeight="44.0" prefWidth="50.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="50.0" />
+               </BorderPane.margin>
+               <children>
+                  <JFXDatePicker fx:id="date" onAction="#getReservation" prefHeight="44.0" prefWidth="271.0" />
+                  <HBox>
+                     <children>
+                        <JFXButton fx:id="prevBut" onAction="#prevDay" text="&lt;&lt;">
+                           <font>
+                              <Font name="Apple SD GothicNeo ExtraBold" size="21.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="nextBut" onAction="#nextDay" text="&gt;&gt;">
+                           <font>
+                              <Font name="Apple SD GothicNeo ExtraBold" size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </bottom>
+         <left>
+            <TableView fx:id="table" maxHeight="300.0" prefHeight="300.0" prefWidth="602.0" stylesheets="@css/reservePage.css" BorderPane.alignment="CENTER">
+               <columns>
+                  <TableColumn fx:id="roomCol" prefWidth="59.15901726484299" text="Room " />
+                  <TableColumn fx:id="guestCol" prefWidth="137.9812889099121" text="Guest " />
+                  <TableColumn fx:id="arrivalCol" prefWidth="117.32115173339844" text="Arrival" />
+                  <TableColumn fx:id="departCol" prefWidth="109.35543823242188" text="Departure" />
+                  <TableColumn fx:id="cityCol" prefWidth="75.49578857421875" text="City" />
+                  <TableColumn fx:id="priceCol" prefWidth="100.0" text="Price" />
+               </columns>
+            </TableView>
+         </left>
         </BorderPane>
     </children>
 </AnchorPane>
