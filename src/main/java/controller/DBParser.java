@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -435,8 +436,11 @@ public class DBParser {
             cursor = reservations.find().iterator();
             ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
             Reservation reservation ;
+            System.out.println(Integer.parseInt(Year.now().toString()+""));
             for (int i = 0; i < reservations.count(); i++) {
                 doc = cursor.next();
+                    System.out.println(doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+
                     LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     Double price = doc.getDouble("price");
@@ -447,5 +451,31 @@ public class DBParser {
                     System.out.println(reservation.toString());
                 }
             return listOfReservation;
+    }
+
+    public ArrayList<Reservation> getReservationByDate(LocalDate date) {
+
+        Date d =Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        db= new DataBase();
+        reservations=db.getReservationsCollection();
+        cursor = reservations.find().iterator();
+        ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
+        Reservation reservation ;
+        System.out.println();
+        for (int i = 0; i < reservations.count(); i++) {
+            doc = cursor.next();
+            if(doc.getDate("arrival").equals(d)){
+                LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Double price = doc.getDouble("price");
+                int roomID = doc.getInteger("room");
+                String guestID = doc.getString("guest");
+                reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+                listOfReservation.add(reservation);
+                System.out.println(reservation.toString());
+            }
+
+        }
+        return listOfReservation;
     }
 }
