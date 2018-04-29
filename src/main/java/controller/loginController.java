@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Created by zack on 2018-03-29.
+ * @Author: Zacky Kharboutli
+ * @Date: 2018-03-29
+ * @Project : HotelSystem
  */
 public class loginController {
     @FXML
@@ -31,7 +33,7 @@ public class loginController {
     public loginController() {
     }
 
-    public boolean checkForLogIn() throws IOException {
+    public boolean checkForLogIn() {
         DBParser userController = new DBParser();
         if(userController.validateLogging(user.getText() , pass.getText())){
             return true;

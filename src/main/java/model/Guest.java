@@ -3,8 +3,10 @@ package model;
 import java.time.LocalDate;
 
 /**
- * Created by zack on 2018-03-31.
- */
+ * @Author: Zacky Kharboutli
+ * @Date: 2018-03-31
+ * @Project : HotelSystem
+ * */
 public class Guest {
 
     String name;

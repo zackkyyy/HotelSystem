@@ -5,11 +5,15 @@ import com.jfoenix.controls.JFXTextField;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import model.DataBase;
+import model.Reservation;
 import model.Room;
 import model.User;
 import org.bson.Document;
@@ -19,7 +23,7 @@ import java.util.Optional;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-16
  * @Project : HotelSystem
  */
@@ -38,8 +42,14 @@ public class MangerController {
     private JFXTextField password, userName ,userLastName  ,UserFirstName , roomType , price , roomNr , city ;
     @FXML
     private Label errorLabel;
+    @FXML
+    private TableColumn<model.Reservation, Integer> arrivalCol,departCol,priceCol,guestCol,roomCol;
+    @FXML
+    private TableView table;
     private DataBase db;
-    private DBParser userController;
+    private ObservableList<Reservation> listOfReservations;
+
+    private DBParser userController,dbParser;
     private DBParser roomController;
     private MongoCollection users , rooms;
     private Document doc;
@@ -47,17 +57,32 @@ public class MangerController {
     private String errMsg;
 
 
-
+    /**
+     * move to the user management tab as in the fx file the pages are tabs
+     *
+     */
     public void goToUserTab()   {
         tabPane1.getSelectionModel().select(userTab);
         getDataFromDB();
     }
+    /**
+     * move to the room management tab as in the fx file the pages are tabs
+     *
+     */
     public void goToRoomTab()   {
         tabPane1.getSelectionModel().select(roomTab);
         getDataFromDB();
+        roomList.getItems().sorted();
     }
 
-
+    public void goToReservationTab()   {
+        tabPane1.getSelectionModel().selectLast();
+        addReservationsToTable();
+    }
+    /**
+     * Method to fill the list of users or rooms from the database
+     * it calls @getUserNames and @getArrayOfRooms from DBParser
+     */
     private void getDataFromDB() {
         db = new DataBase();
         userController =new DBParser();
@@ -74,10 +99,17 @@ public class MangerController {
                 roomList.getItems().sorted();
             }
         }
+        else if (tabPane1.getSelectionModel().isSelected(3)){
+
+        }
     }
 
-
-
+    /**
+     *  Method for deleting a room or user from the list when the manager logs in
+     *
+     * @param actionEvent
+     *                  any actions performed on delete button
+     */
     public void deleteFromList(ActionEvent actionEvent) {
         if(tabPane1.getSelectionModel().isSelected(1)) {
             errorLabel.setVisible(false);
@@ -128,6 +160,11 @@ public class MangerController {
 
     }
 
+    /**
+     * Method that fills the information of the object choosen in the list
+     * of users or room into the corresponding fields
+     * @param mouseEvent
+     */
     public void fillFields(MouseEvent mouseEvent) {
         if(tabPane1.getSelectionModel().isSelected(1)) {
             errorLabel.setVisible(false);
@@ -171,6 +208,9 @@ public class MangerController {
 
     }
 
+    /**
+     * cancel all the changes have been made on the fields if save is not pressed
+     */
     private void cancelAllEdited() {
         errorLabel.setVisible(false);
         UserFirstName.cancelEdit();
@@ -179,6 +219,11 @@ public class MangerController {
         userLastName.cancelEdit();
     }
 
+    /**
+     * Method to be peroformed when the manager changes something about a user or a room
+     * it takes the information from the fields and edit the corresponding file in the database
+     * @param actionEvent
+     */
     public void editUserInfo(ActionEvent actionEvent) {
         if (tabPane1.getSelectionModel().isSelected(1)){
             Object selectedItem = userList.getSelectionModel().getSelectedItem();
@@ -207,7 +252,6 @@ public class MangerController {
                 }
             }
         }else if (tabPane1.getSelectionModel().isSelected(2)){
-            //TODO fix the enum translation problem in room editing
             String selectedItem = roomList.getSelectionModel().getSelectedItem().toString();
             Room temporaryRoom = new Room();
             db = new DataBase();
@@ -231,20 +275,31 @@ public class MangerController {
         }
 
     }
+
+    /**
+     * Method that adds room in the database according to the information entered by the manager
+     */
     public void addRoom(){
         db=new DataBase();
         roomController= new DBParser();
         Room room = new Room();
-        room.setRoomNr((Integer.parseInt(roomNr.getText())));
-        room.setPrice(Double.valueOf(price.getText()));
-        room.setCity(model.enums.city.toEnum(city.getText()));
-        room.setRoomType(model.enums.roomType.toEnum(roomType.getText()));
-        roomController.createNewRoom(room, db);
-        roomList.getItems().remove(0,roomList.getItems().size());
-
-        getDataFromDB();
+        if(checkForEmptyFields()) {
+            // rooms
+            room.setRoomNr((Integer.parseInt(roomNr.getText())));
+            room.setPrice(Double.valueOf(price.getText()));
+            room.setCity(model.enums.city.toEnum(city.getText()));
+            room.setRoomType(model.enums.roomType.toEnum(roomType.getText()));
+            roomController.createNewRoom(room, db);
+            roomList.getItems().remove(0, roomList.getItems().size());
+            getDataFromDB();
+        }else{
+            System.out.println("something wrong");
+        }
     }
 
+    /**
+     * Method to add users
+     */
     public void addUser (){
         db=new DataBase();
         userController=new DBParser();
@@ -273,8 +328,38 @@ public class MangerController {
         userLastName.clear();
     }
 
+    /**
+     * Validate the fields when the manager tries to add room
+     * Fields should not be empty and validate if the room is already exist
+     *
+     * @return
+     *         true/false
+     */
+    public boolean checkForEmptyFields(){
+        if (roomNr.getText().isEmpty() || city.getText().isEmpty()
+                ||price.getText().isEmpty() || roomType.getText().isEmpty()){
+            System.out.println("room nr is empty");
+            return false;
+        }
+        for (int i =0 ; i<roomList.getItems().size(); i++){
+            if (roomList.getItems().get(i).toString().contains(roomNr.getText()+"    "+city.getText())){
+                System.out.println("it is exist");
+                return false;
+                }
+        }
+
+        return true;
+
+    }
+
+    /**
+     * validate the fields of new user when the manger tries to add a new user
+     *
+     * @return
+     *        true/false
+     *        generate an error message to be shown on the screen
+     */
     private boolean checkFields() {
-        //TODO   check if user is already exist
         if (UserFirstName.getText().isEmpty()  ) {
             errMsg = "The name field is empty";
             return false;
@@ -298,7 +383,27 @@ public class MangerController {
             return false;
 
         }
+        for (int i=0 ;i<userList.getItems().size();i++){
+            if (userList.getItems().get(i).toString().equals(UserFirstName.getText()+" "+userLastName.getText())){
+            errMsg="user is already exist";
+            return false;
+            }
+        }
+
+
         return true;
+    }
+    public void addReservationsToTable(){
+        dbParser =new DBParser();
+        table.getItems().remove(0,table.getItems().size());
+        listOfReservations= FXCollections.observableArrayList(dbParser.getAllReservations());
+        table.setItems(listOfReservations);
+
+        arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("arrivalDate"));
+        departCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("departureDate"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("price"));
+        guestCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("guest"));
+        roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
     }
 
 }

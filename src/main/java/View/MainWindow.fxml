@@ -15,7 +15,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -697,7 +696,7 @@
                               </VBox>
                            </left>
                            <right>
-                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-background-color: &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;?import javafx.scene.shape.Rectangle?&gt;&lt;Rectangle arcHeight=&quot;5.0&quot; arcWidth=&quot;5.0&quot; fill=&quot;#ff9000&quot; height=&quot;60.0&quot; layoutY=&quot;50.0&quot; rotate=&quot;-10.0&quot; stroke=&quot;TRANSPARENT&quot; strokeType=&quot;INSIDE&quot; width=&quot;1023.0&quot; xmlns=&quot;http://javafx.com/javafx/8.0.111&quot; xmlns:fx=&quot;http://javafx.com/fxml/1&quot; /&gt;;" BorderPane.alignment="CENTER">
+                              <VBox maxHeight="233.0" maxWidth="217.0" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
                                        <VBox.margin>

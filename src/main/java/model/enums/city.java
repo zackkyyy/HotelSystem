@@ -3,7 +3,7 @@ package model.enums;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-14
  * @Project : HotelSystem
  */

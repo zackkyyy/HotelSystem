@@ -1,21 +1,19 @@
 package model;
 
-import org.bson.types.ObjectId;
-
 import java.time.LocalDate;
 
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * @Author: Zacky Kharboutli
  * @Date: 2018-04-13
  * @Project : HotelSystem
  */
 
 
     public class Reservation {
-    private ObjectId room;
-    private ObjectId guest;
+    private int room;
+    private String guest;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private Double price;
@@ -25,7 +23,7 @@ import java.time.LocalDate;
 
     }
 
-    public Reservation(ObjectId room, ObjectId guest, LocalDate arrivalDate, LocalDate departureDate, Double price, Boolean checkedIn) {
+    public Reservation(int room, String guest, LocalDate arrivalDate, LocalDate departureDate, Double price, Boolean checkedIn) {
         this.room = room;
         this.guest = guest;
         this.arrivalDate = arrivalDate;
@@ -34,19 +32,27 @@ import java.time.LocalDate;
         this.checkedIn = checkedIn;
     }
 
-    public ObjectId getRoom() {
+    public Reservation(int roomID, String guestID, LocalDate arrivalDate, LocalDate departureDate, Double price) {
+        this.room = roomID;
+        this.guest = guestID;
+        this.arrivalDate = arrivalDate;
+        this.departureDate = departureDate;
+        this.price = price;
+    }
+
+    public int getRoom() {
         return room;
     }
 
-    public void setRoom(ObjectId room) {
+    public void setRoom(int room) {
         this.room = room;
     }
 
-    public ObjectId getGuest() {
+    public String getGuest() {
         return guest;
     }
 
-    public void setGuest(ObjectId guest) {
+    public void setGuest(String guest) {
         this.guest = guest;
     }
 
@@ -76,6 +82,17 @@ import java.time.LocalDate;
 
     public Boolean getCheckedIn() {
         return checkedIn;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "room=" + room +
+                ", guest=" + guest +
+                ", arrivalDate=" + arrivalDate +
+                ", departureDate=" + departureDate +
+                ", price=" + price +
+                '}';
     }
 
     public void setCheckedIn(Boolean checkedIn) {
