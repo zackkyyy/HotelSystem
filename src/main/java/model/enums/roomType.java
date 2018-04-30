@@ -44,7 +44,7 @@ public enum roomType {
     };
 
         public static roomType toEnum(String str){
-            if(str.equals("APARTMENT")){
+            if(str.equals("Apartment")){
                 return APARTMENT;
             }else if(str.equals("Single")){
                 return SINGLE;
