@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +19,9 @@ import model.Room;
 import model.User;
 import org.bson.Document;
 
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,7 +32,7 @@ import java.util.Optional;
  */
 
 
-public class MangerController {
+public class MangerController implements Initializable {
     @FXML
     FontAwesomeIconView addUserButton;
     @FXML
@@ -39,7 +42,11 @@ public class MangerController {
     @FXML
     private JFXListView userList , roomList;
     @FXML
-    private JFXTextField password, userName ,userLastName  ,UserFirstName , roomType , price , roomNr , city ;
+    private JFXTextField password, userName ,userLastName  ,UserFirstName ,  price , roomNr;
+    @FXML
+    private MenuButton roomType, city;
+    @FXML
+    private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem;
     @FXML
     private Label errorLabel;
     @FXML
@@ -56,6 +63,32 @@ public class MangerController {
     private MongoCursor<Document> cursor;
     private String errMsg;
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		växjöItem.setOnAction(event1 -> {
+            city.setText("Växjö");
+        });
+		
+		kalmarItem.setOnAction(event1 -> {
+            city.setText("Kalmar");
+        });
+		
+		singleItem.setOnAction(event1 -> {
+            roomType.setText("Single");
+        });
+		
+		doubleItem.setOnAction(event1 -> {
+			roomType.setText("Double");
+        });
+		
+		tripleItem.setOnAction(event1 -> {
+			roomType.setText("Triple");
+        });
+		
+		apartmentItem.setOnAction(event1 -> {
+			roomType.setText("Apartment");
+        });	
+	}
 
     /**
      * move to the user management tab as in the fx file the pages are tabs
@@ -405,5 +438,6 @@ public class MangerController {
         guestCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("guest"));
         roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
     }
+
 
 }

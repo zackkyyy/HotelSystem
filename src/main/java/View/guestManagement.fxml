@@ -15,47 +15,59 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.guestManagController">
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #fff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
             <AnchorPane>
                <children>
-                  <HBox layoutY="9.0" prefHeight="41.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox layoutY="9.0" prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fill="WHITE" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+                        <Text fill="#4d4d4d" fontSmoothingType="LCD" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
                            <font>
-                              <Font name="Brush Script MT Italic" size="18.0" />
+                              <Font name="Brush Script MT Italic" size="35.0" />
                            </font>
                            <HBox.margin>
-                              <Insets left="20.0" top="15.0" />
+                              <Insets left="20.0" top="5.0" />
                            </HBox.margin>
                         </Text>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ShowMainPage" prefHeight="58.0" prefWidth="140.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#ShowMainPage" prefHeight="52.0" prefWidth="150.0" style="-jfx-disable-visual-focus: true;" text="Reserve">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets left="35.0" />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </JFXButton>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#showCheckInWindow" prefHeight="58.0" prefWidth="140.0" text="Check-in">
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#showCheckInWindow" prefHeight="52.0" prefWidth="150.0" text="Check-in">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </JFXButton>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#showCheckOutWindow" prefHeight="58.0" prefWidth="140.0" text="Check-out">
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" onAction="#showCheckOutWindow" prefHeight="52.0" prefWidth="150.0" text="Check-out">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </JFXButton>
-                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="58.0" prefWidth="140.0" style="-fx-background-color: #fcb26c;" text="Guest Info">
+                        <JFXButton maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="52.0" prefWidth="150.0" style="-fx-background-color: #fcb26c;" text="Guest Info">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets />
                            </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </JFXButton>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="52.0" prefWidth="124.0">
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="52.0" prefWidth="124.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
                                  <VBox.margin>
-                                    <Insets left="20.0" top="10.0" />
+                                    <Insets />
                                  </VBox.margin>
                                  <font>
                                     <Font size="12.0" />
@@ -63,12 +75,12 @@
                               </Text>
                               <Button fx:id="button" mnemonicParsing="false" prefHeight="20.0" prefWidth="80.0" text="Log Out">
                                  <VBox.margin>
-                                    <Insets left="10.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </Button>
                            </children>
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets left="40.0" />
                            </HBox.margin>
                         </VBox>
                      </children>
@@ -119,7 +131,7 @@
                <children>
                   <JFXButton cache="true" cacheHint="QUALITY" cacheShape="false" centerShape="false" contentDisplay="TOP" focusTraversable="false" graphicTextGap="0.0" layoutX="584.0" layoutY="558.0" maxHeight="70.0" maxWidth="100.0" minHeight="70.0" minWidth="100.0" onAction="#AddGuest" prefHeight="70.0" prefWidth="100.0" scaleShape="false" text="." AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="22.0">
                      <graphic>
-                        <FontAwesomeIconView fill="#ff5e00" fontSmoothingType="LCD" glyphName="PLUS" onMouseClicked="#AddGuest" size="60" smooth="false" strikethrough="true" textAlignment="CENTER" wrappingWidth="81.11417007446289" />
+                        <FontAwesomeIconView fill="#fe9939" fontSmoothingType="LCD" glyphName="PLUS" onMouseClicked="#AddGuest" size="60" smooth="false" strikethrough="true" textAlignment="CENTER" wrappingWidth="81.11417007446289" />
                      </graphic>
                   </JFXButton>
                   <VBox layoutX="37.0" layoutY="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="348.0" prefWidth="656.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
