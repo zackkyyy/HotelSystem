@@ -57,6 +57,8 @@ public class reserveController implements Initializable {
     @FXML
     private JFXButton removeCitySearch ,removeTypeSearch;
     @FXML
+    private Button confirm;
+    @FXML
     private JFXTextField nights ,rooms ,search , searchRoom , name , lastName,
             address, phoneNr,identityNr,creditCard,totalPrice,totalPrice1,totalPrice2;
     @FXML
@@ -326,6 +328,9 @@ public class reserveController implements Initializable {
         tabPane.getSelectionModel().selectPrevious();
         errorMsg.setVisible(false);
     }
+    public void moveToFistTap(){
+        tabPane.getSelectionModel().selectFirst();
+    }
     public void autoCompletation(){
         db = new DataBase();
         persons = db.getPersonsCollection();
@@ -529,6 +534,7 @@ public class reserveController implements Initializable {
 
     public void createReservation(ActionEvent actionEvent) {
         //TODO reservation Confirmation
+
         Reservation reservation = new Reservation();
         String guestID= customer.getName()+" "+customer.getLastName();
         int roomID=bookedRoom.get(0).getRoomNr();
@@ -541,6 +547,9 @@ public class reserveController implements Initializable {
         bookedRoom.get(0).setBooked(true);
         dbParser.refreshRoomStatue(bookedRoom.get(0));
         dbParser.saveReservationToDB(reservation);
+        VBox.setVisible(false);
+        confirm.setVisible(false);
+        pane.setVisible(true);
 
     }
 }

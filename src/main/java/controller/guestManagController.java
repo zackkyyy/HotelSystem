@@ -60,8 +60,11 @@ public class guestManagController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         getGuestFromDb();
-        list.getSelectionModel().selectFirst();
+        if(list.getItems().size()!=0) {
+            list.getSelectionModel().selectFirst();
+
         fillFields();
+    }
     }
 
 
@@ -128,33 +131,37 @@ public class guestManagController implements Initializable {
     public void fillFields() {
         cancelAllEdited();
         persons=db.getPersonsCollection();
-        String selectedItem = list.getSelectionModel().getSelectedItem().toString();
-        System.out.println(selectedItem + " the selected one");
-        cursor = persons.find().iterator();
-        for (int i = 0; i < persons.count(); i++) {
-            doc = cursor.next();
-            if (selectedItem.contains(doc.getString("name") + " " + doc.getString("last name"))
-                    && selectedItem.length() == doc.getString("name").length() + doc.getString("last name").length() + 1) {
-                // fill the fields by getting information from the database
-                idField.setText("" + doc.getObjectId("_id"));
-                name.setText(doc.getString("name"));
-                lastName.setText(doc.getString("last name"));
-                phoneNr.setText(doc.getString("phone nr"));
-                address.setText(doc.getString("address"));
-                identityNr.setText(doc.getString("identity nr"));
-                notes.setText(doc.getString("notes"));
-                credit.setText(doc.getString("credit card"));
-                if (doc.getDate("birthday")==null){
-                    birthday.setValue(LocalDate.now());
-                }else {
-                    birthday.setValue(doc.getDate("birthday").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        if (list.getItems().size()!=0) {
+            String selectedItem = list.getSelectionModel().getSelectedItem().toString();
+            System.out.println(selectedItem + " the selected one");
+            cursor = persons.find().iterator();
+            for (int i = 0; i < persons.count(); i++) {
+                doc = cursor.next();
+                if (selectedItem.contains(doc.getString("name") + " " + doc.getString("last name"))
+                        && selectedItem.length() == doc.getString("name").length() + doc.getString("last name").length() + 1) {
+                    // fill the fields by getting information from the database
+                    idField.setText("" + doc.getObjectId("_id"));
+                    name.setText(doc.getString("name"));
+                    lastName.setText(doc.getString("last name"));
+                    phoneNr.setText(doc.getString("phone nr"));
+                    address.setText(doc.getString("address"));
+                    identityNr.setText(doc.getString("identity nr"));
+                    notes.setText(doc.getString("notes"));
+                    credit.setText(doc.getString("credit card"));
+                    if (doc.getDate("birthday") == null) {
+                        birthday.setValue(LocalDate.now());
+                    } else {
+                        birthday.setValue(doc.getDate("birthday").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
+                    }
                 }
+
             }
 
         }
-
-
+        else {
+            System.out.println("the list is empty");
+        }
     }
 
     /**

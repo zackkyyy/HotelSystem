@@ -115,7 +115,7 @@
             </VBox>
          </bottom>
          <left>
-            <TableView fx:id="table" maxHeight="300.0" prefHeight="300.0" prefWidth="602.0" stylesheets="@css/reservePage.css" BorderPane.alignment="CENTER">
+            <TableView fx:id="table" maxHeight="300.0" prefHeight="300.0" prefWidth="602.0" style="-fx-border-color: black;" stylesheets="@css/reservePage.css" BorderPane.alignment="CENTER">
                <columns>
                   <TableColumn fx:id="roomCol" prefWidth="59.15901726484299" text="Room " />
                   <TableColumn fx:id="guestCol" prefWidth="137.9812889099121" text="Guest " />

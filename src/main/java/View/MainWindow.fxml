@@ -784,7 +784,8 @@
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
+                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTap" text="back" />
+                                    <Button fx:id="confirm" mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
                                        <HBox.margin>
                                           <Insets left="700.0" />
                                        </HBox.margin>
@@ -1128,10 +1129,17 @@
                                  </children>
                               </VBox>
                            </right>
-                           <left>
-                              <Button mnemonicParsing="false" onAction="#moveToPreviousTap" text="back" BorderPane.alignment="CENTER" />
-                           </left>
                         </BorderPane>
+                        <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
+                           <children>
+                              <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFistTap" text="Return" />
+                              <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation hase been done successfully ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
                      </children>
                   </AnchorPane>
               </content>
