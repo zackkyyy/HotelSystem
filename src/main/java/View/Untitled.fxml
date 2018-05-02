@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" styleClass="logIN.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" styleClass="logIN.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
    <children>
       <BorderPane prefHeight="623.0" prefWidth="813.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0">
          <right>
@@ -51,7 +51,7 @@
                                           </JFXPasswordField>
                                           <HBox prefHeight="27.0" prefWidth="200.0">
                                              <children>
-                                                <Button layoutX="168.0" layoutY="222.0" mnemonicParsing="false" onAction="#ShowMainPage" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: black; -fx-border-radius: 46; -fx-background-radius: 46; -fx-text-fill: fff; -fx-alignment: center;" styleClass="button_app" text="Log in">
+                                                <Button layoutX="168.0" layoutY="222.0" mnemonicParsing="false" onAction="#showMainPage" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: black; -fx-border-radius: 46; -fx-background-radius: 46; -fx-text-fill: fff; -fx-alignment: center;" styleClass="button_app" text="Log in">
                                                    <HBox.margin>
                                                       <Insets left="14.0" top="20.0" />
                                                    </HBox.margin>
@@ -99,7 +99,7 @@
                                           </JFXPasswordField>
                                           <HBox prefHeight="27.0" prefWidth="200.0">
                                              <children>
-                                                <Button layoutX="168.0" layoutY="222.0" mnemonicParsing="false" onAction="#ShowMainPage" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: black; -fx-border-radius: 46; -fx-background-radius: 46; -fx-text-fill: fff; -fx-alignment: center;" styleClass="button_app" text="Log in">
+                                                <Button layoutX="168.0" layoutY="222.0" mnemonicParsing="false" onAction="#showMainPage" prefHeight="27.0" prefWidth="167.0" style="-fx-background-color: black; -fx-border-radius: 46; -fx-background-radius: 46; -fx-text-fill: fff; -fx-alignment: center;" styleClass="button_app" text="Log in">
                                                    <HBox.margin>
                                                       <Insets left="14.0" top="20.0" />
                                                    </HBox.margin>

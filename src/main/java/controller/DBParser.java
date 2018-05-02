@@ -4,8 +4,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import javafx.collections.ObservableList;
 import model.*;
-import model.enums.city;
-import model.enums.roomType;
+import model.enums.City;
+import model.enums.RoomType;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -36,9 +36,10 @@ public class DBParser {
 	private MongoCollection reservations;
 
 	public void createNewGuest(Guest newGuest , DataBase db) {
-		db= new DataBase();
+		db = new DataBase();
 		doc = new Document();
 		persons = db.getPersonsCollection();
+
 		try {
 			java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(LocalDate.now().toString());
 
@@ -50,11 +51,12 @@ public class DBParser {
 					.append("identity nr", newGuest.getIdentityNr())
 					.append("birthday", date)
 					.append("notes", "");
+
 			persons.insertOne(doc);
-			newGuest.setId(""+doc.getObjectId("_id"));
+			newGuest.setId("" + doc.getObjectId("_id"));
 
 			//  final Node source = (Node) e.getSource();
-		}catch (Exception e){
+		} catch (Exception e){
 			System.out.println(e.getClass().getName() + ": " + e.getMessage());
 			//          display the error message
 			System.out.println("Failed to save");
@@ -65,7 +67,6 @@ public class DBParser {
 	public String [] getGuestNames( DataBase db){
 		persons = db.getPersonsCollection();
 		String [] listOfGuest = new String[(int) persons.count()];
-
 		MongoCursor<Document> cursor = persons.find().iterator();
 
 		for (int i = 0; i < persons.count(); i++) {
@@ -81,12 +82,14 @@ public class DBParser {
 		persons = db.getPersonsCollection();
 		cursor = persons.find().iterator();
 		ObjectId objectId = null;
+
 		for (int i = 0; i < persons.count(); i++) {
 			doc = cursor.next();
 			if (selectedItem.toString().contains(doc.getString("name"))) {
 				objectId = doc.getObjectId("_id");
 			}
 		}
+
 		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(guest.getBirthday().toString());
 		persons.updateOne(eq("_id", objectId), new Document("$set",
 				new Document("last name", guest.getLastName())
@@ -140,11 +143,11 @@ public class DBParser {
 	 * @param city1  a string that refer to the city
 	 * @return  @enum city
 	 */
-	private city toCity(String city1) {
+	private City toCity(String city1) {
 		if (city1.contains("Växjö")){
-			return city.VÄXJÖ;
+			return City.VÄXJÖ;
 		} else if(city1.contains("Kalmar")){
-			return city.KALMAR;
+			return City.KALMAR;
 		} else return null;
 	}
 
@@ -153,15 +156,15 @@ public class DBParser {
 	 * @param room_type  a string that refer to the room type
 	 * @return  @enum roomType
 	 */
-	private roomType toRoomType(String room_type) {
+	private RoomType toRoomType(String room_type) {
 		if (room_type.equals("Single")){
-			return roomType.SINGLE;
+			return RoomType.SINGLE;
 		} else  if(room_type.contains("Triple")){
-			return roomType.TRIPLE;
+			return RoomType.TRIPLE;
 		} else  if(room_type.contains("Double")){
-			return roomType.DOUBLE;
+			return RoomType.DOUBLE;
 		} else  if(room_type.contains("Apartment")){
-			return roomType.APARTMENT;
+			return RoomType.APARTMENT;
 		} else if (room_type.equals("")){
 			return null;
 		} else {
@@ -197,30 +200,25 @@ public class DBParser {
 	 * @return     a new list of room after filtering the old list
 	 */
 	public ArrayList<Room> filterByRoomType(String string, ObservableList<Room> list) {
-
 		ArrayList<Room> listOfRooms = new ArrayList<Room>();
 
 		for (int i = 0; i < list.size(); i++) {
 			if (string.equals("1")) {
 				if (list.get(i).getRoomType().toString().equals("Single")) {
-
 					listOfRooms.add(list.get(i));
 				}
 			} else if (string.equals("2")) {
 				if (list.get(i).getRoomType().toString().equals("Double")) {
-
 					listOfRooms.add(list.get(i));
 				}
 			}
 			else if (string.equals("3")) {
 				if (list.get(i).getRoomType().toString().equals("Triple")) {
-
 					listOfRooms.add(list.get(i));
 				}
 			}
 			else if (string.equals("4")) {
 				if (list.get(i).getRoomType().toString().equals("Apartment")) {
-
 					listOfRooms.add(list.get(i));
 				}
 			}
@@ -243,11 +241,11 @@ public class DBParser {
 		for (int i = 0; i < rooms.count(); i++) {
 			doc = cursor.next();
 			if (!doc.getBoolean("is booked")) {
-				roomType roomType = toRoomType(doc.getString("room type"));
+				RoomType roomType = toRoomType(doc.getString("room type"));
 				boolean booked = doc.getBoolean("is booked");
 				int roomNr = doc.getInteger("room nr");
 				Double price = doc.getDouble("price");
-				city city = toCity(doc.getString("city"));
+				City city = toCity(doc.getString("city"));
 				Room room = new Room(roomType, booked, roomNr, price, city);
 				listOfRooms.add(room);
 			}
@@ -255,14 +253,13 @@ public class DBParser {
 		return listOfRooms;
 	}
 	public ObjectId getRoomID(Room room){
-		ObjectId id =null;
+		ObjectId id = null;
 		rooms = db.getRoomsColl();
 		cursor = rooms.find().iterator();
-		String s = String.valueOf(room.getRoomNr());
 
 		for (int i = 0; i < rooms.count(); i++) {
 			doc = cursor.next();
-			if (doc.getInteger("room nr")==room.getRoomNr() && doc.getString("city").equals(room.getCity().toString()) ){
+			if (doc.getInteger("room nr" )== room.getRoomNr() && doc.getString("city").equals(room.getCity().toString())){
 				id = doc.getObjectId("_id");
 			}
 		}
@@ -270,14 +267,15 @@ public class DBParser {
 	}
 
 	public Room createRoom(Document doc){
-		roomType roomType = toRoomType(doc.getString("room type"));
+		RoomType roomType = toRoomType(doc.getString("room type"));
 		boolean booked = doc.getBoolean("is booked");
 		int roomNr = doc.getInteger("room nr");
 		Double price = doc.getDouble("price");
-		city city = toCity(doc.getString("city"));
+		City city = toCity(doc.getString("city"));
 		Room room1 = new Room(roomType, booked, roomNr, price, city);
 		return room1;
 	}
+	
 	public Object[] getArrayOfRoom(DataBase db) {
 		rooms = db.getRoomsColl();
 		String [] listOfGuest = new String[(int) rooms.count()];
@@ -293,12 +291,14 @@ public class DBParser {
 		ObjectId objectId = null;
 		rooms = db.getRoomsColl();
 		cursor = rooms.find().iterator();
+		
 		for (int i = 0; i < rooms.count(); i++) {
 			doc = cursor.next();
 			if (selectedItem.contains(doc.getInteger("room nr") + "")) {
 				objectId = doc.getObjectId("_id");
 			}
 		}
+		
 		rooms.updateOne(eq("_id", objectId), new Document("$set",
 				new Document("room nr", temporaryRoom.getRoomNr())
 				.append("room type", temporaryRoom.getRoomType().toString())
@@ -327,7 +327,7 @@ public class DBParser {
 				.append("arrival", arrivalDate)
 				.append("departure", departureDate)
 				.append("price", reservation.getPrice())
-				.append("is cheekedIn", reservation.getCheckedIn()))));
+				.append("is checkedIn", reservation.getCheckedIn()))));
 	}
 
 	public Object[] getUserNames(DataBase db) {
@@ -380,6 +380,7 @@ public class DBParser {
 		DataBase db = new DataBase();
 		users = db.getUsersCollection();
 		cursor = users.find().iterator();
+		
 		for (int i = 0; i < users.count(); i++) {
 			doc = cursor.next();
 			if (username.equals(doc.getString("username"))) {
@@ -392,7 +393,7 @@ public class DBParser {
 	}
 
 	public void saveReservationToDB(Reservation reservation) {
-		reservations=db.getReservationsCollection();
+		reservations = db.getReservationsCollection();
 		Date ArrivalDate = Date.from(reservation.getArrivalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
@@ -401,7 +402,7 @@ public class DBParser {
 				.append("arrival", ArrivalDate)
 				.append("departure", departureDate)
 				.append("price", reservation.getPrice())
-				.append("is cheekedIn", reservation.getCheckedIn());
+				.append("is checkedIn", reservation.getCheckedIn());
 
 		reservations.insertOne( doc);
 	}
@@ -457,6 +458,7 @@ public class DBParser {
 		ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
 		Reservation reservation ;
 		System.out.println(Integer.parseInt(Year.now().toString()+""));
+		
 		for (int i = 0; i < reservations.count(); i++) {
 			doc = cursor.next();
 			System.out.println(doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -483,7 +485,7 @@ public class DBParser {
 
 		for (int i = 0; i < reservations.count(); i++) {
 			doc = cursor.next();
-			if(doc.getDate("arrival").equals(d) && !doc.getBoolean("is cheekedIn")){
+			if(doc.getDate("arrival").equals(d) && !doc.getBoolean("is checkedIn")){
 				LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				Double price = doc.getDouble("price");
@@ -509,7 +511,7 @@ public class DBParser {
 
 		for (int i = 0; i < reservations.count(); i++) {
 			doc = cursor.next();
-			if(doc.getDate("departure").equals(d) && doc.getBoolean("is cheekedIn")){
+			if(doc.getDate("departure").equals(d) && doc.getBoolean("is checkedIn")){
 				LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				Double price = doc.getDouble("price");

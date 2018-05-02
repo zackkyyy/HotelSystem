@@ -8,119 +8,117 @@ import java.time.LocalDate;
  * @Project : HotelSystem
  * */
 public class Guest {
+	String name;
+	String lastName;
+	String address;
+	String phoneNr;
+	String id;
+	String identityNr;
+	String creditCard;
+	LocalDate birthday;
+	private String notes;
 
-    String name;
-    String lastName;
-    String address;
-    String phoneNr;
-    String id;
-    String identityNr;
-    String creditCard;
-    LocalDate birthday;
-    private String notes;
+	public Guest(String  id , String name, String lastName, String address, String phoneNr ,String identityNr , String creditCard , LocalDate birthday, String notes)  {
+		this.id = id;
+		this.name = name;
+		this.lastName = lastName;
+		this.address = address;
+		this.phoneNr = phoneNr;
+		this.birthday = birthday;
+		this.creditCard = creditCard;
+		this.identityNr = identityNr;
+		this.notes = notes;
+	}
 
+	/**
+	 * Empty constructor.
+	 */
+	 public Guest (){
 
-    public Guest(String  id , String name, String lastName, String address, String phoneNr ,String identityNr , String creditCard , LocalDate birthday, String notes)  {
-        this.id=id;
-        this.name=name;
-        this.lastName=lastName;
-        this.address=address;
-        this.phoneNr=phoneNr;
-        this.birthday=birthday;
-        this.creditCard=creditCard;
-        this.identityNr=identityNr;
-        this.notes=notes;
-    }
+	 }
 
-    /**
-     * Empty constructor.
-     */
-    public Guest (){
+	 public Guest(String name, String lastName, String address, String phoneNr, String creditCard, String identityNr) {
+		 this.identityNr = identityNr;
+		 this.name = name;
+		 this.lastName = lastName;
+		 this.address = address;
+		 this.phoneNr = phoneNr;
+		 this.creditCard = creditCard;
+	 }
 
-    }
+	 public String getName(){
+		 return name ;
+	 }
 
-    public Guest(String name, String lastName, String address, String phoneNr, String creditCard, String identityNr) {
-        this.identityNr=identityNr;
-        this.name=name;
-        this.lastName=lastName;
-        this.address=address;
-        this.phoneNr=phoneNr;
-        this.creditCard=creditCard;
-    }
+	 public String getLastName(){
+		 return lastName;
+	 }
 
+	 public String getAddress (){
+		 return address;
+	 }
 
-    public String getName(){
-        return name ;
-    }
+	 public String getCreditCard() {
+		 return creditCard;
+	 }
 
-    public String getLastName(){
-        return lastName;
-    }
+	 public String getIdentityNr() {
+		 return identityNr;
+	 }
 
-    public String getAddress (){
-        return address;
-    }
+	 public String getPhoneNr() {
+		 return phoneNr; 
+	 }
 
-    public String getCreditCard() {
-        return creditCard;
-    }
+	 public void setName(String name){
+		 this.name = name;
+	 }
 
-    public String getIdentityNr() {
-        return identityNr;
-    }
+	 public void setAddress(String address){
+		 this.address = address;
+	 }
 
-    public String getPhoneNr() { return phoneNr; }
+	 public void setLastName(String lastName ){
+		 this.lastName = lastName;
+	 }
 
-    public void setName(String name){
-        this.name=name;
-    }
+	 public void setIdentityNr(String identityNr) {
+		 this.identityNr = identityNr;
+	 }
 
-    public void setAddress(String address){
-        this.address=address;
-    }
+	 public void setCreditCard(String creditCard) {
+		 this.creditCard = creditCard;
+	 }
 
-    public void setLastName(String lastName ){
-        this.lastName=lastName;
-    }
+	 public void setPhoneNr(String phoneNr) {
+		 this.phoneNr = phoneNr;
+	 }
 
-    public void setIdentityNr(String identityNr) {
-        this.identityNr = identityNr;
-    }
+	 public void setId(String id){
+		 this.id = id;
+	 }
 
-    public void setCreditCard(String creditCard) {
-        this.creditCard = creditCard;
-    }
+	 public String getId() {
+		 return id;
+	 }
 
-    public void setPhoneNr(String phoneNr) {
-        this.phoneNr = phoneNr;
-    }
+	 public String toString(Guest g){
+		 return g.getName() + " " + g.getLastName();
+	 }
 
-    public void setId(String id){
-        this.id=id;
-    }
+	 public void setBirthday(LocalDate value) {
+		 this.birthday = value;
+	 }
 
-    public String getId() {
-        return id;
-    }
+	 public void setNotes(String text) {
+		 this.notes = text;
+	 }
 
-    public String toString(Guest g){
-        return g.getName()+ " "+g.getLastName();
+	 public LocalDate getBirthday() {
+		 return birthday;
+	 }
 
-    }
-
-    public void setBirthday(LocalDate value) {
-        this.birthday=value;
-    }
-
-    public void setNotes(String text) {
-        this.notes=text;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
+	 public String getNotes() {
+		 return notes;
+	 }
 }

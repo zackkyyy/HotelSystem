@@ -13,38 +13,36 @@ import org.bson.Document;
  * @Date: 2018-04-09
  * @Project : HotelSystem
  */
-
-
 public class DataBase {
-    MongoClientURI clientURI;
-    MongoClient mongoClient;
-    MongoDatabase database;
-    String uri;
-    MongoCollection persons , userColl ,roomsColl,reservations;
-    Document doc;
+	MongoClientURI clientURI;
+	MongoClient mongoClient;
+	MongoDatabase database;
+	String uri;
+	MongoCollection persons , userColl ,roomsColl,reservations;
+	Document doc;
 
-    public DataBase() {
-        uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
-        clientURI = new MongoClientURI(uri);
-        mongoClient = new MongoClient(clientURI);
-        database = mongoClient.getDatabase("hotelSystem");
-        persons = database.getCollection("persons");
-        roomsColl = database.getCollection("rooms");
-        userColl= database.getCollection("users");
-        reservations=database.getCollection("reservations");
-    }
+	public DataBase() {
+		uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
+		clientURI = new MongoClientURI(uri);
+		mongoClient = new MongoClient(clientURI);
+		database = mongoClient.getDatabase("hotelSystem");
+		persons = database.getCollection("persons");
+		roomsColl = database.getCollection("rooms");
+		userColl= database.getCollection("users");
+		reservations=database.getCollection("reservations");
+	}
 
-    public MongoCollection getPersonsCollection() {
-        return persons;
-    }
+	public MongoCollection getPersonsCollection() {
+		return persons;
+	}
 
-    public MongoCollection getRoomsColl() {
-        return roomsColl;
-    }
+	public MongoCollection getRoomsColl() {
+		return roomsColl;
+	}
 
-    public MongoCollection getUsersCollection() {
-        return userColl;
-    }
+	public MongoCollection getUsersCollection() {
+		return userColl;
+	}
 
-    public MongoCollection getReservationsCollection(){return reservations;}
+	public MongoCollection getReservationsCollection(){return reservations;}
 }

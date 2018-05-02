@@ -1,8 +1,8 @@
 package model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import model.enums.city;
-import model.enums.roomType;
+import model.enums.City;
+import model.enums.RoomType;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,24 +11,20 @@ import model.enums.roomType;
  * @Date: 2018-04-13
  * @Project : HotelSystem
  */
-
-
 public class Room extends RecursiveTreeObject<Room> {
-    private roomType roomType;
+    private RoomType roomType;
     private boolean booked;
     private int roomNr;
     private Double price ;
-    private city city;
+    private City city;
 
-
-    public Room(roomType roomType,Boolean booked, int roomNr, Double price, city city) {
+    public Room(RoomType roomType,Boolean booked, int roomNr, Double price, City city) {
         this.city=city;
         this.booked = booked;
         this.roomNr = roomNr;
         this.price = price;
         this.roomType=roomType;
     }
-
 
     public Room() {
     }
@@ -44,11 +40,11 @@ public class Room extends RecursiveTreeObject<Room> {
                 '}';
     }
 
-    public model.enums.roomType getRoomType() {
+    public model.enums.RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(model.enums.roomType roomType) {
+    public void setRoomType(model.enums.RoomType roomType) {
         this.roomType = roomType;
     }
 
@@ -76,14 +72,14 @@ public class Room extends RecursiveTreeObject<Room> {
         this.price = price;
     }
 
-    public model.enums.city getCity() {
+    public model.enums.City getCity() {
         return city;
     }
     public String getStringCity(){
         return city.toString();
     }
 
-    public void setCity(model.enums.city city) {
+    public void setCity(model.enums.City city) {
         this.city = city;
     }
 }
