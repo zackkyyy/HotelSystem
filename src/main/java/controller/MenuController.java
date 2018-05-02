@@ -12,7 +12,9 @@ import java.io.IOException;
 /**
  * Created by IntelliJ IDEA.
  *
- * @User: Zacky Kharboutli
+ * Controller for the menu in all the pages to navigate between all the pages
+ *
+ * @Author: Zacky Kharboutli
  * @Date: 2018-05-02
  * @Project : HotelSystem
  */
@@ -32,16 +34,20 @@ public class MenuController {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
         app_stage.show();
-        System.out.println("log in showed from reserveController");
     }
 
+    /**
+     * This method runs when ever the user press on the check in option in the header
+     *
+     * @param event check in page requested
+     * @throws IOException
+     */
     public void ShowCheckInPage(ActionEvent event) throws IOException {
         Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
         Scene CheckInScene = new Scene(CheckInPage);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(CheckInScene);
         app_stage.show();
-        System.out.println("CheckIn window showed from reserveController");
     }
 
     /**
@@ -56,10 +62,7 @@ public class MenuController {
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
         app_stage.show();
-        System.out.println("CheckOut window showed from reserveController");
-
     }
-
 
     /**
      * This method runs when ever the user press on the Guest management option in the header
@@ -67,24 +70,25 @@ public class MenuController {
      * @param event Guest management page requested
      * @throws IOException
      */
-
     public void showGuestManagement(ActionEvent event) throws IOException {
         Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/guestManagement.fxml")));
         Scene CheckInScene = new Scene(checkInPage);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(CheckInScene);
         app_stage.show();
-        System.out.println("GuestManagement window showed from reserveController");
     }
 
-    public void ShowMainPage(ActionEvent actionEvent) throws IOException {
+    /**
+     * This method runs when ever the user press on the Guest management option in the header
+     *
+     * @param event Main window page requested
+     * @throws IOException
+     */
+    public void ShowMainPage(ActionEvent event) throws IOException {
         Parent mainWindow = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));
         Scene mainWindowScene = new Scene(mainWindow);
-        Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(mainWindowScene);
         app_stage.show();
-        System.out.println("Main window showed from guestManagController");
     }
-
-
 }

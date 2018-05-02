@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #fff; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -97,6 +98,26 @@
          <center>
                 <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER">
                <children>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets bottom="-100.0" left="20.0" top="100.0" />
+                     </VBox.margin>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Guest Name">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="30.0" top="10.0" />
+                           </HBox.margin>
+                        </Text>
+                        <JFXTextField fx:id="txtField" maxWidth="237.0" minWidth="27.0" onMousePressed="#findReservationByGuestName" prefHeight="27.0" prefWidth="237.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
                   <TableView fx:id="table" maxHeight="300.0" maxWidth="-Infinity" prefHeight="300.0" prefWidth="602.0" style="-fx-border-color: black;" stylesheets="@css/reservePage.css">
                      <columns>
                         <TableColumn fx:id="roomCol" prefWidth="59.15901726484299" text="Room " />

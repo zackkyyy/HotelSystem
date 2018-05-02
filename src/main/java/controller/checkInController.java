@@ -2,8 +2,11 @@ package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,9 +34,11 @@ import java.util.ResourceBundle;
  */
 public class checkInController implements Initializable {
     @FXML
-    JFXDatePicker date;
+    private JFXDatePicker date;
     @FXML
-    JFXButton prevBut , nextBut;
+    private JFXTextField txtField;
+    @FXML
+    private JFXButton prevBut , nextBut;
     @FXML
     private TableView table;
     @FXML
@@ -44,6 +49,7 @@ public class checkInController implements Initializable {
     private JFXButton checkOutButton ,reserveButton, guestButton , logOutBtn;
     private MenuController mu;
     private ObservableList<Reservation> reservations;
+    private ObservableList<Reservation> listOfReservations;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,7 +90,7 @@ public class checkInController implements Initializable {
 
     public void getReservation(){
        DBParser dbParser =new DBParser();
-        table.getItems().remove(0,table.getItems().size());
+      //  table.getItems().remove(0,table.getItems().size());
         ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getReservationByDate(date.getValue()));
 
         table.setItems(listOfReservations);
@@ -97,10 +103,12 @@ public class checkInController implements Initializable {
 
     public void nextDay(ActionEvent e){
         date.setValue(date.getValue().plusDays(1));
+        txtField.setText("");
         getReservation();
     }
     public void prevDay(ActionEvent e){
         date.setValue(date.getValue().minusDays(1));
+        txtField.setText("");
         getReservation();
     }
     
@@ -122,4 +130,31 @@ public class checkInController implements Initializable {
 		}
 		getReservation();
 	}
+    /**
+     * this method is to search for a reservation by the guest name
+     * @newValue
+     *           the text typed in the search field
+     */
+    public void findReservationByGuestName(){
+
+        DBParser dbParser = new DBParser();
+        listOfReservations= FXCollections.observableArrayList(dbParser.getAllReservations());
+        FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
+        txtField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(t -> {
+                // If filter text is empty, display all reservation.
+                if (newValue == null || newValue.isEmpty() ) {
+                    return true;
+                }
+                if (t.getGuest().toLowerCase().contains(txtField.getText().toLowerCase())) {
+                    return true; // Filter matches month
+                }
+                return false; // Does not match.
+            });
+        });
+        SortedList<Reservation> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        table.setItems(sortedData);
+    }
+
 }

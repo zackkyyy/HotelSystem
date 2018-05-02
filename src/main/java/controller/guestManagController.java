@@ -8,14 +8,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 import model.DataBase;
 import model.Guest;
 import org.bson.Document;
@@ -98,34 +93,6 @@ public class guestManagController implements Initializable {
                 e.printStackTrace();
             }
         });
-    }
-
-
-    public void ShowMainPage(ActionEvent actionEvent) throws IOException {
-        Parent mainWindow = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));
-        Scene mainWindowScene = new Scene(mainWindow);
-        Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        app_stage.setScene(mainWindowScene);
-        app_stage.show();
-        System.out.println("Main window showed from guestManagController");
-    }
-
-    public void showCheckInWindow(ActionEvent actionEvent) throws IOException {
-        Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
-        Scene checkInScene = new Scene(CheckInPage);
-        Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        app_stage.setScene(checkInScene);
-        app_stage.show();
-        System.out.println("CheckIn window showed from guestManagController");
-    }
-
-    public void showCheckOutWindow(ActionEvent actionEvent) throws IOException {
-        Parent CheckOutPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkOutWindow.fxml")));
-        Scene CheckoutScene = new Scene(CheckOutPage);
-        Stage app_stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        app_stage.setScene(CheckoutScene);
-        app_stage.show();
-        System.out.println("CheckOut window showed from guestManagController");
     }
 
     /**

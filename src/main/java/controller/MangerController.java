@@ -498,36 +498,19 @@ public class MangerController implements Initializable {
         roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
     }
 
+    /**
+     * this method is to search for a reservation by the month
+     * @newValue
+     *           the chosen month from the menu button
+     */
     public void filterReservationsByMonth(){
         dbParser =new DBParser();
-       // table.getItems().remove(0,table.getItems().size());
         listOfReservations= FXCollections.observableArrayList(dbParser.getAllReservations());
-        System.out.println(listOfReservations.get(2).getArrivalDate().getMonth()+"sdsadadadada");
-/*         listOfReservations.stream()
-                .filter(t ->
-                        t.getRoom()==205 )
-                .collect(Collectors.toList());
-
-        table.setItems(listOfReservations);
-        arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("arrivalDate"));
-        departCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("departureDate"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("price"));
-        guestCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("guest"));
-        roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
-
-// Instead it work when i do
-// .filter(t ->  t.getAccount().getBalandsce().doubleValue() > 0 )
-
-*/
-
         FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
-
-
         month.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(t -> {
-                // If filter text is empty, display all persons.
+                // If filter text is empty, display all reservations.
                 if (newValue == null || newValue.isEmpty() ) {
-
                     return true;
                 }
                 if (t.getArrivalDate().getMonth().name().equals(month.getText().toUpperCase())) {
