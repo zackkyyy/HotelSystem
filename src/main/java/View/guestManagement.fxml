@@ -23,7 +23,7 @@
                <children>
                   <HBox layoutY="9.0" prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text fill="#4d4d4d" fontSmoothingType="LCD" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+                        <Text fill="#4d4d4d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
                            <font>
                               <Font name="Brush Script MT Italic" size="35.0" />
                            </font>

@@ -31,7 +31,7 @@
                <children>
                   <VBox prefHeight="52.0" prefWidth="102.0">
                      <children>
-                        <Text fill="#4d4d4d" fontSmoothingType="LCD" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+                        <Text fill="#4d4d4d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
                            <font>
                               <Font name="Brush Script MT Italic" size="35.0" />
                            </font>
