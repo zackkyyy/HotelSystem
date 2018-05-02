@@ -21,6 +21,7 @@ import model.Room;
 import model.User;
 import org.bson.Document;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -137,6 +138,17 @@ public class MangerController implements Initializable {
 
 	}
 
+
+    /**
+     * This method runs when ever the user press on log out option in the header
+     *
+     * @param event log out button pressed
+     * @throws IOException
+     */
+    public void showLogInWindow(ActionEvent event) throws IOException {
+        MenuController mu = new MenuController();
+        mu.showLogInWindow(event);
+    }
     /**
      * move to the user management tab as in the fx file the pages are tabs
      *

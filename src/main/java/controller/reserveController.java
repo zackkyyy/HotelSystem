@@ -11,18 +11,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.DataBase;
 import model.Guest;
@@ -87,7 +82,9 @@ public class reserveController implements Initializable {
 	roomNr3, guestNr3, roomType3, roomCity3, roomNr4, guestNr4, roomType4, roomCity4;
 	@FXML
 	private HBox roomInfoBox1, roomInfoBox2, roomInfoBox3, roomInfoBox4;
-
+	@FXML
+    private JFXButton checkInButton ,guestButton,checkOutButton , logOutBtn;
+    private MenuController mu;
 	private Label[] roomNrs = new Label[4];
 	private Label[] guestNrs = new Label[4];
 	private Label[] roomTypes = new Label[4];
@@ -114,6 +111,7 @@ public class reserveController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+	    mu= new MenuController();
 		errorMsg.setVisible(false);
 		table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		checkInField.setValue(LocalDate.now());
@@ -203,69 +201,38 @@ public class reserveController implements Initializable {
 			cityName.setText("Växjö");
 			filterByCity("Växjö");
 		});
-	}
-	
-	/**
-	 * This method runs when ever the user press on the check in option in the header
-	 *
-	 * @param event check in page requested
-	 * @throws IOException
-	 */
-	public void ShowCheckInPage(ActionEvent event) throws IOException {
-		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
-		Scene CheckInScene = new Scene(CheckInPage);
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_stage.setScene(CheckInScene);
-		app_stage.show();
-		System.out.println("CheckIn window showed from reserveController");
-	}
-	
-	/**
-	 * This method runs when ever the user press on the check out option in the header
-	 *
-	 * @param event check out page requested
-	 * @throws IOException
-	 */
-	public void showCheckOutWindow(ActionEvent event) throws IOException {
-		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkOutWindow.fxml")));
-		Scene mainWindowScene = new Scene(CheckInPage);
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_stage.setScene(mainWindowScene);
-		app_stage.show();
-		System.out.println("CheckOut window showed from reserveController");
+
+		checkInButton.setOnAction(event -> {
+            try {
+                mu.ShowCheckInPage(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        checkOutButton.setOnAction(event -> {
+            try {
+                mu.showCheckOutWindow(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        logOutBtn.setOnAction(event -> {
+            try {
+                mu.showLogInWindow(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        guestButton.setOnAction(event -> {
+            try {
+                mu.showGuestManagement(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 	}
-	
-	/**
-	 * This method runs when ever the user press on log out option in the header
-	 *
-	 * @param event log out button pressed
-	 * @throws IOException
-	 */
-	public void showLogInWindow(ActionEvent event) throws IOException {
-		Parent LogInWindow = FXMLLoader.load(getClass().getResource(String.valueOf("/Untitled.fxml")));
-		Scene mainWindowScene = new Scene(LogInWindow);
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_stage.setScene(mainWindowScene);
-		app_stage.show();
-		System.out.println("log in showed from reserveController");
-	}
-	
-	/**
-	 * This method runs when ever the user press on the Guest management option in the header
-	 *
-	 * @param event Guest management page requested
-	 * @throws IOException
-	 */
 
-	public void showGuestManagement(ActionEvent event) throws IOException {
-		Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/guestManagement.fxml")));
-		Scene CheckInScene = new Scene(checkInPage);
-		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		app_stage.setScene(CheckInScene);
-		app_stage.show();
-		System.out.println("GuestManagement window showed from reserveController");
-	}
 
 	/**
 	 * Method that checks the inputs of the data picker to ensure that the dates are right,

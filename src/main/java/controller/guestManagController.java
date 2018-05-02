@@ -1,5 +1,6 @@
 package controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
@@ -45,6 +46,9 @@ public class guestManagController implements Initializable {
     private JFXTextField name, lastName, address, phoneNr, idField, identityNr, credit, notes;
     @FXML
     private JFXDatePicker birthday;
+    @FXML
+    private JFXButton checkInButton ,reserveButton,checkOutButton , logOutBtn;
+    private MenuController mu;
     private DataBase db= new DataBase();
     private MongoCollection persons;
     private MongoCursor<Document> cursor;
@@ -58,13 +62,42 @@ public class guestManagController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+            mu = new MenuController();
         getGuestFromDb();
         if(list.getItems().size()!=0) {
             list.getSelectionModel().selectFirst();
 
         fillFields();
     }
+
+        checkInButton.setOnAction(event -> {
+            try {
+                mu.ShowCheckInPage(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        checkOutButton.setOnAction(event -> {
+            try {
+                mu.showCheckOutWindow(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        logOutBtn.setOnAction(event -> {
+            try {
+                mu.showLogInWindow(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        reserveButton.setOnAction(event -> {
+            try {
+                mu.ShowMainPage(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 

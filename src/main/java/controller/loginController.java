@@ -31,6 +31,7 @@ public class loginController {
 
 
     public loginController() {
+
     }
 
     public boolean checkForLogIn() {

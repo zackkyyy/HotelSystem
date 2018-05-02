@@ -377,7 +377,6 @@
                               <MenuItem fx:id="dec" mnemonicParsing="false" text="December" />
                           </items>
                         </MenuButton>
-                        <Text fx:id="removeSearch" fill="RED" layoutX="482.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X remove search" />
                      </children>
                   </AnchorPane>
               </content>
@@ -431,6 +430,7 @@
                </VBox.margin>
             </JFXButton>
             <Separator prefWidth="200.0" />
+            <JFXButton fx:id="logOut" onAction="#showLogInWindow" text="log out" textFill="#e80e0e" />
          </children>
       </VBox>
    </children>

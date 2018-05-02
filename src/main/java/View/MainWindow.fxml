@@ -27,7 +27,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.reserveController">
    <children>
       <TabPane fx:id="tabPane" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
          <tabs>
@@ -957,7 +957,7 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <HBox fx:id="roomInfoBox1" prefHeight="24.0" prefWidth="621.0">
+                                    <HBox fx:id="roomInfoBox1" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
                                        <children>
                                           <Label fx:id="roomNr1" prefHeight="17.0" prefWidth="63.0" text="101">
                                              <HBox.margin>
@@ -984,7 +984,7 @@
                                           <Insets top="-20.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <HBox fx:id="roomInfoBox2" prefHeight="24.0" prefWidth="621.0">
+                                    <HBox fx:id="roomInfoBox2" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
                                        <children>
                                           <Label fx:id="roomNr2" prefHeight="17.0" prefWidth="63.0" text="101">
                                              <HBox.margin>
@@ -1008,7 +1008,7 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="roomInfoBox3" prefHeight="24.0" prefWidth="621.0">
+                                    <HBox fx:id="roomInfoBox3" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
                                        <children>
                                           <Label fx:id="roomNr3" prefHeight="17.0" prefWidth="63.0" text="101">
                                              <HBox.margin>
@@ -1032,7 +1032,7 @@
                                           </Label>
                                        </children>
                                     </HBox>
-                                    <HBox fx:id="roomInfoBox4" prefHeight="24.0" prefWidth="621.0">
+                                    <HBox fx:id="roomInfoBox4" maxHeight="24.0" minHeight="24.0" prefHeight="20.0" prefWidth="629.0">
                                        <children>
                                           <Label fx:id="roomNr4" prefHeight="17.0" prefWidth="63.0" text="101">
                                              <HBox.margin>
@@ -1067,6 +1067,9 @@
                                              </HBox.margin>
                                           </Text>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox>
                                        <children>
@@ -1235,7 +1238,7 @@
                   <Insets left="10.0" top="-10.0" />
                </HBox.margin>
             </VBox>
-            <JFXButton prefHeight="52.0" prefWidth="150.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c;" text="Reserve">
+            <JFXButton fx:id="reserveButton" prefHeight="52.0" prefWidth="150.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c;" text="Reserve">
                <HBox.margin>
                   <Insets left="35.0" />
                </HBox.margin>
@@ -1243,7 +1246,7 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton onAction="#ShowCheckInPage" prefHeight="52.0" prefWidth="150.0" text="Check-in">
+            <JFXButton fx:id="checkInButton" prefHeight="52.0" prefWidth="150.0" text="Check-in">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -1251,7 +1254,7 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton onAction="#showCheckOutWindow" prefHeight="52.0" prefWidth="150.0" text="Check-out">
+            <JFXButton fx:id="checkOutButton" prefHeight="52.0" prefWidth="150.0" text="Check-out">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -1259,7 +1262,7 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton onAction="#showGuestManagement" prefHeight="52.0" prefWidth="150.0" text="Guest Info">
+            <JFXButton fx:id="guestButton" prefHeight="52.0" prefWidth="150.0" text="Guest Info">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -1274,11 +1277,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#showLogInWindow" prefHeight="20.0" prefWidth="80.0" text="Log Out">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
+                  <JFXButton fx:id="logOutBtn" prefHeight="27.0" prefWidth="93.0" text="Log Out" />
                </children>
                <HBox.margin>
                   <Insets left="40.0" />
