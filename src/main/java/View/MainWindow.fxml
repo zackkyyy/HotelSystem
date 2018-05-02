@@ -64,7 +64,7 @@
                               </HBox>
                               <HBox prefHeight="40.0" prefWidth="186.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
                                        <HBox.margin>
                                           <Insets left="15.0" top="15.0" />
                                        </HBox.margin>
@@ -99,7 +99,7 @@
                                     <Insets left="15.0" top="50.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#moveToNextTap" text="Next">
+                              <Button mnemonicParsing="false" onAction="#moveToNextTab" text="Next">
                                  <VBox.margin>
                                     <Insets left="50.0" />
                                  </VBox.margin>
@@ -523,7 +523,7 @@
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTap" text="Back">
+                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="Back">
                                        <HBox.margin>
                                           <Insets left="200.0" />
                                        </HBox.margin>
@@ -546,7 +546,7 @@
                                                 <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
                                              </graphic>
                                           </Label>
-                                          <JFXTextField fx:id="search" focusColor="#ff9321" onMousePressed="#autoCompletation" prefHeight="33.0" prefWidth="525.0" promptText="   Enter a search" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                          <JFXTextField fx:id="search" focusColor="#ff9321" onMousePressed="#autoCompletion" prefHeight="33.0" prefWidth="525.0" promptText="   Enter a search" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -725,7 +725,7 @@
                                     </HBox>
                                     <HBox prefHeight="40.0" prefWidth="186.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>
@@ -760,7 +760,7 @@
                                           <Insets left="15.0" top="50.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <Button mnemonicParsing="false" onAction="#moveToNextTap" text="Continue">
+                                    <Button mnemonicParsing="false" onAction="#moveToNextTab" text="Continue">
                                        <VBox.margin>
                                           <Insets left="50.0" />
                                        </VBox.margin>
@@ -784,7 +784,7 @@
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTap" text="back" />
+                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="back" />
                                     <Button fx:id="confirm" mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
                                        <HBox.margin>
                                           <Insets left="700.0" />
@@ -957,24 +957,24 @@
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <HBox prefHeight="24.0" prefWidth="621.0">
+                                    <HBox fx:id="roomInfoBox1" prefHeight="24.0" prefWidth="621.0">
                                        <children>
-                                          <Label fx:id="romNr" prefHeight="17.0" prefWidth="63.0" text="101">
+                                          <Label fx:id="roomNr1" prefHeight="17.0" prefWidth="63.0" text="101">
                                              <HBox.margin>
                                                 <Insets top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label fx:id="romType" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                          <Label fx:id="roomType1" prefHeight="17.0" prefWidth="78.0" text="Single">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label fx:id="gstNr" prefHeight="17.0" prefWidth="60.0" text="2">
+                                          <Label fx:id="guestNr1" prefHeight="17.0" prefWidth="60.0" text="2">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label fx:id="romCity" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                          <Label fx:id="roomCity1" prefHeight="17.0" prefWidth="66.0" text="Växjö">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
@@ -983,6 +983,78 @@
                                        <VBox.margin>
                                           <Insets top="-20.0" />
                                        </VBox.margin>
+                                    </HBox>
+                                    <HBox fx:id="roomInfoBox2" prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="roomNr2" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="roomType2" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="guestNr2" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="roomCity2" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="roomInfoBox3" prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="roomNr3" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="roomType3" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="guestNr3" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="roomCity3" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="roomInfoBox4" prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="roomNr4" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="roomType4" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="guestNr4" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <Label fx:id="roomCity4" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
                                     </HBox>
                                     <HBox maxWidth="498.0" prefHeight="29.0" prefWidth="498.0" style="-fx-background-color: #4d4d4d;">
                                        <children>
@@ -1091,12 +1163,12 @@
                                     </HBox>
                                     <HBox prefHeight="40.0" prefWidth="186.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
                                              <HBox.margin>
                                                 <Insets left="15.0" top="15.0" />
                                              </HBox.margin>
                                           </Text>
-                                          <JFXTextField fx:id="rooms11" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                          <JFXTextField fx:id="rooms2" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                              <HBox.margin>
                                                 <Insets left="18.0" top="7.0" />
                                              </HBox.margin>
@@ -1132,7 +1204,7 @@
                         </BorderPane>
                         <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
                            <children>
-                              <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFistTap" text="Return" />
+                              <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFirstTab" text="Return" />
                               <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation hase been done successfully ">
                                  <font>
                                     <Font size="22.0" />
@@ -1187,7 +1259,7 @@
                   <Font size="15.0" />
                </font>
             </JFXButton>
-            <JFXButton onAction="#ShowGuestManagement" prefHeight="52.0" prefWidth="150.0" text="Guest Info">
+            <JFXButton onAction="#showGuestManagement" prefHeight="52.0" prefWidth="150.0" text="Guest Info">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
