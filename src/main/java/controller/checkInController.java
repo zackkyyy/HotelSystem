@@ -7,9 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import model.Reservation;
 
 import java.io.IOException;
@@ -37,12 +39,16 @@ public class checkInController implements Initializable {
     @FXML
     private TableColumn<Reservation, Integer> arrivalCol,departCol,priceCol,guestCol,roomCol;
     @FXML
+    private Text selectionError, checkedInText;
+    @FXML
     private JFXButton checkOutButton ,reserveButton, guestButton , logOutBtn;
     private MenuController mu;
+    private ObservableList<Reservation> reservations;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mu=new MenuController();
+        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        mu = new MenuController();
         date.setValue(LocalDate.now());
         getReservation();
 
@@ -74,7 +80,6 @@ public class checkInController implements Initializable {
                 e.printStackTrace();
             }
         });
-
     }
 
     public void getReservation(){
@@ -98,4 +103,23 @@ public class checkInController implements Initializable {
         date.setValue(date.getValue().minusDays(1));
         getReservation();
     }
+    
+    public void checkIn() {
+		DBParser dbParser = new DBParser();
+		reservations = table.getSelectionModel().getSelectedItems();
+		checkedInText.setVisible(false);
+		
+		if(reservations.size() == 0) {
+			selectionError.setVisible(true);
+		} else {
+			selectionError.setVisible(false);
+			checkedInText.setVisible(true);
+			
+			for(int i = 0; i < reservations.size(); i++) {	
+				reservations.get(i).setCheckedIn(true);
+				dbParser.refreshReservationStatus(reservations.get(i));
+			}
+		}
+		getReservation();
+	}
 }

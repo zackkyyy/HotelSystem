@@ -550,7 +550,7 @@ public class reserveController implements Initializable {
 			reservation.setCheckedIn(false);
 			reservation.setPrice(bookedRoom.get(i).getPrice());
 			bookedRoom.get(i).setBooked(true);
-			dbParser.refreshRoomStatue(bookedRoom.get(i));
+			dbParser.refreshRoomStatus(bookedRoom.get(i));
 			dbParser.saveReservationToDB(reservation);
 		}
 
