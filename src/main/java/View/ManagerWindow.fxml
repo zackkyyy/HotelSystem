@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MangerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MangerController">
    <children>
       <TabPane fx:id="tabPane1" prefHeight="722.0" prefWidth="1023.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -40,7 +40,7 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff9000" height="60.0" layoutY="50.0" rotate="-10.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1023.0" AnchorPane.leftAnchor="0.0" />
                         <VBox layoutX="277.0" layoutY="205.0" prefHeight="469.0" prefWidth="298.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="200.0">
                            <children>
-                              <JFXTextField editable="false" focusColor="#fe9939" maxWidth="280.0" prefHeight="27.0" prefWidth="261.0" style="-fx-background-color: #4d4d4d; -fx-border-radius: 2px;" text="  List of Users" unFocusColor="#ff0505">
+                              <JFXTextField editable="false" focusColor="#fe9939" maxWidth="280.0" prefHeight="27.0" prefWidth="261.0" style="-fx-background-color: #ff9000; -fx-border-radius: 2px;" text="  List of Users" unFocusColor="#ff0505">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -55,7 +55,7 @@
                         </VBox>
                         <VBox layoutX="599.0" layoutY="186.0" minWidth="200.0" prefHeight="399.0" prefWidth="292.0" AnchorPane.bottomAnchor="125.0" AnchorPane.leftAnchor="650.0" AnchorPane.topAnchor="200.0">
                            <children>
-                              <JFXTextField editable="false" focusColor="#fe9939" style="-fx-background-color: #4d4d4d; -fx-border-radius: 2px;" text="  User Information" unFocusColor="#4d4d4d00" />
+                              <JFXTextField editable="false" focusColor="#fe9939" style="-fx-background-color: #ff9000; -fx-border-radius: 2px;" text="  User Information" unFocusColor="#4d4d4d00" />
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
@@ -192,13 +192,12 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXListView>
-                              <HBox prefHeight="44.0" prefWidth="300.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="581.0" layoutY="160.0" minWidth="200.0" prefHeight="399.0" prefWidth="292.0" AnchorPane.leftAnchor="650.0" AnchorPane.topAnchor="200.0">
                            <children>
                               <JFXTextField editable="false" focusColor="#fe9939" style="-fx-background-color: FE9939; -fx-border-radius: 2px;" text="  Room Information" unFocusColor="#4d4d4d00" />
-                              <VBox>
+                              <VBox prefHeight="41.0" prefWidth="214.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Nr">
                                        <font>
@@ -208,7 +207,7 @@
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </Text>
-                                    <JFXTextField fx:id="roomNr" focusColor="#fe9939" unFocusColor="#aba9a6">
+                                    <JFXTextField fx:id="roomNr" focusColor="#fe9939" maxWidth="122.0" minWidth="120.0" prefHeight="27.0" prefWidth="122.0" unFocusColor="#aba9a6">
                                        <VBox.margin>
                                           <Insets left="100.0" top="-22.0" />
                                        </VBox.margin>
@@ -231,7 +230,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Text>
-                                    <MenuButton fx:id="roomType" mnemonicParsing="false" text="Single">
+                                    <MenuButton fx:id="roomType" mnemonicParsing="false" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: white; -fx-border-color: #fe9939;" text="Single">
                                        <items>
                                           <MenuItem fx:id="singleItem" mnemonicParsing="false" text="Single" />
                                           <MenuItem fx:id="doubleItem" mnemonicParsing="false" text="Double" />
@@ -259,7 +258,7 @@
                                                 <Insets />
                                              </HBox.margin>
                                           </Text>
-                                          <MenuButton fx:id="city" mnemonicParsing="false" text="Växjö">
+                                          <MenuButton fx:id="city" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" style="-fx-border-color: #fe9939; -fx-background-color: white;" text="Växjö">
                                             <items>
                                               <MenuItem fx:id="växjöItem" mnemonicParsing="false" text="Växjö" />
                                               <MenuItem fx:id="kalmarItem" mnemonicParsing="false" text="Kalmar" />
@@ -278,7 +277,7 @@
                                     <Insets top="5.0" />
                                  </VBox.margin>
                               </VBox>
-                              <VBox prefHeight="32.0" prefWidth="398.0">
+                              <VBox prefHeight="43.0" prefWidth="177.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                                        <font>
@@ -287,7 +286,7 @@
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
-                                    <JFXTextField fx:id="price" focusColor="#fe9939" prefHeight="28.0" prefWidth="176.0" unFocusColor="#aba9a6">
+                                    <JFXTextField fx:id="price" focusColor="#fe9939" maxWidth="122.0" prefHeight="28.0" prefWidth="108.0" unFocusColor="#aba9a6">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -352,7 +351,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="table" layoutX="240.0" layoutY="338.0" prefHeight="376.0" prefWidth="748.0" stylesheets="@css/reservePage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <TableView fx:id="table" layoutX="240.0" layoutY="338.0" prefHeight="376.0" prefWidth="748.0" stylesheets="@css/reservePage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="243.0">
                            <columns>
                               <TableColumn fx:id="roomCol" prefWidth="110.0" text="Room " />
                               <TableColumn fx:id="guestCol" prefWidth="175.0" text="Guest " />
@@ -362,6 +361,23 @@
                               <TableColumn fx:id="priceCol" prefWidth="100.0" text="Price" />
                            </columns>
                         </TableView>
+                        <MenuButton fx:id="month" layoutX="270.0" layoutY="274.0" mnemonicParsing="false" onAction="#filterReservationsByMonth" prefHeight="34.0" prefWidth="139.0" style="-fx-background-color: white; -fx-border-color: orange;" text="Month" AnchorPane.bottomAnchor="412.0" AnchorPane.leftAnchor="270.0">
+                          <items>
+                            <MenuItem fx:id="jan" mnemonicParsing="false" text="January" />
+                            <MenuItem fx:id="feb" mnemonicParsing="false" text="February" />
+                              <MenuItem fx:id="mar" mnemonicParsing="false" text="March" />
+                              <MenuItem fx:id="apr" mnemonicParsing="false" onAction="#filterReservationsByMonth" text="April" />
+                              <MenuItem fx:id="may" mnemonicParsing="false" text="May" />
+                              <MenuItem fx:id="jun" mnemonicParsing="false" text="June" />
+                              <MenuItem fx:id="jul" mnemonicParsing="false" text="July" />
+                              <MenuItem fx:id="aug" mnemonicParsing="false" text="August" />
+                              <MenuItem fx:id="sep" mnemonicParsing="false" text="September" />
+                              <MenuItem fx:id="oct" mnemonicParsing="false" text="October" />
+                              <MenuItem fx:id="nov" mnemonicParsing="false" text="November" />
+                              <MenuItem fx:id="dec" mnemonicParsing="false" text="December" />
+                          </items>
+                        </MenuButton>
+                        <Text fx:id="removeSearch" fill="RED" layoutX="482.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X remove search" />
                      </children>
                   </AnchorPane>
               </content>

@@ -7,6 +7,8 @@ import com.mongodb.client.MongoCursor;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,9 +46,10 @@ public class MangerController implements Initializable {
     @FXML
     private JFXTextField password, userName ,userLastName  ,UserFirstName ,  price , roomNr;
     @FXML
-    private MenuButton roomType, city;
+    private MenuButton roomType, city , month, city1 ;
     @FXML
-    private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem;
+    private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem
+            ,jan, feb , mar ,apr, may, jun,jul,aug ,sep, oct,nov ,dec , vxj , klr;
     @FXML
     private Label errorLabel;
     @FXML
@@ -65,7 +68,10 @@ public class MangerController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		växjöItem.setOnAction(event1 -> {
+		addReservationsToTable();
+        filterReservationsByMonth();
+
+	    växjöItem.setOnAction(event1 -> {
             city.setText("Växjö");
         });
 		
@@ -87,7 +93,48 @@ public class MangerController implements Initializable {
 		
 		apartmentItem.setOnAction(event1 -> {
 			roomType.setText("Apartment");
-        });	
+        });
+
+		apr.setOnAction(event -> {
+		    month.setText("APRIL");
+        });
+        may.setOnAction(event -> {
+            month.setText("May");
+        });
+        jan.setOnAction(event -> {
+            month.setText("January");
+        });
+        feb.setOnAction(event -> {
+            month.setText("February");
+        });
+        mar.setOnAction(event -> {
+            month.setText("March");
+        });
+        jun.setOnAction(event -> {
+            month.setText("June");
+        });
+        jul.setOnAction(event -> {
+            month.setText("July");
+        });
+        aug.setOnAction(event -> {
+            month.setText("August");
+        });
+        sep.setOnAction(event -> {
+            month.setText("September");
+        });
+        oct.setOnAction(event -> {
+            month.setText("October");
+        });
+        nov.setOnAction(event -> {
+            month.setText("November");
+        });
+        dec.setOnAction(event -> {
+            month.setText("December");
+        });
+
+
+
+
 	}
 
     /**
@@ -438,6 +485,50 @@ public class MangerController implements Initializable {
         guestCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("guest"));
         roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
     }
+
+    public void filterReservationsByMonth(){
+        dbParser =new DBParser();
+       // table.getItems().remove(0,table.getItems().size());
+        listOfReservations= FXCollections.observableArrayList(dbParser.getAllReservations());
+        System.out.println(listOfReservations.get(2).getArrivalDate().getMonth()+"sdsadadadada");
+/*         listOfReservations.stream()
+                .filter(t ->
+                        t.getRoom()==205 )
+                .collect(Collectors.toList());
+
+        table.setItems(listOfReservations);
+        arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("arrivalDate"));
+        departCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("departureDate"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("price"));
+        guestCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("guest"));
+        roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
+
+// Instead it work when i do
+// .filter(t ->  t.getAccount().getBalandsce().doubleValue() > 0 )
+
+*/
+
+        FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
+
+
+        month.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(t -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty() ) {
+
+                    return true;
+                }
+                if (t.getArrivalDate().getMonth().name().equals(month.getText().toUpperCase())) {
+                    return true; // Filter matches month
+                }
+                return false; // Does not match.
+            });
+        });
+        SortedList<Reservation> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        table.setItems(sortedData);
+    }
+
 
 
 }

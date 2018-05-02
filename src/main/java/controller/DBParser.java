@@ -440,7 +440,6 @@ public class DBParser {
             for (int i = 0; i < reservations.count(); i++) {
                 doc = cursor.next();
                     System.out.println(doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-
                     LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     Double price = doc.getDouble("price");
