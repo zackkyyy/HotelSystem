@@ -38,7 +38,7 @@ public class DBParser {
 	public void createNewGuest(Guest newGuest , DataBase db) {
 		db= new DataBase();
 		doc = new Document();
-		persons=db.getPersonsCollection();
+		persons = db.getPersonsCollection();
 		try {
 			java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(LocalDate.now().toString());
 
@@ -59,11 +59,11 @@ public class DBParser {
 			//          display the error message
 			System.out.println("Failed to save");
 		}
-		System.out.println("Guest with id "+newGuest.getId() +" is now created");
+		System.out.println("Guest with id " + newGuest.getId() + " is now created");
 	}
-	
+
 	public String [] getGuestNames( DataBase db){
-		persons=db.getPersonsCollection();
+		persons = db.getPersonsCollection();
 		String [] listOfGuest = new String[(int) persons.count()];
 
 		MongoCursor<Document> cursor = persons.find().iterator();
@@ -72,13 +72,13 @@ public class DBParser {
 			Document doc = cursor.next();
 			String name = doc.getString("name");
 			String lastname = doc.getString("last name");
-			listOfGuest[i]=(name + " "+lastname);
+			listOfGuest[i] = (name + " " + lastname);
 		}
 		return listOfGuest;
 	}
 
 	public void editGuest(DataBase db, Object selectedItem , Guest guest) throws ParseException {
-		persons=db.getPersonsCollection();
+		persons = db.getPersonsCollection();
 		cursor = persons.find().iterator();
 		ObjectId objectId = null;
 		for (int i = 0; i < persons.count(); i++) {
@@ -100,8 +100,8 @@ public class DBParser {
 	}
 
 	public ArrayList<Guest> getGuestsInArray() {
-		db= new DataBase();
-		persons=db.getPersonsCollection();
+		db = new DataBase();
+		persons = db.getPersonsCollection();
 		cursor = persons.find().iterator();
 		ArrayList<Guest> listOfGuest = new ArrayList<Guest>();
 
@@ -109,7 +109,7 @@ public class DBParser {
 			doc = cursor.next();
 
 			String name = doc.getString("name");
-			String lastName =doc.getString("last name");
+			String lastName = doc.getString("last name");
 			String address = doc.getString("address");
 			String phoneNr = doc.getString("phone nr");
 			String creditCard = doc.getString("credit card");
@@ -123,17 +123,17 @@ public class DBParser {
 
 	public ObjectId getGuestID(Guest gst){
 		ObjectId id =null;
-		persons=db.getPersonsCollection();
-		cursor=persons.find().iterator();
+		persons = db.getPersonsCollection();
+		cursor = persons.find().iterator();
 		for (int i = 0; i < persons.count(); i++) {
 			doc = cursor.next();
 			if (doc.getString("identity nr").equals(gst.getIdentityNr())){
-				id =doc.getObjectId("_id");
+				id = doc.getObjectId("_id");
 			}
 		}
 		return id;
 	}
-	
+
 	/**
 	 *  Convert a String to city
 	 *
@@ -143,7 +143,7 @@ public class DBParser {
 	private city toCity(String city1) {
 		if (city1.contains("Växjö")){
 			return city.VÄXJÖ;
-		} else  if(city1.contains("Kalmar")){
+		} else if(city1.contains("Kalmar")){
 			return city.KALMAR;
 		} else return null;
 	}
@@ -156,17 +156,17 @@ public class DBParser {
 	private roomType toRoomType(String room_type) {
 		if (room_type.equals("Single")){
 			return roomType.SINGLE;
-		}else  if(room_type.contains("Triple")){
+		} else  if(room_type.contains("Triple")){
 			return roomType.TRIPLE;
-		}else  if(room_type.contains("Double")){
+		} else  if(room_type.contains("Double")){
 			return roomType.DOUBLE;
-		}else  if(room_type.contains("Apartment")){
+		} else  if(room_type.contains("Apartment")){
 			return roomType.APARTMENT;
-		}
-		else if (room_type.equals("")){
+		} else if (room_type.equals("")){
+			return null;
+		} else {
 			return null;
 		}
-		else return null;
 	}
 
 	/**
@@ -178,13 +178,10 @@ public class DBParser {
 	 * @return     a new list of room after filtering the old list
 	 */
 	public ArrayList<Room> filterByCity(String string, ObservableList<Room> list){
-
 		ArrayList<Room> listOfRooms = new ArrayList<Room>();
 
 		for (int i = 0; i < list.size(); i++) {
-
 			if (list.get(i).getCity().toString().equals(string)) {
-
 				listOfRooms.add(list.get(i));
 			}
 		}
@@ -238,8 +235,8 @@ public class DBParser {
 	 *          list of room in array list
 	 */
 	public ArrayList<Room> getAllRoom() {
-		db= new DataBase();
-		rooms=db.getRoomsColl();
+		db = new DataBase();
+		rooms = db.getRoomsColl();
 		cursor = rooms.find().iterator();
 		ArrayList<Room> listOfRooms = new ArrayList<Room>();
 
@@ -259,14 +256,14 @@ public class DBParser {
 	}
 	public ObjectId getRoomID(Room room){
 		ObjectId id =null;
-		rooms=db.getRoomsColl();
-		cursor=rooms.find().iterator();
-		String s= String.valueOf(room.getRoomNr());
+		rooms = db.getRoomsColl();
+		cursor = rooms.find().iterator();
+		String s = String.valueOf(room.getRoomNr());
 
 		for (int i = 0; i < rooms.count(); i++) {
 			doc = cursor.next();
 			if (doc.getInteger("room nr")==room.getRoomNr() && doc.getString("city").equals(room.getCity().toString()) ){
-				id =doc.getObjectId("_id");
+				id = doc.getObjectId("_id");
 			}
 		}
 		return id;
@@ -274,27 +271,27 @@ public class DBParser {
 
 	public Room createRoom(Document doc){
 		roomType roomType = toRoomType(doc.getString("room type"));
-		boolean booked =doc.getBoolean("is booked");
-		int roomNr =doc.getInteger("room nr");
-		Double price =doc.getDouble("price");
+		boolean booked = doc.getBoolean("is booked");
+		int roomNr = doc.getInteger("room nr");
+		Double price = doc.getDouble("price");
 		city city = toCity(doc.getString("city"));
 		Room room1 = new Room(roomType, booked, roomNr, price, city);
 		return room1;
 	}
 	public Object[] getArrayOfRoom(DataBase db) {
-		rooms=db.getRoomsColl();
+		rooms = db.getRoomsColl();
 		String [] listOfGuest = new String[(int) rooms.count()];
 		MongoCursor<Document> cursor = rooms.find().iterator();
 		for (int i = 0; i < rooms.count(); i++) {
 			Document doc = cursor.next();
-			listOfGuest[i]=(doc.getInteger("room nr") + "    "+doc.getString("city"));
+			listOfGuest[i] = (doc.getInteger("room nr") + "    "+doc.getString("city"));
 		}
 		return listOfGuest;
 	}
 
 	public void editRoom(DataBase db, String selectedItem, Room temporaryRoom) {
 		ObjectId objectId = null;
-		rooms=db.getRoomsColl();
+		rooms = db.getRoomsColl();
 		cursor = rooms.find().iterator();
 		for (int i = 0; i < rooms.count(); i++) {
 			doc = cursor.next();
@@ -334,7 +331,7 @@ public class DBParser {
 	}
 
 	public Object[] getUserNames(DataBase db) {
-		users=db.getUsersCollection();
+		users = db.getUsersCollection();
 		String [] listOfGuest = new String[(int) users.count()];
 
 		MongoCursor<Document> cursor = users.find().iterator();
@@ -346,7 +343,7 @@ public class DBParser {
 	}
 
 	public void editUser(DataBase db, Object selectedItem, User temporaryUser) {
-		users=db.getUsersCollection();
+		users = db.getUsersCollection();
 		cursor = users.find().iterator();
 		ObjectId objectId = null;
 		for (int i = 0; i < users.count(); i++) {
@@ -364,7 +361,7 @@ public class DBParser {
 
 	public void createNewUser(User newUser, DataBase db) {
 		doc = new Document();
-		users=db.getUsersCollection();
+		users = db.getUsersCollection();
 		try {
 			doc = new Document("name", newUser.getName())
 					.append("last name", newUser.getLastName())
@@ -380,8 +377,8 @@ public class DBParser {
 	}
 
 	public Boolean validateLogging(String username , String password){
-		DataBase db= new DataBase();
-		users=db.getUsersCollection();
+		DataBase db = new DataBase();
+		users = db.getUsersCollection();
 		cursor = users.find().iterator();
 		for (int i = 0; i < users.count(); i++) {
 			doc = cursor.next();
@@ -411,7 +408,7 @@ public class DBParser {
 
 	public void createNewRoom(Room room, DataBase db) {
 		db = new DataBase();
-		rooms =db.getRoomsColl();
+		rooms = db.getRoomsColl();
 		doc = new Document("room nr" , room.getRoomNr())
 				.append("room type", room.getRoomType().toString())
 				.append("price",room.getPrice())
@@ -420,10 +417,10 @@ public class DBParser {
 
 		rooms.insertOne(doc);
 	}
-	
+
 	public int getRoomNumberByID(ObjectId id){
-		rooms=db.getRoomsColl();
-		cursor=rooms.find().iterator();
+		rooms = db.getRoomsColl();
+		cursor = rooms.find().iterator();
 		int roomNr = 0;
 		for (int i = 0; i < rooms.count(); i++) {
 			doc = cursor.next();
@@ -433,9 +430,29 @@ public class DBParser {
 		}
 		return roomNr;
 	}
+
+	public Room copyRoomByRoomNumber(int roomNumber){
+		rooms = db.getRoomsColl();
+		cursor = rooms.find().iterator();
+
+		Room room = null;	
+		for (int i = 0; i < rooms.count(); i++) {
+			doc = cursor.next();
+			if (doc.getInteger("room nr").equals(roomNumber)){
+				room = createRoom(doc);
+			}
+		}
+		return room;
+	}
+
+	public void deleteReservationByRoomNumber(int roomNumber){
+		reservations = db.getReservationsCollection();
+		reservations.deleteOne(eq("room", roomNumber));
+	}
+
 	public ArrayList<Reservation> getAllReservations() {
-		db= new DataBase();
-		reservations=db.getReservationsCollection();
+		db = new DataBase();
+		reservations = db.getReservationsCollection();
 		cursor = reservations.find().iterator();
 		ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
 		Reservation reservation ;
@@ -456,9 +473,9 @@ public class DBParser {
 	}
 
 	public ArrayList<Reservation> getReservationByDate(LocalDate date) {
-		Date d =Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		db= new DataBase();
-		reservations=db.getReservationsCollection();
+		Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		db = new DataBase();
+		reservations = db.getReservationsCollection();
 		cursor = reservations.find().iterator();
 		ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
 		Reservation reservation ;
@@ -477,6 +494,31 @@ public class DBParser {
 				System.out.println(reservation.toString());
 			}
 
+		}
+		return listOfReservation;
+	}
+
+	public ArrayList<Reservation> getCheckedInByDate(LocalDate date) {
+		Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		db = new DataBase();
+		reservations = db.getReservationsCollection();
+		cursor = reservations.find().iterator();
+		ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
+		Reservation reservation ;
+		System.out.println();
+
+		for (int i = 0; i < reservations.count(); i++) {
+			doc = cursor.next();
+			if(doc.getDate("departure").equals(d) && doc.getBoolean("is cheekedIn")){
+				LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				Double price = doc.getDouble("price");
+				int roomID = doc.getInteger("room");
+				String guestID = doc.getString("guest");
+				reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+				listOfReservation.add(reservation);
+				System.out.println(reservation.toString());
+			}
 		}
 		return listOfReservation;
 	}
