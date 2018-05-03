@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
  * @Date: 2018-03-29
  * @Project : HotelSystem
  */
-public class checkOutController implements Initializable {
+public class CheckOutController implements Initializable {
 	@FXML
 	private JFXDatePicker date;
 	@FXML

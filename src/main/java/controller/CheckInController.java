@@ -16,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.Reservation;
-import model.Room;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,17 +32,17 @@ import java.util.ResourceBundle;
  * @Date: 2018-03-29
  * @Project : HotelSystem
  */
-public class checkInController implements Initializable {
+public class CheckInController implements Initializable {
 	@FXML
 	private JFXDatePicker date;
 	@FXML
 	private JFXTextField txtField;
 	@FXML
-	private JFXButton prevBut , nextBut;
+	private JFXButton prevBut, nextBut;
 	@FXML
 	private TableView table;
 	@FXML
-	private TableColumn<Reservation, Integer> arrivalCol,departCol,priceCol,guestCol,roomCol;
+	private TableColumn<Reservation, Integer> arrivalCol, departCol, priceCol, guestCol, roomCol;
 	@FXML
 	private Text selectionError, checkedInText;
 	@FXML
@@ -90,7 +89,7 @@ public class checkInController implements Initializable {
 	}
 
 	public void getReservation(){
-		DBParser dbParser =new DBParser();
+		DBParser dbParser = new DBParser();
 		// table.getItems().remove(0,table.getItems().size());
 		ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getReservationByDate(date.getValue()));
 
@@ -105,28 +104,22 @@ public class checkInController implements Initializable {
 	public void nextDay(ActionEvent e){
 		date.setValue(date.getValue().plusDays(1));
 		txtField.setText("");
-        checkedInText.setVisible(false);
-        selectionError.setVisible(false);
 		getReservation();
 	}
+
 	public void prevDay(ActionEvent e){
 		date.setValue(date.getValue().minusDays(1));
 		txtField.setText("");
-        checkedInText.setVisible(false);
-        selectionError.setVisible(false);
 		getReservation();
 	}
 
 	public void checkIn() {
 		DBParser dbParser = new DBParser();
 		reservations = table.getSelectionModel().getSelectedItems();
-		checkedInText.setText("Reservations has been checked-in");
-        checkedInText.setVisible(false);
-        selectionError.setVisible(false);
+		checkedInText.setVisible(false);
 
 		if(reservations.size() == 0) {
-            selectionError.setText("No reservation selected");
-            selectionError.setVisible(true);
+			selectionError.setVisible(true);
 		} else {
 			selectionError.setVisible(false);
 			checkedInText.setVisible(true);
@@ -138,17 +131,17 @@ public class checkInController implements Initializable {
 		}
 		getReservation();
 	}
+
 	/**
 	 * this method is to search for a reservation by the guest name
 	 * @newValue
 	 *           the text typed in the search field
 	 */
 	public void findReservationByGuestName(){
-        checkedInText.setVisible(false);
-        selectionError.setVisible(false);
 		DBParser dbParser = new DBParser();
-		listOfReservations= FXCollections.observableArrayList(dbParser.getAllReservations());
+		listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
 		FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
+
 		txtField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(t -> {
 				// If filter text is empty, display all reservation.
@@ -161,44 +154,9 @@ public class checkInController implements Initializable {
 				return false; // Does not match.
 			});
 		});
+
 		SortedList<Reservation> sortedData = new SortedList<>(filteredData);
 		sortedData.comparatorProperty().bind(table.comparatorProperty());
 		table.setItems(sortedData);
 	}
-
-	public void cancelReservation(){
-        DBParser dbParser = new DBParser();
-        reservations = table.getSelectionModel().getSelectedItems();
-        checkedInText.setText("Reservation Has been canceled");
-        if(reservations.size() == 0) {
-            selectionError.setText("No reservation selected");
-            selectionError.setVisible(true);
-        } else {
-            selectionError.setVisible(false);
-            checkedInText.setVisible(true);
-
-            for(int i = 0; i < reservations.size(); i++) {
-                if(LocalDate.now().isAfter(reservations.get(i).getArrivalDate().minusDays(1))
-                        ||LocalDate.now().isEqual(reservations.get(i).getArrivalDate().minusDays(1))){
-                    int numberOfNights = reservations.get(i).getDepartureDate().getDayOfYear()- reservations.get(i).getArrivalDate().getDayOfYear();
-                    selectionError.setText("NOTE: Customer should pay"+ reservations.get(i).getPrice()/numberOfNights);
-                    selectionError.setVisible(true);
-                    int roomNumber = reservations.get(i).getRoom();
-                    Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-                    tempRoom.setBooked(false);
-                    dbParser.refreshRoomStatus(tempRoom);
-                    dbParser.deleteReservationByRoomNumber(roomNumber);
-                }
-                int roomNumber = reservations.get(i).getRoom();
-                Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-                tempRoom.setBooked(false);
-                dbParser.refreshRoomStatus(tempRoom);
-                dbParser.deleteReservationByRoomNumber(roomNumber);
-            }
-
-        }
-        getReservation();
-
-    }
-
 }

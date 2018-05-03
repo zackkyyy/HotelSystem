@@ -7,8 +7,6 @@ package model;
  * @Date: 2018-04-16
  * @Project : HotelSystem
  */
-
-
 public class User {
     private String name;
     private String LastName;
@@ -21,8 +19,10 @@ public class User {
         this.userName = userName;
         this.password = password;
     }
+    
     public User() {
     }
+    
     public String getName() {
         return name;
     }

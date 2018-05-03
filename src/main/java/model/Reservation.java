@@ -9,8 +9,6 @@ import java.time.LocalDate;
  * @Date: 2018-04-13
  * @Project : HotelSystem
  */
-
-
     public class Reservation {
     private int room;
     private String guest;
@@ -87,11 +85,11 @@ import java.time.LocalDate;
     @Override
     public String toString() {
         return "Reservation{" +
-                "room=" + room +
-                ", guest=" + guest +
-                ", arrivalDate=" + arrivalDate +
-                ", departureDate=" + departureDate +
-                ", price=" + price +
+                "room =" + room +
+                ", guest =" + guest +
+                ", arrivalDate =" + arrivalDate +
+                ", departureDate =" + departureDate +
+                ", price =" + price +
                 '}';
     }
 

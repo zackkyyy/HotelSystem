@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.checkInController">
+<AnchorPane prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CheckInController">
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #fff; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -104,13 +105,13 @@
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Guest Name">
                            <font>
-                              <Font name="Times Roman" size="19.0" />
+                              <Font size="19.0" />
                            </font>
                            <HBox.margin>
-                              <Insets right="30.0" top="13.0" />
+                              <Insets right="30.0" top="10.0" />
                            </HBox.margin>
                         </Text>
-                        <JFXTextField fx:id="txtField" focusColor="#fe9939" maxWidth="237.0" minWidth="27.0" onMousePressed="#findReservationByGuestName" prefHeight="27.0" prefWidth="237.0">
+                        <JFXTextField fx:id="txtField" maxWidth="237.0" minWidth="27.0" onMousePressed="#findReservationByGuestName" prefHeight="27.0" prefWidth="237.0">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -132,7 +133,7 @@
                   </TableView>
                   <VBox maxWidth="300.0" prefHeight="44.0" prefWidth="50.0">
                      <children>
-                        <JFXDatePicker fx:id="date" defaultColor="#fe9939" onAction="#getReservation" prefHeight="44.0" prefWidth="271.0" />
+                        <JFXDatePicker fx:id="date" onAction="#getReservation" prefHeight="44.0" prefWidth="271.0" />
                         <HBox>
                            <children>
                               <JFXButton fx:id="prevBut" onAction="#prevDay" text="&lt;&lt;">
@@ -163,25 +164,17 @@
          <right>
             <VBox prefHeight="666.0" prefWidth="302.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox>
+                  <Button mnemonicParsing="false" onAction="#checkIn" text="Check-in">
                      <VBox.margin>
                         <Insets left="30.0" top="300.0" />
                      </VBox.margin>
-                     <children>
-                        <JFXButton onAction="#checkIn" style="-fx-border-color: orange;" text="Check In" />
-                        <JFXButton onAction="#cancelReservation" prefWidth="73.0" style="-fx-border-color: orange;" text="Cancel">
-                           <HBox.margin>
-                              <Insets left="40.0" />
-                           </HBox.margin>
-                        </JFXButton>
-                     </children>
-                  </HBox>
+                  </Button>
                   <Text fx:id="selectionError" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="No reservation selected" visible="false">
                      <VBox.margin>
                         <Insets left="30.0" top="20.0" />
                      </VBox.margin>
                   </Text>
-                  <Text fx:id="checkedInText" fill="#08bf14" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations has been checked-in" visible="false">
+                  <Text fx:id="checkedInText" fill="#00ff11" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations has been checked-in" visible="false">
                      <VBox.margin>
                         <Insets left="30.0" />
                      </VBox.margin>
