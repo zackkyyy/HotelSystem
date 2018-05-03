@@ -107,11 +107,11 @@ public class CheckOutController implements Initializable {
 		DBParser dbParser = new DBParser();
 		reservations = table.getSelectionModel().getSelectedItems();
 		checkedOutText.setVisible(false);
+		selectionError.setVisible(false);
 
 		if(reservations.size() == 0) {
 			selectionError.setVisible(true);
 		} else {
-			selectionError.setVisible(false);
 			checkedOutText.setVisible(true);
 
 			// Deletes the reservations and unbooks the rooms
