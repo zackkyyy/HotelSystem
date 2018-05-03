@@ -10,9 +10,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.Reservation;
@@ -21,7 +19,7 @@ import model.Room;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -39,8 +37,6 @@ public class CheckInController implements Initializable {
 	private JFXDatePicker date;
 	@FXML
 	private JFXTextField txtField;
-	@FXML
-	private JFXButton prevBut, nextBut;
 	@FXML
 	private TableView table;
 	@FXML
@@ -174,35 +170,44 @@ public class CheckInController implements Initializable {
 	public void cancelReservation(){
 		DBParser dbParser = new DBParser();
 		reservations = table.getSelectionModel().getSelectedItems();
-		checkedInText.setText("Reservation Has been canceled");
+		checkedInText.setVisible(false);
 		if(reservations.size() == 0) {
 			errorText.setText("No reservation selected");
 			errorText.setVisible(true);
 		} else {
 			errorText.setVisible(false);
-			checkedInText.setVisible(true);
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setContentText("Are you sure you want to Cancel the reservation?");
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.isPresent() && result.get().equals(ButtonType.OK)) {
+				for(int i = 0; i < reservations.size(); i++) {
+					if(LocalDate.now().isAfter(reservations.get(i).getArrivalDate().minusDays(1))
+							||LocalDate.now().isEqual(reservations.get(i).getArrivalDate().minusDays(1))){
+						int numberOfNights = reservations.get(i).getDepartureDate().getDayOfYear()- reservations.get(i).getArrivalDate().getDayOfYear();
+						errorText.setText("NOTE: Customer should pay  "+ reservations.get(i).getPrice()/numberOfNights);
+						errorText.setVisible(true);
+						int roomNumber = reservations.get(i).getRoom();
+						Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
+						tempRoom.setBooked(false);
+						dbParser.refreshRoomStatus(tempRoom);
+						dbParser.deleteReservationByRoomNumber(roomNumber);
+						checkedInText.setText("Reservation Has been canceled");
+						checkedInText.setVisible(true);
 
-			for(int i = 0; i < reservations.size(); i++) {
-				if(LocalDate.now().isAfter(reservations.get(i).getArrivalDate().minusDays(1))
-						||LocalDate.now().isEqual(reservations.get(i).getArrivalDate().minusDays(1))){
-					int numberOfNights = reservations.get(i).getDepartureDate().getDayOfYear()- reservations.get(i).getArrivalDate().getDayOfYear();
-					errorText.setText("NOTE: Customer should pay  "+ reservations.get(i).getPrice()/numberOfNights);
-					errorText.setVisible(true);
+
+					}
 					int roomNumber = reservations.get(i).getRoom();
 					Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
 					tempRoom.setBooked(false);
 					dbParser.refreshRoomStatus(tempRoom);
 					dbParser.deleteReservationByRoomNumber(roomNumber);
+					checkedInText.setText("Reservation Has been canceled");
+					checkedInText.setVisible(true);
 				}
-				int roomNumber = reservations.get(i).getRoom();
-				Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-				tempRoom.setBooked(false);
-				dbParser.refreshRoomStatus(tempRoom);
-				dbParser.deleteReservationByRoomNumber(roomNumber);
+			}
+			getReservation();
 			}
 
-		}
-		getReservation();
 	}
 
 	// Returns false if current date is before arrival date OR if current date is after departure date. Otherwise it returns true
