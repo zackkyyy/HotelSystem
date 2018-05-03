@@ -35,6 +35,7 @@ public class DBParser {
 	private MongoCollection users;
 	private MongoCollection reservations;
 
+
 	public void createNewGuest(Guest newGuest , DataBase db) {
 		db = new DataBase();
 		doc = new Document();
@@ -376,6 +377,16 @@ public class DBParser {
 		System.out.println("Guest with id "+newUser.getName() +" is now created");
 	}
 
+	/**
+	 *    This method is a validator that checks if the entered password and user name
+	 *    matches any of the registered users in the DB
+	 * @param username
+	 * 				String that user enter to log in
+	 * @param password
+	 * 				Password as String that user used to log in
+	 * @return
+	 * 			True if there is a match, otherwise false
+	 */
 	public Boolean validateLogging(String username , String password){
 		DataBase db = new DataBase();
 		users = db.getUsersCollection();
@@ -390,6 +401,21 @@ public class DBParser {
 			}
 		}
 		return false;
+	}
+	public User findUserByLogInInfo(String userName , String pass){
+		User user ;
+		DataBase db = new DataBase();
+		users = db.getUsersCollection();
+		cursor = users.find().iterator();
+		for (int i = 0; i < users.count(); i++) {
+			doc = cursor.next();
+			if (doc.getString("username").equals(userName) && doc.getString("password").equals(pass)) {
+				user= new User(doc.getString("name"), doc.getString("last name"),doc.getString("username"),doc.getString("password"));
+			return user;
+			}
+		}
+		return null;
+
 	}
 
 	public void saveReservationToDB(Reservation reservation) {
@@ -486,14 +512,8 @@ public class DBParser {
 		for (int i = 0; i < reservations.count(); i++) {
 			doc = cursor.next();
 			if(doc.getDate("arrival").equals(d) && !doc.getBoolean("is checkedIn")){
-				LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				Double price = doc.getDouble("price");
-				int roomID = doc.getInteger("room");
-				String guestID = doc.getString("guest");
-				reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+				reservation= getReservationFromDB(doc);
 				listOfReservation.add(reservation);
-				System.out.println(reservation.toString());
 			}
 
 		}
@@ -507,21 +527,78 @@ public class DBParser {
 		cursor = reservations.find().iterator();
 		ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
 		Reservation reservation ;
-		System.out.println();
-
 		for (int i = 0; i < reservations.count(); i++) {
 			doc = cursor.next();
 			if(doc.getDate("departure").equals(d) && doc.getBoolean("is checkedIn")){
-				LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				Double price = doc.getDouble("price");
-				int roomID = doc.getInteger("room");
-				String guestID = doc.getString("guest");
-				reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+				reservation= getReservationFromDB(doc);
 				listOfReservation.add(reservation);
-				System.out.println(reservation.toString());
 			}
 		}
 		return listOfReservation;
+	}
+
+	public void refreshGuestInfo(Guest guest) {
+
+		persons.updateOne(eq("identity nr", guest.getIdentityNr()), new Document("$set",
+				new Document("name", guest.getName())
+						.append("last name", guest.getLastName())
+						.append("phone nr", guest.getPhoneNr())
+						.append("address", guest.getAddress())
+						.append("credit card", guest.getCreditCard())
+						.append("identity nr", guest.getIdentityNr())
+						.append("notes", guest.getNotes())));
+	}
+
+	public Guest getGuestByName(String guestName) {
+		persons = db.getPersonsCollection();
+		cursor = persons.find().iterator();
+
+		Guest guest = null;
+		for (int i = 0; i < persons.count(); i++) {
+			doc = cursor.next();
+			if ((doc.getString("name")+" "+doc.getString("last name")).equals(guestName)){
+				guest = getGuestFromDB(doc);
+			}
+		}
+		return guest;
+	}
+	/**
+	 *  Method that copy the information of a guest from a document in the
+	 *  database and creates a reservation out of it
+	 *
+	 * @param doc
+	 * 			The document that is used to create the guest
+	 * @return
+	 * 			Guest
+	 */
+	private Guest getGuestFromDB(Document doc) {
+		String name = doc.getString("name");
+		String lastName = doc.getString("last name");
+		String address = doc.getString("address");
+		String phoneNr = doc.getString("phone nr");
+		String creditCard = doc.getString("credit card");
+		String identity_nr = doc.getString("identity nr");
+		String notes = doc.getString("notes");
+		Guest guest  = new Guest(name , lastName ,address, phoneNr,creditCard,identity_nr,creditCard, notes);
+		return guest;
+	}
+
+	/**
+	 *  Method that copy the information of a reservation from a document in the
+	 *  dataBase and creates a reservation out of it
+	 *
+	 * @param doc
+	 * 			The document that is used to create the reservation
+	 * @return
+	 * 			Reservation
+	 */
+	private Reservation getReservationFromDB(Document doc){
+		LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		Double price = doc.getDouble("price");
+		int roomID = doc.getInteger("room");
+		String guestID = doc.getString("guest");
+		Reservation reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+		return reservation;
 	}
 }

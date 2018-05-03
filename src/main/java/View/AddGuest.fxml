@@ -31,7 +31,7 @@
                 </VBox>
             </top>
             <bottom>
-                <JFXButton fx:id="button" maxHeight="74.0" maxWidth="79.0" minHeight="43.0" minWidth="44.0" onAction="#SaveNewGuest" prefHeight="43.0" prefWidth="50.0" style="-fx-background-radius: 50; -fx-background-color: BLACK; -fx-min-width: 50; -fx-min-height: 50; -fx-max-height: 50; -fx-max-width: 50; -fx-background-insets: 0; -fx-padding: 0;" text="Button" textFill="WHITE" BorderPane.alignment="TOP_RIGHT">
+                <JFXButton fx:id="button" maxHeight="74.0" maxWidth="79.0" minHeight="43.0" minWidth="44.0" onAction="#saveNewGuest" prefHeight="43.0" prefWidth="50.0" style="-fx-background-radius: 50; -fx-background-color: BLACK; -fx-min-width: 50; -fx-min-height: 50; -fx-max-height: 50; -fx-max-width: 50; -fx-background-insets: 0; -fx-padding: 0;" text="Button" textFill="WHITE" BorderPane.alignment="TOP_RIGHT">
                     <graphic>
                         <FontAwesomeIconView fill="#ff5e00" glyphName="PLUS" scaleZ="0.0" size="25" strikethrough="true" textAlignment="CENTER" wrappingWidth="13.0" />
                     </graphic>

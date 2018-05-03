@@ -76,7 +76,7 @@ public class ReserveController implements Initializable {
 	@FXML
 	private FontAwesomeIconView removeRoomSearch;
 	@FXML
-	private Label errorLabel,errorMsg, gstID, gstName, gstCredit, gstPhone,depDate, arrDate ;
+	private Label errorLabel,errorMsg, gstID, gstName, gstCredit, gstPhone,depDate, arrDate ,nameLabel;
 	@FXML
 	private Label roomNr1, guestNr1, roomType1, roomCity1, roomNr2, guestNr2, roomType2, roomCity2,
 	roomNr3, guestNr3, roomType3, roomCity3, roomNr4, guestNr4, roomType4, roomCity4;
@@ -537,15 +537,19 @@ public class ReserveController implements Initializable {
 			errorMsg.setText("Credit card field should not be empty");
 			return false;
 			
+		} else if(!creditCardValidator(creditCard.getText())){
+			errorMsg.setText("Invalid Credit Card");
+			return false;
+
 		} else if (phoneNr.getText().isEmpty()) {
 			errorMsg.setText("Phone nr field should not be empty");
 			return false;
+
 		}
 		return true;
 	}
 
 	public void createReservation(ActionEvent actionEvent) {
-		//TODO reservation Confirmation
 		String guestID = customer.getName() + " " + customer.getLastName();
 
 		for(int i = 0; i < bookedRoom.size(); i++) {
@@ -579,6 +583,18 @@ public class ReserveController implements Initializable {
 			roomInfoBoxes[i].setVisible(true);
 			roomInfoBoxes[i].setManaged(true);
 		}
+	}
+
+	public static boolean creditCardValidator(String str) {
+		if (str.length()<13 || str.length()>16){
+			return false;
+		}
+		for (int i = 0; i < str.length(); i++) {
+			if (!Character.isDigit(str.charAt(i))){
+				return false;
+			}
+		}
+		return true;
 	}
 }
 
