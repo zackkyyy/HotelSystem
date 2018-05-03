@@ -790,6 +790,7 @@
                                           <Insets left="700.0" />
                                        </HBox.margin>
                                     </Button>
+                                    <Button mnemonicParsing="false"  text="Button" />
                                  </children>
                               </HBox>
                            </bottom>
@@ -1207,6 +1208,7 @@
                         </BorderPane>
                         <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
                            <children>
+                              <Button mnemonicParsing="false"  text="Button" />
                               <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFirstTab" text="Return" />
                               <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation hase been done successfully ">
                                  <font>
@@ -1277,7 +1279,11 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="logOutBtn" prefHeight="27.0" prefWidth="93.0" text="Log Out" />
+                  <JFXButton fx:id="logOutBtn" prefHeight="27.0" prefWidth="93.0" text="Log Out">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SIGN_OUT" />
+                     </graphic>
+                  </JFXButton>
                </children>
                <HBox.margin>
                   <Insets left="40.0" />

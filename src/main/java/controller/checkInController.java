@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import model.Reservation;
+import model.Room;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,21 +105,28 @@ public class checkInController implements Initializable {
 	public void nextDay(ActionEvent e){
 		date.setValue(date.getValue().plusDays(1));
 		txtField.setText("");
+        checkedInText.setVisible(false);
+        selectionError.setVisible(false);
 		getReservation();
 	}
 	public void prevDay(ActionEvent e){
 		date.setValue(date.getValue().minusDays(1));
 		txtField.setText("");
+        checkedInText.setVisible(false);
+        selectionError.setVisible(false);
 		getReservation();
 	}
 
 	public void checkIn() {
 		DBParser dbParser = new DBParser();
 		reservations = table.getSelectionModel().getSelectedItems();
-		checkedInText.setVisible(false);
+		checkedInText.setText("Reservations has been checked-in");
+        checkedInText.setVisible(false);
+        selectionError.setVisible(false);
 
 		if(reservations.size() == 0) {
-			selectionError.setVisible(true);
+            selectionError.setText("No reservation selected");
+            selectionError.setVisible(true);
 		} else {
 			selectionError.setVisible(false);
 			checkedInText.setVisible(true);
@@ -136,7 +144,8 @@ public class checkInController implements Initializable {
 	 *           the text typed in the search field
 	 */
 	public void findReservationByGuestName(){
-
+        checkedInText.setVisible(false);
+        selectionError.setVisible(false);
 		DBParser dbParser = new DBParser();
 		listOfReservations= FXCollections.observableArrayList(dbParser.getAllReservations());
 		FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
@@ -156,5 +165,40 @@ public class checkInController implements Initializable {
 		sortedData.comparatorProperty().bind(table.comparatorProperty());
 		table.setItems(sortedData);
 	}
+
+	public void cancelReservation(){
+        DBParser dbParser = new DBParser();
+        reservations = table.getSelectionModel().getSelectedItems();
+        checkedInText.setText("Reservation Has been canceled");
+        if(reservations.size() == 0) {
+            selectionError.setText("No reservation selected");
+            selectionError.setVisible(true);
+        } else {
+            selectionError.setVisible(false);
+            checkedInText.setVisible(true);
+
+            for(int i = 0; i < reservations.size(); i++) {
+                if(LocalDate.now().isAfter(reservations.get(i).getArrivalDate().minusDays(1))
+                        ||LocalDate.now().isEqual(reservations.get(i).getArrivalDate().minusDays(1))){
+                    int numberOfNights = reservations.get(i).getDepartureDate().getDayOfYear()- reservations.get(i).getArrivalDate().getDayOfYear();
+                    selectionError.setText("NOTE: Customer should pay"+ reservations.get(i).getPrice()/numberOfNights);
+                    selectionError.setVisible(true);
+                    int roomNumber = reservations.get(i).getRoom();
+                    Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
+                    tempRoom.setBooked(false);
+                    dbParser.refreshRoomStatus(tempRoom);
+                    dbParser.deleteReservationByRoomNumber(roomNumber);
+                }
+                int roomNumber = reservations.get(i).getRoom();
+                Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
+                tempRoom.setBooked(false);
+                dbParser.refreshRoomStatus(tempRoom);
+                dbParser.deleteReservationByRoomNumber(roomNumber);
+            }
+
+        }
+        getReservation();
+
+    }
 
 }

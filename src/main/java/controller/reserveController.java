@@ -102,7 +102,7 @@ public class reserveController implements Initializable {
 	private ObservableList<Room> listOfRooms;
 	private Guest customer;
 	private ObservableList<Room> bookedRoom;
-	
+    private Reservation reservation;
 	/**
 	 *  This method is @Override because this class implement Initializble
 	 *  Here when initialize the button or the menu items to their actions
@@ -246,9 +246,9 @@ public class reserveController implements Initializable {
 			checkOutField.setValue(checkInField.getValue().plusDays(1));
 			nights.setText("1");
 		} else {
-			intervalPeriod = Period.between(checkInField.getValue(), checkOutField.getValue());
-			String numberOfNights = intervalPeriod.toString().substring(1, intervalPeriod.toString().length() - 1);
-			nights.setText(numberOfNights);
+		    int s = checkOutField.getValue().getDayOfYear()- checkInField.getValue().getDayOfYear();
+			nights.setText(String.valueOf(s));
+
 		}
 	}
 	
@@ -482,10 +482,8 @@ public class reserveController implements Initializable {
 		Guest gst;
 		if (!search.getText().equals("")){
 			gst=getCustomerFromSearch();
-			System.out.println("Customer found in list");
 		}else {
 			gst=saveNewCustomer();
-			System.out.println("Customer is created");
 		}
 		return gst;
 	}
@@ -541,14 +539,14 @@ public class reserveController implements Initializable {
 		String guestID = customer.getName() + " " + customer.getLastName();
 
 		for(int i = 0; i < bookedRoom.size(); i++) {
-			Reservation reservation = new Reservation();
+		    reservation = new Reservation();
 			int roomID = bookedRoom.get(i).getRoomNr();
 			reservation.setGuest(guestID);
 			reservation.setRoom(roomID);
 			reservation.setArrivalDate(checkInField.getValue());
 			reservation.setDepartureDate(checkOutField.getValue());
 			reservation.setCheckedIn(false);
-			reservation.setPrice(bookedRoom.get(i).getPrice());
+			reservation.setPrice(bookedRoom.get(i).getPrice()*Integer.parseInt(nights.getText()));
 			bookedRoom.get(i).setBooked(true);
 			dbParser.refreshRoomStatus(bookedRoom.get(i));
 			dbParser.saveReservationToDB(reservation);
