@@ -244,9 +244,8 @@ public class ReserveController implements Initializable {
 			checkOutField.setValue(checkInField.getValue().plusDays(1));
 			nights.setText("1");
 		} else {
-			intervalPeriod = Period.between(checkInField.getValue(), checkOutField.getValue());
-			String numberOfNights = intervalPeriod.toString().substring(1, intervalPeriod.toString().length() - 1);
-			nights.setText(numberOfNights);
+            int numberOfNights = checkOutField.getValue().getDayOfYear()- checkInField.getValue().getDayOfYear();
+			nights.setText(String.valueOf(numberOfNights));
 		}
 	}
 
@@ -557,7 +556,7 @@ public class ReserveController implements Initializable {
 			reservation.setArrivalDate(checkInField.getValue());
 			reservation.setDepartureDate(checkOutField.getValue());
 			reservation.setCheckedIn(false);
-			reservation.setPrice(bookedRoom.get(i).getPrice());
+			reservation.setPrice(bookedRoom.get(i).getPrice()* Integer.parseInt(nights.getText()));
 			bookedRoom.get(i).setBooked(true);
 			dbParser.refreshRoomStatus(bookedRoom.get(i));
 			dbParser.saveReservationToDB(reservation);

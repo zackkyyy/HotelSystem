@@ -181,7 +181,7 @@ public class CheckInController implements Initializable {
                 if(LocalDate.now().isAfter(reservations.get(i).getArrivalDate().minusDays(1))
                         ||LocalDate.now().isEqual(reservations.get(i).getArrivalDate().minusDays(1))){
                     int numberOfNights = reservations.get(i).getDepartureDate().getDayOfYear()- reservations.get(i).getArrivalDate().getDayOfYear();
-                    selectionError.setText("NOTE: Customer should pay"+ reservations.get(i).getPrice()/numberOfNights);
+                    selectionError.setText("NOTE: Customer should pay  "+ reservations.get(i).getPrice()/numberOfNights);
                     selectionError.setVisible(true);
                     int roomNumber = reservations.get(i).getRoom();
                     Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
