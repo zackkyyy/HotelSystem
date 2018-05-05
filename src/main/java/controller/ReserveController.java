@@ -83,8 +83,8 @@ public class ReserveController implements Initializable {
 	@FXML
 	private HBox roomInfoBox1, roomInfoBox2, roomInfoBox3, roomInfoBox4;
 	@FXML
-    private JFXButton checkInButton ,guestButton,checkOutButton , logOutBtn;
-    private MenuController mu;
+	private JFXButton checkInButton ,guestButton,checkOutButton , logOutBtn;
+	private MenuController mu;
 	private Label[] roomNrs = new Label[4];
 	private Label[] guestNrs = new Label[4];
 	private Label[] roomTypes = new Label[4];
@@ -102,20 +102,20 @@ public class ReserveController implements Initializable {
 	private ObservableList<Room> listOfRooms;
 	private Guest customer;
 	private ObservableList<Room> bookedRoom;
-	
+
 	/**
 	 *  This method is @Override because this class implement Initializble
 	 *  Here when initialize the button or the menu items to their actions
 	 * @param location
 	 * @param resources
 	 */
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		dbParser = new DBParser();
 		dbParser.deleteOldReservations();
-		
-	    mu= new MenuController();
+
+		mu= new MenuController();
 		errorMsg.setVisible(false);
 		table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		checkInField.setValue(LocalDate.now());
@@ -123,7 +123,7 @@ public class ReserveController implements Initializable {
 		disablePreviousDates();
 		addToTable();  // add rooms to the table
 		initRoomInfo();
-		
+
 		// Adds listener to table, updating the total price
 		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
 			if (newSelection != null) {
@@ -191,33 +191,33 @@ public class ReserveController implements Initializable {
 		});
 
 		checkInButton.setOnAction(event -> {
-            try {
-                mu.ShowCheckInPage(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        checkOutButton.setOnAction(event -> {
-            try {
-                mu.showCheckOutWindow(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        logOutBtn.setOnAction(event -> {
-            try {
-                mu.showLogInWindow(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        guestButton.setOnAction(event -> {
-            try {
-                mu.showGuestManagement(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+			try {
+				mu.ShowCheckInPage(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		checkOutButton.setOnAction(event -> {
+			try {
+				mu.showCheckOutWindow(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		logOutBtn.setOnAction(event -> {
+			try {
+				mu.showLogInWindow(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		guestButton.setOnAction(event -> {
+			try {
+				mu.showGuestManagement(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -226,15 +226,18 @@ public class ReserveController implements Initializable {
 	 */
 	public void calculateNights() {
 		Period intervalPeriod;
-
+		
 		// check that the check in is always before the check out
 		if (checkInField.getValue().isAfter(checkOutField.getValue())) {
 			checkOutField.setValue(checkInField.getValue().plusDays(1));
 			nights.setText("1");
 		} else {
-            int numberOfNights = checkOutField.getValue().getDayOfYear()- checkInField.getValue().getDayOfYear();
+			int numberOfNights = checkOutField.getValue().getDayOfYear()- checkInField.getValue().getDayOfYear();
 			nights.setText(String.valueOf(numberOfNights));
 		}
+		updateDepartureDateCells();
+		updateRoomPrice();
+
 		
 		updateRoomPrice();
 	}
@@ -264,7 +267,7 @@ public class ReserveController implements Initializable {
 	public void moveToNextTab() {
 		if (tabPane.getSelectionModel().isSelected(1)){
 			customer = getCustomer();
-			
+
 			if(customer != null){
 				gstName.setText(customer.getName()+ " " +customer.getLastName());
 				gstCredit.setText(customer.getCreditCard());
@@ -329,12 +332,12 @@ public class ReserveController implements Initializable {
 		persons = db.getPersonsCollection();
 		cursor = persons.find().iterator();
 		String[] listOfNames = new String[(int) persons.count()] ;
-		
+
 		for (int i = 0; i < persons.count(); i++) {
 			doc = cursor.next();
 			listOfNames[i]=doc.getString("name")+" "+doc.getString("last name");
 		}
-		
+
 		try {
 			TextFields.bindAutoCompletion(search,listOfNames);
 		} catch (Exception e){
@@ -359,20 +362,20 @@ public class ReserveController implements Initializable {
 	public void filterByCity(String string) {
 		ObservableList<Room> list;
 		dbParser = new DBParser();
-		
+
 		if(!removeCitySearch.isVisible()) {
 			list = table.getItems();
 			table.getItems().removeAll();
 			listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
 			table.setItems(listOfRooms);
 			removeCitySearch.setVisible(true);
-			
+
 		} else if (removeCitySearch.isVisible()&&!removeTypeSearch.isVisible()){
 			list = FXCollections.observableArrayList(dbParser.getAllRoom());
 			table.getItems().removeAll();
 			listOfRooms = FXCollections.observableArrayList( dbParser.filterByCity(cityName.getText(), list));
 			table.setItems(listOfRooms);
-			
+
 		} else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()){
 			list=FXCollections.observableArrayList(dbParser.getAllRoom());
 			ObservableList<Room> filteredByRoom = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
@@ -391,13 +394,13 @@ public class ReserveController implements Initializable {
 			listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
 			table.setItems( listOfRooms);
 			removeTypeSearch.setVisible(true);
-			
+
 		} else if (removeTypeSearch.isVisible()&&!removeCitySearch.isVisible()){
 			list = FXCollections.observableArrayList(dbParser.getAllRoom());
 			table.getItems().removeAll();
 			listOfRooms =FXCollections.observableArrayList( dbParser.filterByRoomType(personsNumber.getText(), list));
 			table.setItems(listOfRooms);
-			
+
 		} else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()){
 			list = FXCollections.observableArrayList(dbParser.getAllRoom());
 			ObservableList<Room>   filteredByCity = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
@@ -410,7 +413,7 @@ public class ReserveController implements Initializable {
 	public void removeCitySearch(){
 		dbParser = new DBParser();
 		listOfRooms = FXCollections.observableArrayList(dbParser.getAllRoom());
-		
+
 		if (removeTypeSearch.isVisible()){
 			listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), listOfRooms));
 			table.setItems(listOfRooms);
@@ -441,7 +444,7 @@ public class ReserveController implements Initializable {
 		roomsList = db.getRoomsColl();
 		cursor = roomsList.find().iterator();
 		String searchedRoom = searchRoom.getText();
-		
+
 		if(!searchRoom.getText().isEmpty()) {
 			for (int i = 0; i < roomsList.count(); i++) {
 				doc = cursor.next();
@@ -474,7 +477,7 @@ public class ReserveController implements Initializable {
 
 	public Guest getCustomer(){
 		Guest guest;
-		
+
 		if (!search.getText().equals("")){
 			guest = getCustomerFromSearch();
 			System.out.println("Customer found in list");
@@ -487,7 +490,7 @@ public class ReserveController implements Initializable {
 
 	public Guest saveNewCustomer(){
 		Guest guest = null;
-		
+
 		if(!checkFields()) {
 			errorMsg.setVisible(true);
 		} else {
@@ -502,31 +505,31 @@ public class ReserveController implements Initializable {
 		if (name.getText().isEmpty()) {
 			errorMsg.setText("Name field should not be empty");
 			return false;
-			
+
 		} else if(name.getText().matches(".*\\d+.*")){
 			errorMsg.setText("Name field should have only letters");
 			return false;
-			
+
 		} else if (lastName.getText().isEmpty()) {
 			errorMsg.setText("Last name field should not be empty");
 			return false;
-			
+
 		} else if (lastName.getText().matches(".*\\d+.*")) {
 			errorMsg.setText("Last name field should have only letters");
 			return false;
-			
+
 		} else if (address.getText().isEmpty()) {
 			errorMsg.setText("Address field should not be empty");
 			return false;
-			
+
 		} else  if (identityNr.getText().isEmpty()) {
 			errorMsg.setText("ID number field should not be empty");
 			return false;
-			
+
 		} else if (creditCard.getText().isEmpty()) {
 			errorMsg.setText("Credit card field should not be empty");
 			return false;
-			
+
 		} else if(!creditCardValidator(creditCard.getText())){
 			errorMsg.setText("Invalid Credit Card");
 			return false;
@@ -573,7 +576,7 @@ public class ReserveController implements Initializable {
 		}
 		return true;
 	}
-	
+
 	// Initializes the room info arrays
 	private void initRoomInfo() {
 		// Initialize room info Hboxes array
@@ -600,7 +603,7 @@ public class ReserveController implements Initializable {
 		roomCities[2] = roomCity3;
 		roomCities[3] = roomCity4;
 	}
-	
+
 	// Hides all roomInfoBoxes and then displays the ones that are used
 	private void hideRoomInfoBoxes(int amountRooms) {
 		for(int i = 0; i < roomInfoBoxes.length; i++) {
@@ -618,10 +621,61 @@ public class ReserveController implements Initializable {
 		ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
 		double tempTotalPrice = 0;
 
+	private void updateRoomPrice() {
+		ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
+		double tempTotalPrice = 0;
+
 		for (int i = 0; i < selectedRooms.size(); i++) {
 			tempTotalPrice += selectedRooms.get(i).getPrice() * Integer.parseInt(nights.getText());
 		}
 		totalPrice.setText(String.valueOf(tempTotalPrice));
 	}
+
+	// Disables (grayes out) all dates before today in both the DatePickers
+	private void disablePreviousDates() {
+		Callback<DatePicker, DateCell> dayCellFactory;
+
+		dayCellFactory = new Callback<DatePicker, DateCell>() {
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if(item.isBefore(LocalDate.now())) {
+							setDisable(true);
+						}
+					}
+				};
+			}
+		};
+
+		checkOutField.setDayCellFactory(dayCellFactory);
+		checkInField.setDayCellFactory(dayCellFactory);
+
+	}
+	
+	private void updateDepartureDateCells() {
+		checkOutField.hide();
+		Callback<DatePicker, DateCell> dayCellFactory;
+
+		dayCellFactory = new Callback<DatePicker, DateCell>() {
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if(item.isBefore(checkInField.getValue().plusDays(1))) {
+							setDisable(true);
+						} 
+						else if(item.isAfter(checkInField.getValue())) {
+							setDisable(false);
+						}
+					}
+				};
+			}
+		};
+		checkOutField.setDayCellFactory(dayCellFactory);
+	}
+	
 }
 
