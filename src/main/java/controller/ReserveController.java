@@ -237,6 +237,31 @@ public class ReserveController implements Initializable {
 		}
 		updateDepartureDateCells();
 		updateRoomPrice();
+
+		
+		updateRoomPrice();
+	}
+
+	// Disables (grayes out) all dates before today in both the DatePickers
+	private void disablePreviousDates() {
+		Callback<DatePicker, DateCell> dayCellFactory;
+
+		dayCellFactory = new Callback<DatePicker, DateCell>() {
+			public DateCell call(final DatePicker datePicker) {
+				return new DateCell() {
+					@Override public void updateItem(LocalDate item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if(item.isBefore(LocalDate.now())) {
+							setDisable(true);
+						}
+					}
+				};
+			}
+		};
+
+		checkOutField.setDayCellFactory(dayCellFactory);
+		checkInField.setDayCellFactory(dayCellFactory);
 	}
 
 	public void moveToNextTab() {
@@ -591,6 +616,10 @@ public class ReserveController implements Initializable {
 			roomInfoBoxes[i].setManaged(true);
 		}
 	}
+	
+	private void updateRoomPrice() {
+		ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
+		double tempTotalPrice = 0;
 
 	private void updateRoomPrice() {
 		ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
@@ -622,6 +651,7 @@ public class ReserveController implements Initializable {
 
 		checkOutField.setDayCellFactory(dayCellFactory);
 		checkInField.setDayCellFactory(dayCellFactory);
+
 	}
 	
 	private void updateDepartureDateCells() {
