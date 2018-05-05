@@ -90,7 +90,6 @@ public class CheckInController implements Initializable {
 		DBParser dbParser = new DBParser();
 		// table.getItems().remove(0,table.getItems().size());
 		ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getReservationByDate(date.getValue()));
-
 		table.setItems(listOfReservations);
 		arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("arrivalDate"));
 		departCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("departureDate"));
@@ -125,7 +124,7 @@ public class CheckInController implements Initializable {
 			errorText.setText("No reservation selected");
 			errorText.setVisible(true);
 		} else {
-			for(int i = 0; i < reservations.size(); i++) {	
+			for(int i = 0; i < reservations.size(); i++) {
 				if(isCorrectDates(reservations.get(i))) {
 					reservations.get(i).setCheckedIn(true);
 					dbParser.refreshReservationStatus(reservations.get(i));
@@ -148,7 +147,7 @@ public class CheckInController implements Initializable {
 		checkedInText.setVisible(false);
 		errorText.setVisible(false);
 		DBParser dbParser = new DBParser();
-		listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
+		listOfReservations = FXCollections.observableArrayList(dbParser.getNotCheckedInReservation());
 		FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
 		txtField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(t -> {
