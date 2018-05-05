@@ -2,20 +2,28 @@ package controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Filters;
+
 import javafx.collections.ObservableList;
 import model.*;
 import model.enums.City;
 import model.enums.RoomType;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -536,6 +544,32 @@ public class DBParser {
 		}
 		return listOfReservation;
 	}
+	
+	// Deletes reservations that has departure date before todays date and unbooks the corresponding rooms
+	public void deleteOldReservations() {
+		Instant instant = Instant.now().minus(1, ChronoUnit.DAYS);
+		Date time = Date.from(instant);
+		Bson filter = Filters.lt("departure", time);
+		
+		reservations = db.getReservationsCollection();
+		MongoCursor<Document> reservationCursor = reservations.find().iterator();
+
+		// Unbooks the rooms
+		for (int i = 0; i < reservations.count(); i++) {
+			doc = reservationCursor.next();
+
+			if(doc.getDate("departure").before(time)){
+				int roomID = doc.getInteger("room");
+				
+				Room tempRoom = copyRoomByRoomNumber(roomID);
+				tempRoom.setBooked(false);
+				refreshRoomStatus(tempRoom);
+			}
+		}
+		
+		// Deletes the reservations
+		reservations.deleteMany(filter);
+
 
 	public void refreshGuestInfo(Guest guest) {
 
@@ -600,5 +634,6 @@ public class DBParser {
 		String guestID = doc.getString("guest");
 		Reservation reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
 		return reservation;
+
 	}
 }

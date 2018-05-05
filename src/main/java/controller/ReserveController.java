@@ -111,6 +111,9 @@ public class ReserveController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		dbParser = new DBParser();
+		dbParser.deleteOldReservations();
+		
 	    mu= new MenuController();
 		errorMsg.setVisible(false);
 		table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -118,7 +121,7 @@ public class ReserveController implements Initializable {
 		checkOutField.setValue(LocalDate.now().plusDays(1));
 		disablePreviousDates();
 		addToTable();  // add rooms to the table
-
+		
 		// Initialize room info Hboxes array
 		roomInfoBoxes[0] = roomInfoBox1;
 		roomInfoBoxes[1] = roomInfoBox2;
