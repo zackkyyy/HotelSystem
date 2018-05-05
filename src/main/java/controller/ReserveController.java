@@ -109,6 +109,7 @@ public class ReserveController implements Initializable {
 	 * @param location
 	 * @param resources
 	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		dbParser = new DBParser();
@@ -121,30 +122,14 @@ public class ReserveController implements Initializable {
 		checkOutField.setValue(LocalDate.now().plusDays(1));
 		disablePreviousDates();
 		addToTable();  // add rooms to the table
+		initRoomInfo();
 		
-		// Initialize room info Hboxes array
-		roomInfoBoxes[0] = roomInfoBox1;
-		roomInfoBoxes[1] = roomInfoBox2;
-		roomInfoBoxes[2] = roomInfoBox3;
-		roomInfoBoxes[3] = roomInfoBox4;
-
-		// Initializes room information labels array
-		roomNrs[0] = roomNr1;
-		roomNrs[1] = roomNr2;
-		roomNrs[2] = roomNr3;
-		roomNrs[3] = roomNr4;
-		guestNrs[0] = guestNr1;
-		guestNrs[1] = guestNr2;
-		guestNrs[2] = guestNr3;
-		guestNrs[3] = guestNr4;
-		roomTypes[0] = roomType1;
-		roomTypes[1]= roomType2;
-		roomTypes[2]= roomType3;
-		roomTypes[3]= roomType4;
-		roomCities[0] = roomCity1;
-		roomCities[1] = roomCity2;
-		roomCities[2] = roomCity3;
-		roomCities[3] = roomCity4;
+		// Adds listener to table, updating the total price
+		table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+			if (newSelection != null) {
+				updateRoomPrice();
+			}
+		});
 
 		/*
         The following lines to decide the number of the Guest
@@ -250,6 +235,8 @@ public class ReserveController implements Initializable {
             int numberOfNights = checkOutField.getValue().getDayOfYear()- checkInField.getValue().getDayOfYear();
 			nights.setText(String.valueOf(numberOfNights));
 		}
+		
+		updateRoomPrice();
 	}
 
 	// Disables (grayes out) all dates before today in both the DatePickers
@@ -329,12 +316,12 @@ public class ReserveController implements Initializable {
 	public void moveToPreviousTab(){
 		tabPane.getSelectionModel().selectPrevious();
 		errorMsg.setVisible(false);
-		totalPrice.setText("0"); // TODO: Fix total price to update on selelected rooms
+		updateRoomPrice();
 	}
 
 	public void moveToFirstTab(){
 		tabPane.getSelectionModel().selectFirst();
-		totalPrice.setText("0"); // TODO: Fix total price to update on selelected rooms
+		updateRoomPrice();
 	}
 
 	public void autoCompletion(){
@@ -575,6 +562,45 @@ public class ReserveController implements Initializable {
 		addToTable();
 	}
 
+	public static boolean creditCardValidator(String str) {
+		if (str.length()<13 || str.length()>16){
+			return false;
+		}
+		for (int i = 0; i < str.length(); i++) {
+			if (!Character.isDigit(str.charAt(i))){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	// Initializes the room info arrays
+	private void initRoomInfo() {
+		// Initialize room info Hboxes array
+		roomInfoBoxes[0] = roomInfoBox1;
+		roomInfoBoxes[1] = roomInfoBox2;
+		roomInfoBoxes[2] = roomInfoBox3;
+		roomInfoBoxes[3] = roomInfoBox4;
+
+		// Initializes room information labels array
+		roomNrs[0] = roomNr1;
+		roomNrs[1] = roomNr2;
+		roomNrs[2] = roomNr3;
+		roomNrs[3] = roomNr4;
+		guestNrs[0] = guestNr1;
+		guestNrs[1] = guestNr2;
+		guestNrs[2] = guestNr3;
+		guestNrs[3] = guestNr4;
+		roomTypes[0] = roomType1;
+		roomTypes[1]= roomType2;
+		roomTypes[2]= roomType3;
+		roomTypes[3]= roomType4;
+		roomCities[0] = roomCity1;
+		roomCities[1] = roomCity2;
+		roomCities[2] = roomCity3;
+		roomCities[3] = roomCity4;
+	}
+	
 	// Hides all roomInfoBoxes and then displays the ones that are used
 	private void hideRoomInfoBoxes(int amountRooms) {
 		for(int i = 0; i < roomInfoBoxes.length; i++) {
@@ -587,17 +613,15 @@ public class ReserveController implements Initializable {
 			roomInfoBoxes[i].setManaged(true);
 		}
 	}
+	
+	private void updateRoomPrice() {
+		ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
+		double tempTotalPrice = 0;
 
-	public static boolean creditCardValidator(String str) {
-		if (str.length()<13 || str.length()>16){
-			return false;
+		for (int i = 0; i < selectedRooms.size(); i++) {
+			tempTotalPrice += selectedRooms.get(i).getPrice() * Integer.parseInt(nights.getText());
 		}
-		for (int i = 0; i < str.length(); i++) {
-			if (!Character.isDigit(str.charAt(i))){
-				return false;
-			}
-		}
-		return true;
+		totalPrice.setText(String.valueOf(tempTotalPrice));
 	}
 }
 
