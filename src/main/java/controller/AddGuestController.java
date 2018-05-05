@@ -55,7 +55,7 @@ public class AddGuestController {
 			newGuest.setCreditCard(creditCard.getText());
 			guestController.createNewGuest(newGuest , db);
 
-			clearFeilds();
+			clearFields();
 		} else if (!checkFields()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText(errMsg);
@@ -98,7 +98,7 @@ public class AddGuestController {
 		return true;
 	}
 	
-	public void clearFeilds(){
+	public void clearFields(){
 		name.setText("");
 		lastName.setText("");
 		phoneNr.setText("");
