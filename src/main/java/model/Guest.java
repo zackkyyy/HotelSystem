@@ -46,7 +46,17 @@ public class Guest {
 		 this.creditCard = creditCard;
 	 }
 
-	 public String getName(){
+	public Guest(String name, String lastName, String address, String phoneNr, String creditCard, String identity_nr, String creditCard1, String notes) {
+		this.identityNr = identity_nr;
+		this.name = name;
+		this.lastName = lastName;
+		this.address = address;
+		this.phoneNr = phoneNr;
+		this.creditCard = creditCard1;
+		this.notes=notes;
+	 }
+
+	public String getName(){
 		 return name ;
 	 }
 
@@ -100,10 +110,6 @@ public class Guest {
 
 	 public String getId() {
 		 return id;
-	 }
-
-	 public String toString(Guest g){
-		 return g.getName() + " " + g.getLastName();
 	 }
 
 	 public void setBirthday(LocalDate value) {
