@@ -22,6 +22,7 @@ public class DataBase {
 	Document doc;
 
 	public DataBase() {
+		/*    ******OLD CONNECTION SET UP IN CASE ******* uncomment if needed
 		uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
 		clientURI = new MongoClientURI(uri);
 		mongoClient = new MongoClient(clientURI);
@@ -30,6 +31,20 @@ public class DataBase {
 		roomsColl = database.getCollection("rooms");
 		userColl= database.getCollection("users");
 		reservations=database.getCollection("reservations");
+		 */
+
+		try {
+			uri = "mongodb://zacky:group15@hotelmanagerdb-shard-00-00-nxz5u.mongodb.net:27017,hotelmanagerdb-shard-00-01-nxz5u.mongodb.net:27017,hotelmanagerdb-shard-00-02-nxz5u.mongodb.net:27017/test?ssl=true&replicaSet=HotelManagerDB-shard-0&authSource=admin";
+			clientURI = new MongoClientURI(uri);
+			mongoClient = new MongoClient(clientURI);
+			database = mongoClient.getDatabase("hotelSystem");
+			persons = database.getCollection("persons");
+			roomsColl = database.getCollection("rooms");
+			userColl = database.getCollection("users");
+			reservations = database.getCollection("reservations");
+		}catch (Exception e){
+			System.err.println(e);
+		}
 	}
 
 	public MongoCollection getPersonsCollection() {

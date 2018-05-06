@@ -481,7 +481,12 @@ public class DBParser {
 	public ArrayList<Reservation> getAllReservations() {
 		db = new DataBase();
 		reservations = db.getReservationsCollection();
-		cursor = reservations.find().iterator();
+		try {
+			cursor = reservations.find().iterator();
+		}
+		catch (Exception e){
+			System.err.println(e);
+		}
 		ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
 		Reservation reservation;
 
