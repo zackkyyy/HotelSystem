@@ -18,7 +18,7 @@
     <children>
         <BorderPane accessibleText="s" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #fff; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
-                <VBox BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" BorderPane.alignment="CENTER">
                     <children>
                         <HBox minHeight="54.0" prefHeight="54.0" prefWidth="800.0" style="-fx-background-color: FE9939 ; -fx-border-color: #111111; -fx-border-image-width: 3px;">
                             <children>
@@ -91,15 +91,23 @@
                                 </VBox>
                             </children>
                         </HBox>
+                  <Text fontSmoothingType="LCD" opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-in">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Text>
                     </children>
                 </VBox>
             </top>
          <center>
-                <VBox prefHeight="500.0" prefWidth="287.0" BorderPane.alignment="CENTER">
+                <VBox prefHeight="521.0" prefWidth="722.0" BorderPane.alignment="CENTER">
                <children>
                   <HBox>
                      <VBox.margin>
-                        <Insets bottom="-100.0" left="20.0" top="100.0" />
+                        <Insets left="50.0" top="30.0" />
                      </VBox.margin>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search by Guest Name">
@@ -127,7 +135,7 @@
                         <TableColumn fx:id="priceCol" prefWidth="100.0" text="Price" />
                      </columns>
                      <VBox.margin>
-                        <Insets left="50.0" top="150.0" />
+                        <Insets left="50.0" top="30.0" />
                      </VBox.margin>
                   </TableView>
                   <VBox maxWidth="300.0" prefHeight="44.0" prefWidth="50.0">
@@ -155,7 +163,7 @@
                         </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets left="230.0" top="50.0" />
+                        <Insets left="230.0" top="40.0" />
                      </VBox.margin>
                   </VBox>
                </children></VBox>
@@ -165,25 +173,25 @@
                <children>
                   <HBox>
                      <VBox.margin>
-                        <Insets left="30.0" top="300.0" />
+                        <Insets top="250.0" />
                      </VBox.margin>
                      <children>
-                        <JFXButton onAction="#checkIn" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: FE9939;" text="Check In" />
+                        <JFXButton onAction="#checkIn" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: FE9939;" text="Check-in" />
                         <JFXButton onAction="#cancelReservation" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: FE9939;" text="Cancel">
                            <HBox.margin>
-                              <Insets left="50.0" />
+                              <Insets left="30.0" />
                            </HBox.margin>
                         </JFXButton>
                      </children>
                   </HBox>
                   <Text fx:id="errorText" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="No reservation selected" visible="false" wrappingWidth="221.716796875">
                      <VBox.margin>
-                        <Insets left="30.0" top="20.0" />
+                        <Insets top="20.0" />
                      </VBox.margin>
                   </Text>
                   <Text fx:id="checkedInText" fill="#00c30d" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations has been checked-in" visible="false">
                      <VBox.margin>
-                        <Insets left="30.0" />
+                        <Insets />
                      </VBox.margin>
                   </Text>
                </children>
