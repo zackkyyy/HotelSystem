@@ -169,7 +169,7 @@
                      </VBox.margin>
                      <children>
                         <JFXButton onAction="#checkIn" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: FE9939;" text="Check In" />
-                        <JFXButton onAction="#cancelReservation" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: FE9939;" text="Cacel">
+                        <JFXButton onAction="#cancelReservation" prefHeight="27.0" prefWidth="87.0" style="-fx-border-color: FE9939;" text="Cancel">
                            <HBox.margin>
                               <Insets left="50.0" />
                            </HBox.margin>
