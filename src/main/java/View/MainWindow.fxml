@@ -15,7 +15,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -27,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
    <children>
       <TabPane fx:id="tabPane" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
          <tabs>
@@ -106,137 +105,72 @@
                               </Button>
                            </children>
                            <BorderPane.margin>
-                              <Insets right="10.0" top="-150.0" />
+                              <Insets right="10.0" />
                            </BorderPane.margin>
                         </VBox>
                      </right>
-                     <left>
-                        <HBox maxHeight="528.0" maxWidth="334.0" minHeight="188.0" minWidth="196.0" prefHeight="528.0" prefWidth="196.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <VBox prefHeight="100.0" prefWidth="147.0">
-                                 <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="    Room Filter ">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets top="40.0" />
-                                       </VBox.margin>
-                                    </Text>
-                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939" />
-                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
-                                    <HBox prefHeight="31.0" prefWidth="132.0">
-                                       <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
-                                             <HBox.margin>
-                                                <Insets top="5.0" />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Text>
-                                          <MenuButton fx:id="quality" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: orange;" text="★" textFill="GOLD">
-                                             <items>
-                                                <MenuItem mnemonicParsing="false" text="★" />
-                                                <MenuItem mnemonicParsing="false" text="★★" />
-                                                <MenuItem mnemonicParsing="false" text="★★★" />
-                                                <MenuItem mnemonicParsing="false" text="★★★★" />
-                                                <MenuItem mnemonicParsing="false" text="★★★★★" />
-                                             </items>
-                                             <HBox.margin>
-                                                <Insets left="10.0" />
-                                             </HBox.margin>
-                                          </MenuButton>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets left="15.0" top="10.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="10.0" top="-20.0" />
-                                 </HBox.margin>
-                              </VBox>
-                           </children>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </HBox>
-                     </left>
                      <top>
-                        <VBox minWidth="-Infinity" prefHeight="190.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                        <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                            <children>
-                              <HBox prefHeight="80.0" prefWidth="1024.0">
+                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
                                  <children>
-                                    <VBox>
+                                    <VBox alignment="CENTER">
                                        <HBox.margin>
-                                          <Insets left="100.0" top="20.0" />
+                                          <Insets top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="#b5b5b5" radius="18.0" stroke="BLACK" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
+                                          <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
                                              <VBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets />
                                              </VBox.margin>
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
                                           </Circle>
-                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
                                              <VBox.margin>
-                                                <Insets top="2.0" />
+                                                <Insets top="3.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
                                     </VBox>
-                                    <Line endX="150.0" startX="-150.0" stroke="#ffe4e4" strokeType="OUTSIDE">
+                                    <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
                                        <HBox.margin>
-                                          <Insets left="10.0" top="40.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                     </Line>
-                                    <VBox>
+                                    <VBox alignment="CENTER">
                                        <HBox.margin>
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
+                                          <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#fe9939" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
                                              <VBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets />
                                              </VBox.margin>
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
                                           </Circle>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets top="3.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
                                     </VBox>
-                                    <Line endX="150.0" startX="-150.0" stroke="#ffc8c8">
+                                    <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
                                        <HBox.margin>
-                                          <Insets left="10.0" top="40.0" />
+                                          <Insets left="10.0" />
                                        </HBox.margin>
                                     </Line>
-                                    <VBox>
+                                    <VBox alignment="CENTER">
                                        <HBox.margin>
                                           <Insets left="10.0" top="20.0" />
                                        </HBox.margin>
                                        <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.5">
+                                          <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#fe9939" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
                                              <VBox.margin>
-                                                <Insets left="5.0" />
+                                                <Insets />
                                              </VBox.margin>
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
                                           </Circle>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
                                              <VBox.margin>
-                                                <Insets top="5.0" />
+                                                <Insets top="3.0" />
                                              </VBox.margin>
                                           </Text>
                                        </children>
@@ -246,6 +180,97 @@
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </HBox>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                        </VBox>
+                     </top>
+                     <bottom>
+                        <Pane BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="236.0" prefWidth="1020.0">
+                                 <children>
+                                    <HBox prefHeight="36.0" prefWidth="459.0">
+                                       <children>
+                                          <Label prefHeight="23.0" prefWidth="154.0" text="Search for room" textAlignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <JFXTextField fx:id="searchRoom" focusColor="#ff9321" maxHeight="25.0" minHeight="25.0" onKeyPressed="#findRoom" onMousePressed="#findRoom" prefHeight="25.0" prefWidth="165.0" promptText="Enter a room number" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="2.0" top="8.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                          <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </FontAwesomeIconView>
+                                          <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" text="City" textFill="#f10000" visible="false">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                          </JFXButton>
+                                          <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" text="Type" textFill="#f10000" visible="false">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <Label fx:id="errorLabel" textFill="#fc0000" visible="false">
+                                             <HBox.margin>
+                                                <Insets left="270.0" top="-60.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="table" prefHeight="200.0" prefWidth="995.0" stylesheets="@css/reservePage.css">
+                                      <columns>
+                                        <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
+                                        <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
+                                          <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
+                                          <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
+                                          <TableColumn fx:id="roomNrCol1" prefWidth="130.0" text="room id" />
+                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="floor" />
+                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
+                                          <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </bottom>
+                     <left>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
                               <HBox maxHeight="96.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="96.0" prefWidth="1024.0" style=" -fx-border-radius: 10px ">
                                  <children>
                                     <VBox>
@@ -345,94 +370,54 @@
                                     <Insets left="20.0" top="10.0" />
                                  </VBox.margin>
                               </HBox>
-                           </children>
-                           <BorderPane.margin>
-                              <Insets />
-                           </BorderPane.margin>
-                        </VBox>
-                     </top>
-                     <bottom>
-                        <Pane BorderPane.alignment="CENTER">
-                           <children>
-                              <VBox prefHeight="236.0" prefWidth="1020.0">
+                              <VBox prefHeight="165.0" prefWidth="800.0">
                                  <children>
-                                    <HBox prefHeight="36.0" prefWidth="459.0">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="    Room Filter ">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Text>
+                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </JFXToggleButton>
+                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
+                                    <HBox prefHeight="31.0" prefWidth="132.0">
                                        <children>
-                                          <Label prefHeight="23.0" prefWidth="154.0" text="Search for room" textAlignment="CENTER">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
                                              <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets top="5.0" />
                                              </HBox.margin>
                                              <font>
-                                                <Font size="18.0" />
+                                                <Font name="System Bold" size="14.0" />
                                              </font>
-                                          </Label>
-                                          <Label prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
-                                             </graphic>
+                                          </Text>
+                                          <MenuButton fx:id="quality" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: orange;" text="★" textFill="GOLD">
+                                             <items>
+                                                <MenuItem mnemonicParsing="false" text="★" />
+                                                <MenuItem mnemonicParsing="false" text="★★" />
+                                                <MenuItem mnemonicParsing="false" text="★★★" />
+                                                <MenuItem mnemonicParsing="false" text="★★★★" />
+                                                <MenuItem mnemonicParsing="false" text="★★★★★" />
+                                             </items>
                                              <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets left="10.0" />
                                              </HBox.margin>
-                                          </Label>
-                                          <JFXTextField fx:id="searchRoom" focusColor="#ff9321" maxHeight="25.0" minHeight="25.0" onKeyPressed="#findRoom" onMousePressed="#findRoom" prefHeight="25.0" prefWidth="165.0" promptText="Enter a room number" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
-                                             <font>
-                                                <Font size="12.0" />
-                                             </font>
-                                             <HBox.margin>
-                                                <Insets left="2.0" top="8.0" />
-                                             </HBox.margin>
-                                          </JFXTextField>
-                                          <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
-                                             <HBox.margin>
-                                                <Insets top="15.0" />
-                                             </HBox.margin>
-                                          </FontAwesomeIconView>
-                                          <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" text="City" textFill="#f10000" visible="false">
-                                             <font>
-                                                <Font name="System Bold" size="11.0" />
-                                             </font>
-                                             <graphic>
-                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" />
-                                             </graphic>
-                                             <HBox.margin>
-                                                <Insets left="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </JFXButton>
-                                          <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" text="Type" textFill="#f10000" visible="false">
-                                             <graphic>
-                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="" />
-                                             </graphic>
-                                             <HBox.margin>
-                                                <Insets left="10.0" top="10.0" />
-                                             </HBox.margin>
-                                             <font>
-                                                <Font size="11.0" />
-                                             </font>
-                                          </JFXButton>
-                                          <Label fx:id="errorLabel" textFill="#fc0000" visible="false">
-                                             <HBox.margin>
-                                                <Insets left="270.0" top="-60.0" />
-                                             </HBox.margin>
-                                          </Label>
+                                          </MenuButton>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" top="10.0" />
+                                       </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="table" prefHeight="200.0" prefWidth="995.0" stylesheets="@css/reservePage.css">
-                                      <columns>
-                                        <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
-                                        <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
-                                          <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
-                                          <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
-                                          <TableColumn fx:id="roomNrCol1" prefWidth="130.0" text="room id" />
-                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="floor" />
-                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
-                                          <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
-                                      </columns>
-                                    </TableView>
                                  </children>
                               </VBox>
                            </children>
-                        </Pane>
-                     </bottom>
+                        </VBox>
+                     </left>
                   </BorderPane>
                </content>
             </Tab>
@@ -441,85 +426,6 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
                      <children>
                         <BorderPane layoutX="-2.0" prefHeight="547.0" prefWidth="801.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
-                           <top>
-                              <HBox prefHeight="80.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <VBox>
-                                       <HBox.margin>
-                                          <Insets left="100.0" top="20.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </Circle>
-                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="2.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                    <Line endX="150.0" startX="-150.0" stroke="#ffe4e4" strokeType="OUTSIDE">
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="40.0" />
-                                       </HBox.margin>
-                                    </Line>
-                                    <VBox>
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="20.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Circle fill="#2bbbd8" radius="18.0" stroke="#171717" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </Circle>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                    <Line endX="150.0" startX="-150.0" stroke="#ffc8c8">
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="40.0" />
-                                       </HBox.margin>
-                                    </Line>
-                                    <VBox>
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="20.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
-                                             <VBox.margin>
-                                                <Insets left="5.0" />
-                                             </VBox.margin>
-                                          </Circle>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </top>
                            <bottom>
                               <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -771,6 +677,80 @@
                                  </BorderPane.margin>
                               </VBox>
                            </right>
+                           <top>
+                              <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                                       <children>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#fe9939" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="7.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </top>
                         </BorderPane>
                      </children>
                   </AnchorPane>
@@ -790,89 +770,10 @@
                                           <Insets left="700.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false"  text="Button" />
+                                    <Button mnemonicParsing="false" onAction="#print" text="Button" />
                                  </children>
                               </HBox>
                            </bottom>
-                           <top>
-                              <HBox prefHeight="80.0" prefWidth="803.0" BorderPane.alignment="CENTER">
-                                 <children>
-                                    <VBox>
-                                       <HBox.margin>
-                                          <Insets left="100.0" top="20.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </Circle>
-                                          <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets top="2.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                    <Line endX="150.0" startX="-150.0" stroke="#ffe4e4" strokeType="OUTSIDE">
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="40.0" />
-                                       </HBox.margin>
-                                    </Line>
-                                    <VBox>
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="20.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Circle fill="WHITE" radius="18.0" stroke="BLACK" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.5">
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </Circle>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                    <Line endX="150.0" startX="-150.0" stroke="#ffc8c8">
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="40.0" />
-                                       </HBox.margin>
-                                    </Line>
-                                    <VBox>
-                                       <HBox.margin>
-                                          <Insets left="10.0" top="20.0" />
-                                       </HBox.margin>
-                                       <children>
-                                          <Circle fill="#2bbbd8" radius="18.0" stroke="#0a0a0a" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="0.9">
-                                             <effect>
-                                                <BoxBlur />
-                                             </effect>
-                                             <VBox.margin>
-                                                <Insets left="10.0" />
-                                             </VBox.margin>
-                                          </Circle>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </Text>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </top>
                            <center>
                               <VBox fx:id="VBox" prefHeight="421.0" prefWidth="719.0" spacing="8.0" BorderPane.alignment="CENTER">
                                  <children>
@@ -1130,7 +1031,7 @@
                                     </HBox>
                                  </children>
                                  <BorderPane.margin>
-                                    <Insets left="50.0" right="30.0" top="50.0" />
+                                    <Insets left="40.0" right="30.0" top="25.0" />
                                  </BorderPane.margin>
                                  <padding>
                                     <Insets left="100.0" />
@@ -1205,6 +1106,80 @@
                                  </children>
                               </VBox>
                            </right>
+                           <top>
+                              <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                                       <children>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="3.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </top>
                         </BorderPane>
                         <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
                            <children>
