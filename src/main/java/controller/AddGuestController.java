@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import model.DataBase;
 import model.Guest;
 
 import java.io.IOException;
@@ -22,7 +21,6 @@ import java.io.IOException;
 public class AddGuestController {
 	@FXML
 	private JFXTextField name, lastName, address, phoneNr, identityNr, creditCard;
-	private DataBase db;
 	private Stage stage;
 	private Scene scene;
 	private String errMsg;
@@ -42,7 +40,6 @@ public class AddGuestController {
 	}
 
 	public void saveNewGuest() {
-		db = new DataBase();
 		DBParser guestController = new DBParser();
 		
 		if (checkFields()) {
@@ -53,7 +50,7 @@ public class AddGuestController {
 			newGuest.setPhoneNr(phoneNr.getText());
 			newGuest.setIdentityNr(identityNr.getText());
 			newGuest.setCreditCard(creditCard.getText());
-			guestController.createNewGuest(newGuest , db);
+			guestController.createNewGuest(newGuest);
 
 			clearFields();
 		} else if (!checkFields()) {

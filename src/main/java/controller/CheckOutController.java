@@ -44,7 +44,7 @@ public class CheckOutController implements Initializable {
     @FXML
     private Text selectionError, checkedOutText;
     @FXML
-    private JFXTextArea  noteText;
+    private JFXTextArea noteText;
     private ObservableList<Reservation> reservations;
 
     @Override

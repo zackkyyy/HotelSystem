@@ -790,7 +790,7 @@
                                           <Insets left="700.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false"  text="Button" />
+                                    <Button mnemonicParsing="false" onAction="#print" text="Button" />
                                  </children>
                               </HBox>
                            </bottom>

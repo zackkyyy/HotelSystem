@@ -19,7 +19,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import model.DataBase;
 import model.Guest;
 import model.Reservation;
 import model.Room;
@@ -35,7 +34,7 @@ import java.util.ResourceBundle;
 
 /**
  * Created by IntelliJ IDEA.
- *
+ * <p>
  * This class is the controller for the reserve window.
  *
  * @Author: Zacky Kharboutli
@@ -91,7 +90,6 @@ public class ReserveController implements Initializable {
     private Label[] roomCities = new Label[4];
     private HBox[] roomInfoBoxes = new HBox[4];
 
-    private DataBase db = new DataBase();
     private MongoCollection persons;
     private MongoCursor<Document> cursor;
     private Document doc;
@@ -102,6 +100,18 @@ public class ReserveController implements Initializable {
     private ObservableList<Room> listOfRooms;
     private Guest customer;
     private ObservableList<Room> bookedRoom;
+
+    public static boolean creditCardValidator(String str) {
+        if (str.length() < 13 || str.length() > 16) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * This method is @Override because this class implement Initializble
@@ -193,33 +203,33 @@ public class ReserveController implements Initializable {
         });
 
         checkInButton.setOnAction(event -> {
-			try {
-				mu.ShowCheckInPage(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-		checkOutButton.setOnAction(event -> {
-			try {
-				mu.showCheckOutWindow(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-		logOutBtn.setOnAction(event -> {
-			try {
-				mu.showLogInWindow(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
-		guestButton.setOnAction(event -> {
-			try {
-				mu.showGuestManagement(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+            try {
+                mu.ShowCheckInPage(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        checkOutButton.setOnAction(event -> {
+            try {
+                mu.showCheckOutWindow(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        logOutBtn.setOnAction(event -> {
+            try {
+                mu.showLogInWindow(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        guestButton.setOnAction(event -> {
+            try {
+                mu.showGuestManagement(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
@@ -234,19 +244,17 @@ public class ReserveController implements Initializable {
             checkOutField.setValue(checkInField.getValue().plusDays(1));
             nights.setText("1");
         } else {
-			int numberOfNights = checkOutField.getValue().getDayOfYear()- checkInField.getValue().getDayOfYear();
+            int numberOfNights = checkOutField.getValue().getDayOfYear() - checkInField.getValue().getDayOfYear();
             nights.setText(String.valueOf(numberOfNights));
             nights1.setText(String.valueOf(numberOfNights));
             nights2.setText(String.valueOf(numberOfNights));
         }
-		updateDepartureDateCells();
-		updateRoomPrice();
+        updateDepartureDateCells();
+        updateRoomPrice();
 
 
         updateRoomPrice();
     }
-
-
 
     public void moveToNextTab() {
         if (tabPane.getSelectionModel().isSelected(1)) {
@@ -311,18 +319,13 @@ public class ReserveController implements Initializable {
     public void moveToFirstTab() {
         tabPane.getSelectionModel().selectFirst();
         updateRoomPrice();
+
     }
 
     public void autoCompletion() {
-        db = new DataBase();
-        persons = db.getPersonsCollection();
-        cursor = persons.find().iterator();
-        String[] listOfNames = new String[(int) persons.count()];
-
-        for (int i = 0; i < persons.count(); i++) {
-            doc = cursor.next();
-            listOfNames[i] = doc.getString("name") + " " + doc.getString("last name");
-        }
+        String[] listOfNames;
+        DBParser dbParser = new DBParser();
+        listOfNames = dbParser.getGuestNames();
 
         try {
             TextFields.bindAutoCompletion(search, listOfNames);
@@ -426,17 +429,15 @@ public class ReserveController implements Initializable {
     }
 
     public void findRoom() {
-        db = new DataBase();
-        roomsList = db.getRoomsColl();
-        cursor = roomsList.find().iterator();
+        DBParser dbParser = new DBParser();
+        ArrayList<Room> arrayList = dbParser.getAllRoom();
         String searchedRoom = searchRoom.getText();
 
         if (!searchRoom.getText().isEmpty()) {
-            for (int i = 0; i < roomsList.count(); i++) {
-                doc = cursor.next();
-                if (doc.getInteger("room nr").toString().equals(searchedRoom) && !doc.getBoolean("is booked")) {
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (arrayList.get(i).getRoomNr() == Integer.parseInt(searchedRoom) && !arrayList.get(i).isBooked()) {
                     table.getItems().remove(0, table.getItems().size());
-                    table.getItems().add(dbParser.createRoom(doc));
+                    table.getItems().add(arrayList.get(i));
                 }
             }
         } else {
@@ -481,7 +482,7 @@ public class ReserveController implements Initializable {
             errorMsg.setVisible(true);
         } else {
             guest = new Guest(name.getText(), lastName.getText(), address.getText(), phoneNr.getText(), creditCard.getText(), identityNr.getText());
-            dbParser.createNewGuest(guest, db);
+            dbParser.createNewGuest(guest);
         }
         return guest;
 
@@ -549,18 +550,6 @@ public class ReserveController implements Initializable {
         confirm.setVisible(false);
         pane.setVisible(true);
         addToTable();
-    }
-
-    public static boolean creditCardValidator(String str) {
-        if (str.length() < 13 || str.length() > 16) {
-            return false;
-        }
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
     }
 
     // Initializes the room info arrays
@@ -662,28 +651,32 @@ public class ReserveController implements Initializable {
     }
 
 
+    public boolean validatePrice(JFXTextField ss) {
+        ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
+        String string = ss.getText();
+        double price = 0;
+        if (!string.contains(".")) {
+            string = string + ".0";    // if number is not decimal add .0 so it is decimal
+        }
+        if (!string.matches("([0-9]*)\\.([0-9]*)")) {  // compare with decimal pattern and numbers so it is a valid double input
+            errorLabel.setText("Price you entered is incorrect");
+            errorLabel.setVisible(true);
+            return false;
+        }
+        for (int i = 0; i < selectedRooms.size(); i++) {
+            price += selectedRooms.get(i).getPrice() * Integer.parseInt(nights.getText());
+        }
+        if (Double.valueOf(ss.getText()) > price) {   //compare price with max daily rate of the rooms
+            errorLabel.setText("Price you entered is more than the max rate");
+            errorLabel.setVisible(true);
+            return false;
+        }
+        return true;
+    }
 
-	public boolean validatePrice(JFXTextField ss){
-		ObservableList<Room> selectedRooms = table.getSelectionModel().getSelectedItems();
-		String string =ss.getText();
-		double price=0;
-		if (!string.contains(".")){
-			string = string+".0";    // if number is not decimal add .0 so it is decimal
-		}
-			if(!string.matches("([0-9]*)\\.([0-9]*)") ){  // compare with decimal pattern and numbers so it is a valid double input
-				errorLabel.setText("Price you entered is incorrect");
-				errorLabel.setVisible(true);
-				return false;
-			}
-		for (int i = 0; i < selectedRooms.size(); i++) {
-			price += selectedRooms.get(i).getPrice() * Integer.parseInt(nights.getText());
-		}
-		if (Double.valueOf(ss.getText())>price){   //compare price with max daily rate of the rooms
-			errorLabel.setText("Price you entered is more than the max rate");
-			errorLabel.setVisible(true);
-			return false;
-		}
-		return true;
-	}
+    public void print() {
+        Printer printer = new Printer();
+        printer.doProint();
+    }
 }
 

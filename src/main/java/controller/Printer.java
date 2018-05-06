@@ -7,11 +7,6 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 
 public class Printer implements Printable {
-    public static void main(String[] args) {
-
-        Printer example1 = new Printer();
-        example1.doProint();
-    }
 
     private final double INCH = 72;
 
