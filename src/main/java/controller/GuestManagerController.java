@@ -4,15 +4,15 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import model.Guest;
-import org.bson.Document;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,11 +40,13 @@ public class GuestManagerController implements Initializable {
     private JFXDatePicker birthday;
     @FXML
     private JFXButton checkInButton, reserveButton, checkOutButton, logOutBtn;
+    @FXML
+    private AnchorPane anchorpane;
     private MenuController mu;
-    private MongoCollection persons;
-    private MongoCursor<Document> cursor;
-    private Document doc;
     private DBParser guestController;
+    private String errMsg;
+
+
 
     /**
      * Initializing the scene for the guest management window
@@ -154,24 +156,28 @@ public class GuestManagerController implements Initializable {
         Object selectedItem = list.getSelectionModel().getSelectedItem();
         Guest temporaryGst = new Guest();
         // add values from text fields to the temporary guest
-        temporaryGst.setName(name.getText());
-        temporaryGst.setLastName(lastName.getText());
-        temporaryGst.setPhoneNr(phoneNr.getText());
-        temporaryGst.setAddress(address.getText());
-        temporaryGst.setCreditCard(credit.getText());
-        temporaryGst.setNotes(notes.getText());
-        temporaryGst.setIdentityNr(identityNr.getText());
-        temporaryGst.setBirthday(birthday.getValue());
+        if(validateFields()) {
+            temporaryGst.setName(name.getText());
+            temporaryGst.setLastName(lastName.getText());
+            temporaryGst.setPhoneNr(phoneNr.getText());
+            temporaryGst.setAddress(address.getText());
+            temporaryGst.setCreditCard(credit.getText());
+            temporaryGst.setNotes(notes.getText());
+            temporaryGst.setIdentityNr(identityNr.getText());
+            temporaryGst.setBirthday(birthday.getValue());
 
-        guestController = new DBParser();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setContentText("Are you sure you want to edit " + selectedItem + " ?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-            list.getItems().remove(0, list.getItems().size());
-            guestController.editGuest(selectedItem, temporaryGst);
-            getGuestFromDb();
+            guestController = new DBParser();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Are you sure you want to edit " + selectedItem + " ?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get().equals(ButtonType.OK)) {
+                list.getItems().remove(0, list.getItems().size());
+                guestController.editGuest(selectedItem, temporaryGst);
+                getGuestFromDb();
+                returnToDefault();
+            }
         }
+
     }
 
     public void addGuest(ActionEvent actionEvent) throws IOException {
@@ -196,5 +202,57 @@ public class GuestManagerController implements Initializable {
         for (int i = 0; i < guestController.getGuestNames().length; i++) {
             list.getItems().add(guestController.getGuestNames()[i]);
         }
+    }
+
+    public boolean validateFields(){
+        if (name.getText().isEmpty() ||name.getText().matches(".*\\d+.*")) {
+            name.setPromptText( "Incorrect name");
+            name.setUnFocusColor(Color.RED);
+            return false;
+
+        } else if (lastName.getText().isEmpty()|| lastName.getText().matches(".*\\d+.*")) {
+            lastName.setPromptText( "Incorrect last name");
+            lastName.setUnFocusColor(Color.RED);
+            return false;
+        } else  if (identityNr.getText().isEmpty()) {
+            identityNr.setPromptText( "Incorrect id number");
+            identityNr.setUnFocusColor(Color.RED);
+            return false;
+
+        } else if (credit.getText().isEmpty()) {
+            credit.setPromptText( "Incorrect credit card number");
+            credit.setUnFocusColor(Color.RED);
+            return false;
+        }
+        else if (address.getText().isEmpty()) {
+            address.setPromptText( "Incorrect address");
+            address.setUnFocusColor(Color.RED);
+            return false;
+
+        }else if (phoneNr.getText().isEmpty()) {
+            phoneNr.setPromptText( "Incorrect phone number");
+            phoneNr.setUnFocusColor(Color.RED);
+            return false;
+        }
+        return true;
+    }
+
+    public void returnToDefault() {
+
+        name.setPromptText("");
+        name.setUnFocusColor(Paint.valueOf("bcbaba"));
+        lastName.setPromptText("");
+        lastName.setUnFocusColor(Paint.valueOf("bcbaba"));
+        identityNr.setPromptText("");
+        identityNr.setUnFocusColor(Paint.valueOf("bcbaba"));
+        address.setPromptText("");
+        address.setUnFocusColor(Paint.valueOf("bcbaba"));
+        credit.setPromptText("");
+        credit.setUnFocusColor(Paint.valueOf("bcbaba"));
+        phoneNr.setPromptText("");
+        phoneNr.setUnFocusColor(Paint.valueOf("bcbaba"));
+        notes.setPromptText("");
+        notes.setUnFocusColor(Paint.valueOf("bcbaba"));
+
     }
 }
