@@ -305,11 +305,11 @@
                                           <JFXDatePicker fx:id="checkOutField" defaultColor="#fe9939" minWidth="100.0" onAction="#calculateNights" prefHeight="27.0" prefWidth="125.0" />
                                        </children>
                                     </VBox>
-                                    <VBox>
+                                    <VBox alignment="TOP_CENTER">
                                        <children>
-                                          <FontAwesomeIconView fill="#ff8811" glyphName="USER_PLUS" size="20">
+                                          <FontAwesomeIconView fill="#ff8811" glyphName="USER_PLUS" size="20" text="">
                                              <VBox.margin>
-                                                <Insets bottom="3.0" left="10.0" />
+                                                <Insets bottom="3.0" />
                                              </VBox.margin>
                                           </FontAwesomeIconView>
                                           <MenuButton fx:id="personsNumber" mnemonicParsing="false" prefHeight="29.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: orange;" text="1">
@@ -328,11 +328,11 @@
                                           <Insets left="10.0" top="7.0" />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox>
+                                    <VBox alignment="TOP_CENTER">
                                        <children>
                                           <FontAwesomeIconView fill="#ee8503" glyphName="BED" size="20" text="">
                                              <VBox.margin>
-                                                <Insets bottom="3.0" left="10.0" />
+                                                <Insets bottom="3.0" />
                                              </VBox.margin>
                                           </FontAwesomeIconView>
                                           <MenuButton fx:id="roomsNumber" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: orange;" text="1">
@@ -353,11 +353,11 @@
                                           <Insets left="10.0" top="7.0" />
                                        </HBox.margin>
                                     </VBox>
-                                    <VBox>
+                                    <VBox alignment="TOP_CENTER">
                                        <children>
-                                          <FontAwesomeIconView fill="#ff870f" glyphName="MAP_MARKER" size="20">
+                                          <FontAwesomeIconView fill="#ff870f" glyphName="MAP_MARKER" size="20" text="">
                                              <VBox.margin>
-                                                <Insets bottom="3.0" left="25.0" />
+                                                <Insets bottom="3.0" />
                                              </VBox.margin>
                                           </FontAwesomeIconView>
                                           <MenuButton fx:id="cityName" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="83.0" style="-fx-background-color: white; -fx-border-color: orange;" text="Växjö">
