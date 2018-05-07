@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
    <children>
       <TabPane fx:id="tabPane" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
          <tabs>
@@ -793,6 +793,9 @@
                                              <HBox.margin>
                                                 <Insets left="50.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -807,6 +810,9 @@
                                              <HBox.margin>
                                                 <Insets left="27.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -814,7 +820,7 @@
                                        <children>
                                           <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Room Information" wrappingWidth="225.80406188964844">
                                              <font>
-                                                <Font name="System Bold" size="20.0" />
+                                                <Font name="Serif Regular" size="20.0" />
                                              </font>
                                              <HBox.margin>
                                                 <Insets top="3.0" />
@@ -859,21 +865,33 @@
                                              <HBox.margin>
                                                 <Insets top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomType1" prefHeight="17.0" prefWidth="78.0" text="Single">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="guestNr1" prefHeight="17.0" prefWidth="60.0" text="2">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomCity1" prefHeight="17.0" prefWidth="66.0" text="Växjö">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                        <VBox.margin>
@@ -886,21 +904,33 @@
                                              <HBox.margin>
                                                 <Insets top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomType2" prefHeight="17.0" prefWidth="78.0" text="Single">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="guestNr2" prefHeight="17.0" prefWidth="60.0" text="2">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomCity2" prefHeight="17.0" prefWidth="66.0" text="Växjö">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -910,21 +940,33 @@
                                              <HBox.margin>
                                                 <Insets top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomType3" prefHeight="17.0" prefWidth="78.0" text="Single">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="guestNr3" prefHeight="17.0" prefWidth="60.0" text="2">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomCity3" prefHeight="17.0" prefWidth="66.0" text="Växjö">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -934,21 +976,33 @@
                                              <HBox.margin>
                                                 <Insets top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomType4" prefHeight="17.0" prefWidth="78.0" text="Single">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="guestNr4" prefHeight="17.0" prefWidth="60.0" text="2">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                           <Label fx:id="roomCity4" prefHeight="17.0" prefWidth="66.0" text="Växjö">
                                              <HBox.margin>
                                                 <Insets left="30.0" top="20.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -956,7 +1010,7 @@
                                        <children>
                                           <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Guest Information" wrappingWidth="225.80406188964844">
                                              <font>
-                                                <Font name="System Bold" size="20.0" />
+                                                <Font name="Serif Regular" size="20.0" />
                                              </font>
                                              <HBox.margin>
                                                 <Insets top="3.0" />
@@ -978,6 +1032,9 @@
                                              <HBox.margin>
                                                 <Insets left="35.0" top="5.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -992,6 +1049,9 @@
                                              <HBox.margin>
                                                 <Insets left="45.0" top="5.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -1006,6 +1066,9 @@
                                              <HBox.margin>
                                                 <Insets left="35.0" top="5.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
@@ -1020,15 +1083,18 @@
                                              <HBox.margin>
                                                 <Insets left="30.0" top="5.0" />
                                              </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
                                           </Label>
                                        </children>
                                     </HBox>
                                  </children>
                                  <BorderPane.margin>
-                                    <Insets left="40.0" right="30.0" top="25.0" />
+                                    <Insets left="100.0" right="30.0" top="25.0" />
                                  </BorderPane.margin>
                                  <padding>
-                                    <Insets left="100.0" />
+                                    <Insets left="20.0" />
                                  </padding>
                               </VBox>
                            </center>
@@ -1177,7 +1243,7 @@
                         </BorderPane>
                         <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Button" />
+                              <Button fx:id="print" mnemonicParsing="false" onAction="#print" text="Print" />
                               <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFirstTab" text="Return" />
                               <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation hase been done successfully ">
                                  <font>
