@@ -456,7 +456,9 @@ public class ManagerController implements Initializable {
 
     public void addReservationsToTable() {
         dbParser = new DBParser();
-        table.getItems().remove(0, table.getItems().size());
+//        if (table.getItems().size()>0) {
+//            table.getItems().remove(0, table.getItems().size());
+//        }
         listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
         table.setItems(listOfReservations);
 
