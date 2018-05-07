@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <children>
       <TabPane fx:id="tabPane1" prefHeight="722.0" prefWidth="1023.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -58,11 +58,7 @@
                               <JFXTextField editable="false" focusColor="#fe9939" style="-fx-background-color: #ff9000; -fx-border-radius: 2px;" text="  User Information" unFocusColor="#4d4d4d00" />
                               <VBox>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
                                     <JFXTextField fx:id="UserFirstName" focusColor="#fe9939" unFocusColor="#aba9a6">
                                        <VBox.margin>
                                           <Insets left="100.0" top="-22.0" />
@@ -76,9 +72,6 @@
                               <VBox>
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
                                        <VBox.margin>
                                           <Insets top="5.0" />
                                        </VBox.margin>
@@ -95,11 +88,7 @@
                               </VBox>
                               <VBox>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Name:">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Name:" />
                                     <JFXTextField fx:id="userName" focusColor="#fe9939" unFocusColor="#aba9a6">
                                        <VBox.margin>
                                           <Insets left="100.0" top="-22.0" />
@@ -112,10 +101,7 @@
                               </VBox>
                               <VBox prefHeight="32.0" prefWidth="398.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font></Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" />
                                     <JFXTextField fx:id="password" focusColor="#fe9939" prefHeight="28.0" prefWidth="176.0" unFocusColor="#aba9a6">
                                        <font>
                                           <Font size="14.0" />
@@ -200,9 +186,6 @@
                               <VBox prefHeight="41.0" prefWidth="214.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Nr">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
@@ -223,9 +206,6 @@
                               <HBox prefHeight="29.0" prefWidth="292.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Type">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
@@ -251,9 +231,6 @@
                                     <HBox prefHeight="0.0" prefWidth="292.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City">
-                                             <font>
-                                                <Font name="System Bold" size="13.0" />
-                                             </font>
                                              <HBox.margin>
                                                 <Insets />
                                              </HBox.margin>
@@ -280,9 +257,6 @@
                               <VBox prefHeight="43.0" prefWidth="177.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>

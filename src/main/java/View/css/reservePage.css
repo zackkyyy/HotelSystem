@@ -44,9 +44,10 @@
 */
 
 .table-row-cell:selected {
-    -fx-background-color: #005797;
+    -fx-background-color: #cecece;
     -fx-background-insets: 0;
     -fx-background-radius: 1;
+    -fx-selection-bar: #adadad;
 }
 
 .table-view > .virtual-flow > .scroll-bar:vertical,

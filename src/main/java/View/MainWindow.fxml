@@ -495,11 +495,7 @@
                                                          <children>
                                                             <VBox>
                                                                <children>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="13.0" />
-                                                                     </font>
-                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
                                                                   <JFXTextField fx:id="name" focusColor="BLACK" minWidth="200.0" prefHeight="27.0" prefWidth="200.0" unFocusColor="#fe9939">
                                                                      <VBox.margin>
                                                                         <Insets left="75.0" top="-22.0" />
@@ -509,11 +505,7 @@
                                                             </VBox>
                                                             <VBox>
                                                                <children>
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
-                                                                     <font>
-                                                                        <Font name="System Bold" size="13.0" />
-                                                                     </font>
-                                                                  </Text>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
                                                                   <JFXTextField fx:id="lastName" focusColor="BLACK" maxWidth="212.0" minWidth="200.0" prefHeight="27.0" prefWidth="212.0" unFocusColor="#fe9939">
                                                                      <VBox.margin>
                                                                         <Insets left="70.0" top="-22.0" />
@@ -528,11 +520,7 @@
                                                       </HBox>
                                                       <VBox>
                                                          <children>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
-                                                               <font>
-                                                                  <Font name="System Bold" size="13.0" />
-                                                               </font>
-                                                            </Text>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
                                                             <JFXTextField fx:id="address" focusColor="BLACK" minHeight="31.0" minWidth="500.0" unFocusColor="#fe9939">
                                                                <VBox.margin>
                                                                   <Insets left="75.0" top="-22.0" />
@@ -560,7 +548,7 @@
                                                                   <Insets bottom="-20.0" left="350.0" />
                                                                </VBox.margin>
                                                             </FontAwesomeIconView>
-                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Cridet card" />
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" />
                                                             <JFXTextField fx:id="creditCard" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="31.0" prefWidth="499.0" unFocusColor="#fe9939">
                                                                <font>
                                                                   <Font size="14.0" />
