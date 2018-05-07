@@ -149,7 +149,7 @@
                         <Font name="Brush Script MT Italic" size="38.0" />
                      </font>
                   </Text>
-                  <JFXButton layoutX="20.0" layoutY="556.0" prefHeight="23.0" prefWidth="138.0" text=" Contact us" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0">
+                  <JFXButton layoutX="20.0" layoutY="556.0" onAction="#aboutUs" prefHeight="23.0" prefWidth="138.0" text=" Contact us" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="75.0">
                      <graphic>
                         <FontAwesomeIconView glyphName="PHONE_SQUARE" size="18" text="" />
                      </graphic>
@@ -162,7 +162,7 @@
                         <FontAwesomeIconView glyphName="USERS" size="18" text="" />
                      </graphic>
                   </JFXButton>
-                  <FontAwesomeIconView glyphName="GITHUB" layoutX="202.0" layoutY="585.0" size="25" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="325.0" />
+                  <FontAwesomeIconView glyphName="GITHUB" layoutX="202.0" layoutY="585.0" onMouseClicked="#goToGithubPage" size="25" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="325.0" />
                </children>
             </AnchorPane>
          </center>

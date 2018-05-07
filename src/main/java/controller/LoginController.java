@@ -12,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * @Author: Zacky Kharboutli
@@ -61,5 +63,28 @@ public class LoginController {
 		}
 
 	}
+
+	public void aboutUs() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("/contactUs.fxml")));
+		Scene scene = new Scene(root, 400, 350);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.setMinWidth(400);
+		stage.setMinHeight(350);
+		stage.setMaxHeight(350);
+		stage.setMaxWidth(400);
+		stage.show();
+	}
+
+
+
+	public void goToGithubPage() {
+		try {
+			Desktop.getDesktop().browse(new URL("https://github.com/zackkyyy/FrontDisk-Manager").toURI());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 }
