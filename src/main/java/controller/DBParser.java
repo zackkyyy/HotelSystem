@@ -13,6 +13,7 @@ import model.enums.RoomType;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -449,12 +450,32 @@ public class DBParser {
         for (int i = 0; i < users.count(); i++) {
             doc = cursor.next();
             if (username.equals(doc.getString("username"))) {
-                if (password.equals(doc.getString("password"))) {
+                if (checkPassword(password,doc.getString("password"))) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    /**
+     * This method compare the password entered by user with the hashed password in the system
+     *
+     * @param password_String
+     *              String password entered by user
+     * @param hashed_pass
+     *              Hashed password stored in system
+     * @return
+     */
+    public static boolean checkPassword(String password_String, String hashed_pass) {
+        boolean passwordMatch = false;
+
+        if(!hashed_pass.startsWith("$2a$"))
+            throw new java.lang.IllegalArgumentException("Password is saved in invalid hash form");
+
+        passwordMatch = BCrypt.checkpw(password_String, hashed_pass);
+
+        return(passwordMatch);
     }
 
     public User findUserByLogInInfo(String userName, String pass) {
