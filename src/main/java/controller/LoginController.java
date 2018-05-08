@@ -47,6 +47,7 @@ public class LoginController {
 	
 	public void showMainPage (ActionEvent event) throws IOException {
 		Parent CheckInPage = null;
+
 		if(checkForLogIn()){
 			if (tab.getSelectionModel().isSelected(0)){
 				CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));

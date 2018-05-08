@@ -19,6 +19,7 @@ import model.Reservation;
 import model.Room;
 import model.User;
 import org.bson.Document;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
 import java.net.URL;
@@ -363,17 +364,24 @@ public class ManagerController implements Initializable {
     }
 
     /**
-     * Method to add users
+     * Method to add users from manager log in to the database
+     *
      */
     public void addUser() {
 
         userController = new DBParser();
+        String password1 = password.getText();
+        /*
+             Save the password in the system in encrypted way
+         */
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password1);
 
         if (checkFields()) {
             User newUser = new User();
             newUser.setName(UserFirstName.getText());
             newUser.setLastName(userLastName.getText());
-            newUser.setPassword(password.getText());
+            newUser.setPassword(hashedPassword);
             newUser.setUserName(userName.getText());
             userController.createNewUser(newUser);
             userList.getItems().remove(0, userList.getItems().size());
