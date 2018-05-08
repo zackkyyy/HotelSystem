@@ -1,6 +1,7 @@
 package controller;
 
 
+import com.itextpdf.text.*;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -12,12 +13,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Guest;
 import model.Reservation;
@@ -25,12 +30,13 @@ import model.Room;
 import org.bson.Document;
 import org.controlsfx.control.textfield.TextFields;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -96,10 +102,13 @@ public class ReserveController implements Initializable {
     private MongoCollection roomsList;
     @FXML
     private TableView table;
+   @FXML
+   private Button print;
     private DBParser dbParser;
     private ObservableList<Room> listOfRooms;
     private Guest customer;
     private ObservableList<Room> bookedRoom;
+    public Reservation reservation;
 
     public static boolean creditCardValidator(String str) {
         if (str.length() < 13 || str.length() > 16) {
@@ -237,8 +246,6 @@ public class ReserveController implements Initializable {
      * and calculate the number of staying nights
      */
     public void calculateNights() {
-        Period intervalPeriod;
-
         // check that the check in is always before the check out
         if (checkInField.getValue().isAfter(checkOutField.getValue())) {
             checkOutField.setValue(checkInField.getValue().plusDays(1));
@@ -318,6 +325,9 @@ public class ReserveController implements Initializable {
 
     public void moveToFirstTab() {
         tabPane.getSelectionModel().selectFirst();
+        pane.setVisible(false);
+        confirm.setVisible(false);
+        VBox.setVisible(true);
         updateRoomPrice();
 
     }
@@ -529,11 +539,11 @@ public class ReserveController implements Initializable {
         return true;
     }
 
-    public void createReservation(ActionEvent actionEvent) {
+    public void createReservation(ActionEvent actionEvent) throws FileNotFoundException, DocumentException {
         String guestID = customer.getName() + " " + customer.getLastName();
 
         for (int i = 0; i < bookedRoom.size(); i++) {
-            Reservation reservation = new Reservation();
+            reservation = new Reservation();
             int roomID = bookedRoom.get(i).getRoomNr();
             reservation.setGuest(guestID);
             reservation.setRoom(roomID);
@@ -544,10 +554,13 @@ public class ReserveController implements Initializable {
             bookedRoom.get(i).setBooked(true);
             dbParser.refreshRoomStatus(bookedRoom.get(i));
             dbParser.saveReservationToDB(reservation);
+
+            this.reservation=reservation;
         }
 
         VBox.setVisible(false);
         confirm.setVisible(false);
+        createPdfRec();
         pane.setVisible(true);
         addToTable();
     }
@@ -666,7 +679,7 @@ public class ReserveController implements Initializable {
         for (int i = 0; i < selectedRooms.size(); i++) {
             price += selectedRooms.get(i).getPrice() * Integer.parseInt(nights.getText());
         }
-        if (Double.valueOf(ss.getText()) > price) {   //compare price with max daily rate of the rooms
+        if (!ss.getText().isEmpty()&& Double.valueOf(ss.getText()) > price) {   //compare price with max daily rate of the rooms
             errorLabel.setText("Price you entered is more than the max rate");
             errorLabel.setVisible(true);
             return false;
@@ -674,9 +687,112 @@ public class ReserveController implements Initializable {
         return true;
     }
 
-    public void print() {
-        Printer printer = new Printer();
-        printer.doProint();
+    /* This method create a pdf file if we need it later  */
+
+    public com.itextpdf.text.Document createPdfRec()  {
+        com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+       //PdfWriter.getInstance(document, new FileOutputStream("file.pdf"));
+        document.open();
+        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+        Chunk chunk = new Chunk("price: ", font);
+       // Chunk chunk1 = new Chunk("price: "+totalPrice.getText(), font);
+        try {
+            document.add(chunk);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        document.close();
+        return document;
     }
+
+    /**
+     * This method prints the reservation details
+     * TODO: make the printed object looks better
+     * at the moment it copies every thing and print it
+     */
+    public void print() {
+        Printer printer = Printer.getDefaultPrinter();
+        Stage stage = new Stage(StageStyle.DECORATED);
+        PrinterJob job = PrinterJob.createPrinterJob(printer);
+        if (job != null) {
+            boolean showDialog = job.showPrintDialog(stage);
+            if (showDialog) {
+                VBox.setVisible(true);
+                boolean success = job.printPage(VBox);
+                if (success) {
+                    job.endJob();
+                }
+                VBox.setVisible(false);
+
+            }
+        }
+    }
+
+
+    public String makeRec() {
+   return reservation.toString();
+    }
+ /*
+    public void print(java.awt.event.ActionEvent e)  {
+       UIManager.put("swing.boldMetal", Boolean.FALSE);
+        JFrame f = new JFrame("Hello World Printer");
+        f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {System.exit(0);}
+        });
+        JButton printButton = new JButton("Print Hello World");
+        f.add("Center", printButton);
+        f.pack();
+        f.setVisible(true);
+
+
+
+
+    }
+
+
+
+    public static class HelloWorldPrinter implements Printable , ActionListener {
+
+
+        public int print(Graphics g, PageFormat pf, int page) throws
+                PrinterException {
+
+            if (page > 0) {
+                return NO_SUCH_PAGE;
+            }
+
+
+            Graphics2D g2d = (Graphics2D)g;
+            g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+
+            g.drawString("Hello world!", 100, 100);
+
+            return PAGE_EXISTS;
+        }
+
+
+        public static void main(String args[]) {
+
+        }
+
+
+
+        @Override
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setPrintable(this);
+            boolean ok = job.printDialog();
+            if (ok) {
+                try {
+                    job.print();
+                } catch (PrinterException ex) {
+
+                }
+            }
+        }
+
+    }
+    **/
 }
 
