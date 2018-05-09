@@ -40,7 +40,7 @@ public class MenuController {
 	 * @param event check in page requested
 	 * @throws IOException
 	 */
-	public void ShowCheckInPage(ActionEvent event) throws IOException {
+	public void showCheckInPage(ActionEvent event) throws IOException {
 		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
 		Scene CheckInScene = new Scene(CheckInPage);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -82,7 +82,7 @@ public class MenuController {
 	 * @param event Main window page requested
 	 * @throws IOException
 	 */
-	public void ShowMainPage(ActionEvent event) throws IOException {
+	public void showMainPage(ActionEvent event) throws IOException {
 		Parent mainWindow = FXMLLoader.load(getClass().getResource(String.valueOf("/MainWindow.fxml")));
 		Scene mainWindowScene = new Scene(mainWindow);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
