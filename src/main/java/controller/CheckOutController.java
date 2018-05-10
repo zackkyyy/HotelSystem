@@ -18,6 +18,7 @@ import model.Room;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -85,8 +86,14 @@ public class CheckOutController implements Initializable {
 
     public void getReservation() {
         DBParser dbParser = new DBParser();
-        ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getCheckedInByDate(date.getValue()));
-
+        ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
+        ArrayList<Reservation> filteredList=new ArrayList<Reservation>();
+        for (int i = 0 ; i<listOfReservations.size();i++){
+            if (listOfReservations.get(i).getDepartureDate().equals(date.getValue()) && listOfReservations.get(i).getCheckedIn()){
+                filteredList.add(listOfReservations.get(i));
+            }
+        }
+        listOfReservations=FXCollections.observableArrayList(filteredList);
         table.setItems(listOfReservations);
         arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("arrivalDate"));
         departCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("departureDate"));

@@ -61,7 +61,7 @@ public class ReserveController implements Initializable {
     @FXML
     private TabPane tabPane;
     @FXML
-    private JFXButton removeCitySearch, removeTypeSearch;
+    private JFXButton removeCitySearch, removeTypeSearch,removeQualitySearch;
     @FXML
     private Button confirm;
     @FXML
@@ -139,6 +139,7 @@ public class ReserveController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        removeQualitySearch.setVisible(false);
         smokingBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -205,18 +206,23 @@ public class ReserveController implements Initializable {
         });
         star1.setOnAction(event -> {
             quality.setText("★");
+            filterByQuality("★");
         });
         star2.setOnAction(event -> {
             quality.setText("★★");
+            filterByQuality("★★");
         });
         star3.setOnAction(event -> {
             quality.setText("★★★");
+            filterByQuality("★★★");
         });
         star4.setOnAction(event -> {
             quality.setText("★★★★");
+            filterByQuality("★★★★");
         });
         star5.setOnAction(event -> {
             quality.setText("★★★★★");
+            filterByQuality("★★★★★");
         });
 
         /*
@@ -390,7 +396,7 @@ public class ReserveController implements Initializable {
     public void addToTable() {
         dbParser = new DBParser();
         table.getItems().remove(0, table.getItems().size());
-        listOfRooms = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+        listOfRooms = FXCollections.observableArrayList(getFreeRoom());
         table.setItems(listOfRooms);
         roomNrCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomNr"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("price"));
@@ -420,7 +426,41 @@ public class ReserveController implements Initializable {
         list = FXCollections.observableArrayList(listOfRooms);
         table.setItems(list);
     }
+    public void filterByQuality(String str){
+        dbParser = new DBParser();
+        if(!removeQualitySearch.isVisible()) {
 
+            ObservableList<Room> list = table.getItems();
+            ;
+            ArrayList<Room> listOfRooms = new ArrayList<Room>();
+
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(list.get(i));
+                if (list.get(i).getQuality().toString().equals(str)) {
+                    listOfRooms.add(list.get(i));
+                }
+            }
+            table.getItems().removeAll();
+            list = FXCollections.observableArrayList(listOfRooms);
+            table.setItems(list);
+            removeQualitySearch.setVisible(true);
+        }else{
+            ArrayList<Room> listOfRooms = getFreeRoom();
+            ArrayList<Room> filteredList =new ArrayList<>();
+
+            for (int i = 0; i < listOfRooms.size(); i++) {
+                System.out.println(listOfRooms.get(i));
+                if (listOfRooms.get(i).getQuality().toString().equals(str)) {
+                    filteredList.add(listOfRooms.get(i));
+                }
+            }
+            ObservableList<Room> list ;
+            table.getItems().removeAll();
+            list = FXCollections.observableArrayList(filteredList);
+            table.setItems(list);
+            removeQualitySearch.setVisible(true);
+        }
+    }
     public void removeSmokingFilter(){
 
         if (removeCitySearch.isVisible()&&removeTypeSearch.isVisible()){
@@ -436,7 +476,9 @@ public class ReserveController implements Initializable {
             filterByAdjacent();
         }
     }
-
+    public void removeQualitySearch(){
+        removeQualitySearch.setVisible(false);
+    }
     public void filterByAdjacent(){
         dbParser = new DBParser();
         ObservableList<Room> list=table.getItems();;
@@ -464,13 +506,13 @@ public class ReserveController implements Initializable {
             removeCitySearch.setVisible(true);
 
         } else if (removeCitySearch.isVisible() && !removeTypeSearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+            list = FXCollections.observableArrayList(getFreeRoom());
             table.getItems().removeAll();
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
             table.setItems(listOfRooms);
 
         } else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+            list = FXCollections.observableArrayList(getFreeRoom());
             ObservableList<Room> filteredByRoom = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), filteredByRoom));
             table.getItems().removeAll();
@@ -489,13 +531,13 @@ public class ReserveController implements Initializable {
             removeTypeSearch.setVisible(true);
 
         } else if (removeTypeSearch.isVisible() && !removeCitySearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+            list = FXCollections.observableArrayList(getFreeRoom());
             table.getItems().removeAll();
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
             table.setItems(listOfRooms);
 
         } else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+            list = FXCollections.observableArrayList(getFreeRoom());
             ObservableList<Room> filteredByCity = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), filteredByCity));
             table.getItems().removeAll();
@@ -505,7 +547,7 @@ public class ReserveController implements Initializable {
 
     public void removeCitySearch() {
         dbParser = new DBParser();
-        listOfRooms = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+        listOfRooms = FXCollections.observableArrayList(getFreeRoom());
 
         if (removeTypeSearch.isVisible()) {
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), listOfRooms));
@@ -519,7 +561,7 @@ public class ReserveController implements Initializable {
 
     public void removeTypeSearch() {
         dbParser = new DBParser();
-        listOfRooms = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
+        listOfRooms = FXCollections.observableArrayList(getFreeRoom());
 
         if (removeCitySearch.isVisible()) {
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), listOfRooms));
@@ -532,9 +574,18 @@ public class ReserveController implements Initializable {
         personsNumber.setText("1");
     }
 
+    public ArrayList<Room> getFreeRoom(){
+        ArrayList<Room> listOfFreeRooms = new ArrayList<Room>();
+        for (int i = 0 ;i<dbParser.getAllRoom().size() ; i++){
+            if (!dbParser.getAllRoom().get(i).isBooked()){
+                listOfFreeRooms.add(dbParser.getAllRoom().get(i));
+            }
+        }
+        return listOfFreeRooms;
+    }
     public void findRoom() {
         DBParser dbParser = new DBParser();
-        ArrayList<Room> arrayList = dbParser.getAllFreeRoom();
+        ArrayList<Room> arrayList = getFreeRoom();
         String searchedRoom = searchRoom.getText();
 
         if (!searchRoom.getText().isEmpty()) {

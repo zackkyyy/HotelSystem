@@ -193,7 +193,7 @@
                                  <children>
                                     <HBox prefHeight="36.0" prefWidth="459.0">
                                        <children>
-                                          <Label prefHeight="27.0" prefWidth="148.0" text="Search for room" textAlignment="CENTER">
+                                          <Label prefHeight="26.0" prefWidth="150.0" text="Search for room" textAlignment="CENTER">
                                              <HBox.margin>
                                                 <Insets top="10.0" />
                                              </HBox.margin>
@@ -219,10 +219,10 @@
                                           </JFXTextField>
                                           <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
                                              <HBox.margin>
-                                                <Insets top="15.0" />
+                                                <Insets left="5.0" top="15.0" />
                                              </HBox.margin>
                                           </FontAwesomeIconView>
-                                          <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" text="City" textFill="#f10000" visible="false">
+                                          <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" prefHeight="24.0" prefWidth="77.0" text="City" textFill="#f10000" visible="false">
                                              <font>
                                                 <Font name="System Bold" size="11.0" />
                                              </font>
@@ -230,28 +230,39 @@
                                                 <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" />
                                              </graphic>
                                              <HBox.margin>
-                                                <Insets left="10.0" top="10.0" />
+                                                <Insets left="5.0" top="10.0" />
                                              </HBox.margin>
                                           </JFXButton>
-                                          <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" text="Type" textFill="#f10000" visible="false">
+                                          <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" prefHeight="24.0" prefWidth="84.0" text="Type" textFill="#f10000" visible="false">
                                              <graphic>
                                                 <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="" />
                                              </graphic>
                                              <HBox.margin>
-                                                <Insets left="10.0" top="10.0" />
+                                                <Insets top="10.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="11.0" />
                                              </font>
                                           </JFXButton>
-                                          <Label fx:id="errorLabel" textFill="#fc0000" visible="false">
+                                          <JFXButton fx:id="removeQualitySearch" onAction="#removeQualitySearch" prefHeight="24.0" prefWidth="76.0" text="Quality" textFill="#f10000" visible="false">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
                                              <HBox.margin>
-                                                <Insets left="270.0" top="-60.0" />
+                                                <Insets left="5.0" top="10.0" />
+                                             </HBox.margin>
+                                          </JFXButton>
+                                          <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="307.0" textFill="#fc0000" visible="false">
+                                             <HBox.margin>
+                                                <Insets top="-40.0" />
                                              </HBox.margin>
                                           </Label>
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="10.0" />
+                                          <Insets left="15.0" />
                                        </VBox.margin>
                                     </HBox>
                                     <TableView fx:id="table" prefHeight="200.0" prefWidth="995.0" stylesheets="@css/reservePage.css">

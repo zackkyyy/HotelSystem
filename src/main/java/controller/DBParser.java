@@ -216,15 +216,6 @@ public class DBParser {
         return guest;
     }
 
-    private User getUserFromDB(Document doc) {
-        String name = doc.getString("name");
-        String lastName = doc.getString("last name");
-        String password = doc.getString("password");
-        String username = doc.getString("username");
-
-        User user = new User(name, lastName, username, password);
-        return user;
-    }
 
     public void refreshGuestInfo(Guest guest) {
 
@@ -236,42 +227,6 @@ public class DBParser {
                         .append("credit card", guest.getCreditCard())
                         .append("identity nr", guest.getIdentityNr())
                         .append("notes", guest.getNotes())));
-    }
-
-    /**
-     * Convert a String to city
-     *
-     * @param city1 a string that refer to the city
-     * @return @enum city
-     */
-    private City toCity(String city1) {
-        if (city1.contains("Växjö")) {
-            return City.VÄXJÖ;
-        } else if (city1.contains("Kalmar")) {
-            return City.KALMAR;
-        } else return null;
-    }
-
-    /**
-     * Convert a String to room type
-     *
-     * @param room_type a string that refer to the room type
-     * @return @enum roomType
-     */
-    private RoomType toRoomType(String room_type) {
-        if (room_type.equals("Single")) {
-            return RoomType.SINGLE;
-        } else if (room_type.contains("Triple")) {
-            return RoomType.TRIPLE;
-        } else if (room_type.contains("Double")) {
-            return RoomType.DOUBLE;
-        } else if (room_type.contains("Apartment")) {
-            return RoomType.APARTMENT;
-        } else if (room_type.equals("")) {
-            return null;
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -329,28 +284,20 @@ public class DBParser {
     /**
      * This method generate an array list of rooms from the database
      *
-     * @return list of room in array list
+     * @return
+     *         list of all the room in array list
      */
-    public ArrayList<Room> getAllFreeRoom() {
-        ArrayList<Room> listOfFreeRooms = new ArrayList<Room>();
-        for (int i = 0 ;i<getAllRoom().size() ; i++){
-            if (!getAllRoom().get(i).isBooked()){
-                listOfFreeRooms.add(getAllRoom().get(i));
-            }
-        }
-        return listOfFreeRooms;
 
-    }
     public ArrayList<Room> getAllRoom() {
         cursor = rooms.find().iterator();
         ArrayList<Room> listOfRooms = new ArrayList<Room>();
         for (int i = 0; i < rooms.count(); i++) {
             doc = cursor.next();
-                RoomType roomType = toRoomType(doc.getString("room type"));
+                RoomType roomType = RoomType.toEnum(doc.getString("room type"));
                 boolean booked = doc.getBoolean("is booked");
                 int roomNr = doc.getInteger("room nr");
                 Double price = doc.getDouble("price");
-                City city = toCity(doc.getString("city"));
+                City city = City.toEnum(doc.getString("city"));
                 Smoking smoking= Smoking.toEnum(doc.getString("smoking"));
                 Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
                 Quality quality = Quality.toEnum(doc.getString("quality"));
@@ -365,11 +312,11 @@ public class DBParser {
     }
 
     public Room createRoom(Document doc) {
-        RoomType roomType = toRoomType(doc.getString("room type"));
+        RoomType roomType = RoomType.toEnum(doc.getString("room type"));
         boolean booked = doc.getBoolean("is booked");
         int roomNr = doc.getInteger("room nr");
         Double price = doc.getDouble("price");
-        City city = toCity(doc.getString("city"));
+        City city = City.toEnum(doc.getString("city"));
         Smoking smoking= Smoking.toEnum(doc.getString("smoking"));
         Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
         Quality quality = Quality.toEnum(doc.getString("quality"));
@@ -380,39 +327,18 @@ public class DBParser {
         return room1;
     }
 
-    public Object[] getArrayOfRoom() {
-        String[] listOfGuest = new String[(int) rooms.count()];
-        MongoCursor<Document> cursor = rooms.find().iterator();
-        for (int i = 0; i < rooms.count(); i++) {
-            Document doc = cursor.next();
-            listOfGuest[i] = (doc.getInteger("room nr") + "    " + doc.getString("city"));
-        }
-        return listOfGuest;
-    }
 
-    public void editRoom(String selectedItem, Room temporaryRoom) {
+
+    public void refreshRoomStatus(Room room) {
         ObjectId objectId = null;
         cursor = rooms.find().iterator();
-
         for (int i = 0; i < rooms.count(); i++) {
             doc = cursor.next();
-            if (selectedItem.contains(doc.getInteger("room nr") + "")) {
+            if ((doc.getInteger("room nr") ==room.getRoomNr() && doc.getString("city").equals(room.getCity().toString()))) {
                 objectId = doc.getObjectId("_id");
             }
         }
-
         rooms.updateOne(eq("_id", objectId), new Document("$set",
-                new Document("room nr", temporaryRoom.getRoomNr())
-                        .append("room type", temporaryRoom.getRoomType().toString())
-                        .append("price", temporaryRoom.getPrice())
-                        .append("city", temporaryRoom.getCity().toString())
-                        .append("smoking",temporaryRoom.getSmoking().toString())
-                        .append("adjacent",temporaryRoom.getAdjoined().toString())
-                        .append("quality",temporaryRoom.getQuality().toString())));
-    }
-
-    public void refreshRoomStatus(Room room) {
-        rooms.updateOne(eq("room nr", room.getRoomNr()), new Document("$set",
                 new Document("room nr", room.getRoomNr())
                         .append("room type", room.getRoomType().toString())
                         .append("price", room.getPrice())
@@ -448,6 +374,16 @@ public class DBParser {
                         .append("last name", temporaryUser.getLastName())
                         .append("username", temporaryUser.getUserName())
                         .append("password", hashedPassword)));
+    }
+
+    private User getUserFromDB(Document doc) {
+        String name = doc.getString("name");
+        String lastName = doc.getString("last name");
+        String password = doc.getString("password");
+        String username = doc.getString("username");
+
+        User user = new User(name, lastName, username, password);
+        return user;
     }
 
     public void createNewUser(User newUser) {
@@ -508,34 +444,6 @@ public class DBParser {
         return(passwordMatch);
     }
 
-    public User findUserByLogInInfo(String userName, String pass) {
-        User user;
-        cursor = users.find().iterator();
-        for (int i = 0; i < users.count(); i++) {
-            doc = cursor.next();
-            if (doc.getString("username").equals(userName) && doc.getString("password").equals(pass)) {
-                user = new User(doc.getString("name"), doc.getString("last name"), doc.getString("username"), doc.getString("password"));
-                return user;
-            }
-        }
-        return null;
-
-    }
-
-    public void saveReservationToDB(Reservation reservation) {
-        Date ArrivalDate = Date.from(reservation.getArrivalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        doc = new Document("guest", reservation.getGuest())
-                .append("room", reservation.getRoom())
-                .append("arrival", ArrivalDate)
-                .append("departure", departureDate)
-                .append("price", reservation.getPrice())
-                .append("is checkedIn", reservation.getCheckedIn());
-
-        reservations.insertOne(doc);
-    }
-
     public void createNewRoom(Room room) {
         doc = new Document("room nr", room.getRoomNr())
                 .append("room type", room.getRoomType().toString())
@@ -584,53 +492,19 @@ public class DBParser {
         return listOfReservation;
     }
 
-    public ArrayList<Reservation> getNotCheckedInReservation() {
-        cursor = reservations.find().iterator();
-        ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
-        Reservation reservation;
-        for (int i = 0; i < reservations.count(); i++) {
-            doc = cursor.next();
-            if (!doc.getBoolean("is checkedIn")) {
-                reservation = getReservationFromDB(doc);
-                listOfReservation.add(reservation);
-            }
-        }
-        return listOfReservation;
+    public void saveReservationToDB(Reservation reservation) {
+        Date ArrivalDate = Date.from(reservation.getArrivalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        doc = new Document("guest", reservation.getGuest())
+                .append("room", reservation.getRoom())
+                .append("arrival", ArrivalDate)
+                .append("departure", departureDate)
+                .append("price", reservation.getPrice())
+                .append("is checkedIn", reservation.getCheckedIn());
+
+        reservations.insertOne(doc);
     }
-
-
-    public ArrayList<Reservation> getReservationByDate(LocalDate date) {
-        Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        cursor = reservations.find().iterator();
-        ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
-        Reservation reservation;
-
-        for (int i = 0; i < reservations.count(); i++) {
-            doc = cursor.next();
-            if (doc.getDate("arrival").equals(d) && !doc.getBoolean("is checkedIn")) {
-                reservation = getReservationFromDB(doc);
-                listOfReservation.add(reservation);
-            }
-
-        }
-        return listOfReservation;
-    }
-
-    public ArrayList<Reservation> getCheckedInByDate(LocalDate date) {
-        Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        cursor = reservations.find().iterator();
-        ArrayList<Reservation> listOfReservation = new ArrayList<Reservation>();
-        Reservation reservation;
-        for (int i = 0; i < reservations.count(); i++) {
-            doc = cursor.next();
-            if (doc.getDate("departure").equals(d) && doc.getBoolean("is checkedIn")) {
-                reservation = getReservationFromDB(doc);
-                listOfReservation.add(reservation);
-            }
-        }
-        return listOfReservation;
-    }
-
     // Deletes reservations that has departure date before todays date and unbooks the corresponding rooms
     public void deleteOldReservations() {
         Instant instant = Instant.now().minus(1, ChronoUnit.DAYS);
@@ -670,7 +544,9 @@ public class DBParser {
         Double price = doc.getDouble("price");
         int roomID = doc.getInteger("room");
         String guestID = doc.getString("guest");
+        Boolean checkedIn=doc.getBoolean("is checkedIn");
         Reservation reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+        reservation.setCheckedIn(checkedIn);
         return reservation;
 
     }

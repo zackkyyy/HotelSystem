@@ -19,6 +19,7 @@ import model.Room;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -89,7 +90,14 @@ public class CheckInController implements Initializable {
 	public void getReservation(){
 		DBParser dbParser = new DBParser();
 		// table.getItems().remove(0,table.getItems().size());
-		ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getReservationByDate(date.getValue()));
+		ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
+		ArrayList<Reservation> filteredList=new ArrayList<Reservation>();
+		for (int i = 0 ; i<listOfReservations.size();i++){
+			if (listOfReservations.get(i).getArrivalDate().equals(date.getValue()) && !listOfReservations.get(i).getCheckedIn()){
+				filteredList.add(listOfReservations.get(i));
+			}
+		}
+		listOfReservations=FXCollections.observableArrayList(filteredList);
 		table.setItems(listOfReservations);
 		arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("arrivalDate"));
 		departCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("departureDate"));
@@ -147,7 +155,16 @@ public class CheckInController implements Initializable {
 		checkedInText.setVisible(false);
 		errorText.setVisible(false);
 		DBParser dbParser = new DBParser();
-		listOfReservations = FXCollections.observableArrayList(dbParser.getNotCheckedInReservation());
+		listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
+
+		ArrayList<Reservation> filteredList=new ArrayList<Reservation>();
+		for (int i = 0 ; i<listOfReservations.size();i++){
+			if (!listOfReservations.get(i).getCheckedIn()){
+				filteredList.add(listOfReservations.get(i));
+			}
+		}
+		listOfReservations=FXCollections.observableArrayList(filteredList);
+
 		FilteredList<Reservation> filteredData = new FilteredList<>(listOfReservations, p -> true);
 		txtField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(t -> {

@@ -219,8 +219,9 @@ public class ManagerController implements Initializable {
             }
         } else if (tabPane1.getSelectionModel().isSelected(2)) {
             roomList.getItems().remove(0, roomList.getItems().size());
-            for (int i = 0; i < roomController.getArrayOfRoom().length; i++) {
-                roomList.getItems().add(roomController.getArrayOfRoom()[i]);
+            for (int i = 0; i < roomController.getAllRoom().size(); i++) {
+                String str = roomController.getAllRoom().get(i).getRoomNr() + "    " + roomController.getAllRoom().get(i).getCity().toString();
+                roomList.getItems().add(str);
                 roomList.getItems().sorted();
             }
         } else if (tabPane1.getSelectionModel().isSelected(3)) {
@@ -380,7 +381,7 @@ public class ManagerController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get().equals(ButtonType.OK)) {
                 roomList.getItems().remove(0, userList.getItems().size());
-                roomController.editRoom(selectedItem, temporaryRoom);
+                roomController.refreshRoomStatus( temporaryRoom);
                 getDataFromDB();
                 errorLabel.setVisible(false);
             }
