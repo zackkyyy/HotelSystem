@@ -17,6 +17,7 @@ import model.Room;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -149,7 +150,11 @@ public class CheckOutController implements Initializable {
                                 String GuestName = reservations.get(i).getGuest();
                                 Guest gst = dbParser.getGuestByName(GuestName);
                                 gst.setNotes(noteText.getText());
-                                dbParser.refreshGuestInfo(gst);
+                                try {
+                                    dbParser.editGuest(gst);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                                 Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
                                 tempRoom.setBooked(false);
                                 dbParser.refreshRoomStatus(tempRoom);

@@ -382,10 +382,12 @@ public class ReserveController implements Initializable {
     }
 
     public void autoCompletion() {
-        String[] listOfNames;
+        String[] listOfNames = new String[dbParser.getGuestsInArray().size()];
         DBParser dbParser = new DBParser();
-        listOfNames = dbParser.getGuestNames();
-
+        for (int i = 0; i < dbParser.getGuestsInArray().size(); i++) {
+            String str = dbParser.getGuestsInArray().get(i).getName()+ " " + dbParser.getGuestsInArray().get(i).getLastName();
+            listOfNames [i]=str;
+        }
         try {
             TextFields.bindAutoCompletion(search, listOfNames);
         } catch (Exception e) {

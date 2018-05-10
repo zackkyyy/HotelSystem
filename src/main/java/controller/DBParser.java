@@ -39,11 +39,13 @@ import static com.mongodb.client.model.Filters.eq;
 public class DBParser {
 
 
-   String uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
-  // String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
-    //String uri = "mongodb://zacky:group15@hotelmanagerdb-shard-00-00-nxz5u.mongodb.net:27017,hotelmanagerdb-shard-00-01-nxz5u.mongodb.net:27017,hotelmanagerdb-shard-00-02-nxz5u.mongodb.net:27017/test?ssl=true&replicaSet=HotelManagerDB-shard-0&authSource=admin";
+    String uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
+
+    /**
+     * Use this Link to change to cloud Data base
+     */
+    // String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
     MongoClientURI clientURI = new MongoClientURI(uri);
-    //  ******uncomment the next line and comment the previous if you want a cloud database******
     MongoClient mongoClient = new MongoClient(clientURI);
     private Document doc;
     private MongoDatabase db = mongoClient.getDatabase("hotelSystem");
@@ -53,6 +55,35 @@ public class DBParser {
     private MongoCollection users = db.getCollection("users");
     private MongoCollection reservations = db.getCollection("reservations");
 
+
+              /**********************************************/
+             /**             Guest Part                   **/
+            /**********************************************/
+
+
+    /**
+     * This method compare the password entered by user with the hashed password in the system
+     *
+     * @param password_String String password entered by user
+     * @param hashed_pass     Hashed password stored in system
+     * @return
+     */
+    public static boolean checkPassword(String password_String, String hashed_pass) {
+        boolean passwordMatch = false;
+
+        if (!hashed_pass.startsWith("$2a$"))
+            throw new java.lang.IllegalArgumentException("Password is saved in invalid hash form");
+
+        passwordMatch = BCrypt.checkpw(password_String, hashed_pass);
+        System.out.println(hashed_pass);
+        return (passwordMatch);
+    }
+
+    /**
+     * This method save the new created guest in the database
+     *
+     * @param newGuest
+     */
 
     public void createNewGuest(Guest newGuest) {
         try {
@@ -79,30 +110,14 @@ public class DBParser {
         System.out.println("Guest with id " + newGuest.getId() + " is now created");
     }
 
-    public String[] getGuestNames() {
-        String[] listOfGuest = new String[(int) persons.count()];
-        MongoCursor<Document> cursor = persons.find().iterator();
-
-        for (int i = 0; i < persons.count(); i++) {
-            Document doc = cursor.next();
-            String name = doc.getString("name");
-            String lastname = doc.getString("last name");
-            listOfGuest[i] = (name + " " + lastname);
-        }
-        return listOfGuest;
-    }
-
-    public void editGuest(Object selectedItem, Guest guest) throws ParseException {
-        cursor = persons.find().iterator();
-        ObjectId objectId = null;
-
-        for (int i = 0; i < persons.count(); i++) {
-            doc = cursor.next();
-            if (selectedItem.toString().trim().contains(doc.getString("name").trim())) {
-                objectId = doc.getObjectId("_id");
-            }
-        }
-
+    /**
+     *  This method save the changes made on guest in the database
+     *
+     * @param guest
+     * @throws ParseException
+     */
+    public void editGuest(Guest guest) throws ParseException {
+        ObjectId objectId = new ObjectId(guest.getId());
         java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(guest.getBirthday().toString());
         persons.updateOne(eq("_id", objectId), new Document("$set",
                 new Document("last name", guest.getLastName())
@@ -135,6 +150,12 @@ public class DBParser {
         return listOfGuest;
     }
 
+    /**
+     * This methods returns a guest by looking in all the guest names
+     *
+     * @param guestName
+     * @return
+     */
     public Guest getGuestByName(String guestName) {
         cursor = persons.find().iterator();
         Guest guest = null;
@@ -142,24 +163,24 @@ public class DBParser {
             doc = cursor.next();
             if ((doc.getString("name") + " " + doc.getString("last name")).equals(guestName)
                     && guestName.length() == doc.getString("name").length() + doc.getString("last name").length() + 1) {
-                guest = getGuestFromDB(doc);
+                String id = String.valueOf(doc.getObjectId("_id"));
+                String name = doc.getString("name");
+                String lastName = doc.getString("last name");
+                String address = doc.getString("address");
+                String phoneNr = doc.getString("phone nr");
+                String creditCard = doc.getString("credit card");
+                String identity_nr = doc.getString("identity nr");
+                String notes = doc.getString("notes");
+                LocalDate birthday = doc.getDate("birthday").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                guest = new Guest(id, name, lastName, address, phoneNr, identity_nr, creditCard, birthday, notes);
             }
         }
         return guest;
     }
 
-    public User getUserByName(String guestName) {
-        cursor = users.find().iterator();
-        User user = null;
-        for (int i = 0; i < users.count(); i++) {
-            doc = cursor.next();
-            if ((doc.getString("name") + " " + doc.getString("last name")).equals(guestName)
-                    && guestName.length() == doc.getString("name").length() + doc.getString("last name").length() + 1) {
-                user = getUserFromDB(doc);
-            }
-        }
-        return user;
-    }
+      /**********************************************/
+     /**                Room Section              **/
+    /**********************************************/
 
     public void deleteGuest(Guest newGuest) throws ParseException {
         java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(newGuest.getBirthday().toString());
@@ -176,57 +197,16 @@ public class DBParser {
 
     }
 
-    public void deleteUser(User user) {
-        Document doc = new Document("name", user.getName())
-                .append("last name", user.getLastName())
-                .append("password", user.getPassword())
-                .append("username", user.getUserName());
-        users.deleteOne(doc);
-    }
 
     public void deleteRoom(Room temporaryRoom) {
         Document doc = new Document("room nr", temporaryRoom.getRoomNr())
                 .append("room type", temporaryRoom.getRoomType().toString())
                 .append("price", temporaryRoom.getPrice())
                 .append("city", temporaryRoom.getCity().toString())
-                .append("smoking",temporaryRoom.getSmoking().toString())
-                .append("adjacent",temporaryRoom.getAdjoined().toString())
-                .append("quality",temporaryRoom.getQuality().toString());
+                .append("smoking", temporaryRoom.getSmoking().toString())
+                .append("adjacent", temporaryRoom.getAdjoined().toString())
+                .append("quality", temporaryRoom.getQuality().toString());
         rooms.deleteOne(doc);
-    }
-
-    /**
-     * Method that copy the information of a guest from a document in the
-     * database and creates a reservation out of it
-     *
-     * @param doc The document that is used to create the guest
-     * @return Guest
-     */
-    private Guest getGuestFromDB(Document doc) {
-        String id = String.valueOf(doc.getObjectId("_id"));
-        String name = doc.getString("name");
-        String lastName = doc.getString("last name");
-        String address = doc.getString("address");
-        String phoneNr = doc.getString("phone nr");
-        String creditCard = doc.getString("credit card");
-        String identity_nr = doc.getString("identity nr");
-        String notes = doc.getString("notes");
-        LocalDate birthday = doc.getDate("birthday").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Guest guest = new Guest(id, name, lastName, address, phoneNr, identity_nr, creditCard, birthday, notes);
-        return guest;
-    }
-
-
-    public void refreshGuestInfo(Guest guest) {
-
-        persons.updateOne(eq("identity nr", guest.getIdentityNr()), new Document("$set",
-                new Document("name", guest.getName())
-                        .append("last name", guest.getLastName())
-                        .append("phone nr", guest.getPhoneNr())
-                        .append("address", guest.getAddress())
-                        .append("credit card", guest.getCreditCard())
-                        .append("identity nr", guest.getIdentityNr())
-                        .append("notes", guest.getNotes())));
     }
 
     /**
@@ -284,8 +264,7 @@ public class DBParser {
     /**
      * This method generate an array list of rooms from the database
      *
-     * @return
-     *         list of all the room in array list
+     * @return list of all the room in array list
      */
 
     public ArrayList<Room> getAllRoom() {
@@ -293,48 +272,30 @@ public class DBParser {
         ArrayList<Room> listOfRooms = new ArrayList<Room>();
         for (int i = 0; i < rooms.count(); i++) {
             doc = cursor.next();
-                RoomType roomType = RoomType.toEnum(doc.getString("room type"));
-                boolean booked = doc.getBoolean("is booked");
-                int roomNr = doc.getInteger("room nr");
-                Double price = doc.getDouble("price");
-                City city = City.toEnum(doc.getString("city"));
-                Smoking smoking= Smoking.toEnum(doc.getString("smoking"));
-                Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
-                Quality quality = Quality.toEnum(doc.getString("quality"));
-                Room room = new Room(roomType, booked, roomNr, price, city);
-                room.setAdjoined(adjacent);
-                room.setSmoking(smoking);
-                room.setQuality(quality);
-                listOfRooms.add(room);
+            RoomType roomType = RoomType.toEnum(doc.getString("room type"));
+            boolean booked = doc.getBoolean("is booked");
+            int roomNr = doc.getInteger("room nr");
+            Double price = doc.getDouble("price");
+            City city = City.toEnum(doc.getString("city"));
+            Smoking smoking = Smoking.toEnum(doc.getString("smoking"));
+            Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
+            Quality quality = Quality.toEnum(doc.getString("quality"));
+            Room room = new Room(roomType, booked, roomNr, price, city);
+            room.setAdjoined(adjacent);
+            room.setSmoking(smoking);
+            room.setQuality(quality);
+            listOfRooms.add(room);
 
         }
         return listOfRooms;
     }
-
-    public Room createRoom(Document doc) {
-        RoomType roomType = RoomType.toEnum(doc.getString("room type"));
-        boolean booked = doc.getBoolean("is booked");
-        int roomNr = doc.getInteger("room nr");
-        Double price = doc.getDouble("price");
-        City city = City.toEnum(doc.getString("city"));
-        Smoking smoking= Smoking.toEnum(doc.getString("smoking"));
-        Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
-        Quality quality = Quality.toEnum(doc.getString("quality"));
-        Room room1 = new Room(roomType, booked, roomNr, price, city);
-        room1.setAdjoined(adjacent);
-        room1.setSmoking(smoking);
-        room1.setQuality(quality);
-        return room1;
-    }
-
-
 
     public void refreshRoomStatus(Room room) {
         ObjectId objectId = null;
         cursor = rooms.find().iterator();
         for (int i = 0; i < rooms.count(); i++) {
             doc = cursor.next();
-            if ((doc.getInteger("room nr") ==room.getRoomNr() && doc.getString("city").equals(room.getCity().toString()))) {
+            if ((doc.getInteger("room nr") == room.getRoomNr() && doc.getString("city").equals(room.getCity().toString()))) {
                 objectId = doc.getObjectId("_id");
             }
         }
@@ -346,7 +307,41 @@ public class DBParser {
                         .append("city", room.getCity().toString())));
     }
 
+    public void createNewRoom(Room room) {
+        doc = new Document("room nr", room.getRoomNr())
+                .append("room type", room.getRoomType().toString())
+                .append("price", room.getPrice())
+                .append("is booked", false)
+                .append("city", room.getCity().toString())
+                .append("smoking", room.getSmoking().toString())
+                .append("adjacent", room.getAdjoined().toString())
+                .append("quality", room.getQuality().toString());
 
+        rooms.insertOne(doc);
+    }
+
+
+
+    public Room copyRoomByRoomNumber(int roomNumber) {
+        ArrayList<Room> listOfRoom = getAllRoom();
+        Room room = null;
+        for (int i = 0; i < listOfRoom.size(); i++) {
+            if (listOfRoom.get(i).getRoomNr() == roomNumber) {
+                room = listOfRoom.get(i);
+            }
+        }
+        return room;
+    }
+
+           /**********************************************/
+          /**                 User Part                **/
+         /**********************************************/
+
+    /**
+     * This mehtod return all the names of the users in the database
+     *
+     * @return
+     */
     public Object[] getUserNames() {
         String[] listOfGuest = new String[(int) users.count()];
 
@@ -358,12 +353,61 @@ public class DBParser {
         return listOfGuest;
     }
 
+    /**
+     * This method returns the requested user by checking in the database
+     *  if there is a user with the given string
+     *
+     * @param guestName
+     *          String represent the user name to be used to find the user
+     * @return
+     *      User if found
+     */
+    public User getUserByName(String guestName) {
+        cursor = users.find().iterator();
+        User user = null;
+        for (int i = 0; i < users.count(); i++) {
+            doc = cursor.next();
+            if ((doc.getString("name") + " " + doc.getString("last name")).equals(guestName)
+                    && guestName.length() == doc.getString("name").length() + doc.getString("last name").length() + 1) {
+                String name = doc.getString("name");
+                String lastName = doc.getString("last name");
+                String password = doc.getString("password");
+                String username = doc.getString("username");
+
+                user = new User(name, lastName, username, password);
+            }else{
+                System.out.println("no user with this name");
+            }
+        }
+        return user;
+    }
+
+    /**
+     * This method deletes the user document from the database
+     *
+     * @param user
+     */
+    public void deleteUser(User user) {
+        Document doc = new Document("name", user.getName())
+                .append("last name", user.getLastName())
+                .append("password", user.getPassword())
+                .append("username", user.getUserName());
+        users.deleteOne(doc);
+    }
+
+    /**
+     * This method records all the changes has been made on a user
+     *    and update the corresponding user in the database
+     *
+     * @param selectedItem
+     * @param temporaryUser
+     */
     public void editUser(Object selectedItem, User temporaryUser) {
         cursor = users.find().iterator();
         ObjectId objectId = null;
         for (int i = 0; i < users.count(); i++) {
             doc = cursor.next();
-            if (selectedItem.toString().contains(doc.getString("name"))) {
+            if (selectedItem.toString().contains(doc.getString("name")) && selectedItem.toString().contains(doc.getString("last name"))) {
                 objectId = doc.getObjectId("_id");
             }
         }
@@ -376,16 +420,12 @@ public class DBParser {
                         .append("password", hashedPassword)));
     }
 
-    private User getUserFromDB(Document doc) {
-        String name = doc.getString("name");
-        String lastName = doc.getString("last name");
-        String password = doc.getString("password");
-        String username = doc.getString("username");
-
-        User user = new User(name, lastName, username, password);
-        return user;
-    }
-
+    /**
+     * This method create a new document for the new created user
+     *  It saves the document in the guest table in the database
+     *
+     * @param newUser
+     */
     public void createNewUser(User newUser) {
         doc = new Document();
         try {
@@ -399,7 +439,6 @@ public class DBParser {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
             System.out.println("Failed to save");
         }
-        System.out.println("Guest with id " + newUser.getName() + " is now created");
     }
 
     /**
@@ -416,64 +455,30 @@ public class DBParser {
         for (int i = 0; i < users.count(); i++) {
             doc = cursor.next();
             if (username.equals(doc.getString("username"))) {
-                if (checkPassword(password,doc.getString("password"))) {
+                if (checkPassword(password, doc.getString("password"))) {
                     return true;
                 }
             }
         }
         return false;
     }
+      /**********************************************/
+     /**          Reservation Section             **/
+    /**********************************************/
 
-    /**
-     * This method compare the password entered by user with the hashed password in the system
-     *
-     * @param password_String
-     *              String password entered by user
-     * @param hashed_pass
-     *              Hashed password stored in system
-     * @return
-     */
-    public static boolean checkPassword(String password_String, String hashed_pass) {
-        boolean passwordMatch = false;
-
-        if(!hashed_pass.startsWith("$2a$"))
-            throw new java.lang.IllegalArgumentException("Password is saved in invalid hash form");
-
-        passwordMatch = BCrypt.checkpw(password_String, hashed_pass);
-        System.out.println(hashed_pass);
-        return(passwordMatch);
-    }
-
-    public void createNewRoom(Room room) {
-        doc = new Document("room nr", room.getRoomNr())
-                .append("room type", room.getRoomType().toString())
-                .append("price", room.getPrice())
-                .append("is booked", false)
-                .append("city", room.getCity().toString())
-                .append("smoking",room.getSmoking().toString())
-                .append("adjacent",room.getAdjoined().toString())
-                .append("quality",room.getQuality().toString());
-
-        rooms.insertOne(doc);
-    }
-
-    public Room copyRoomByRoomNumber(int roomNumber) {
-        cursor = rooms.find().iterator();
-        Room room = null;
-        for (int i = 0; i < rooms.count(); i++) {
-            doc = cursor.next();
-            if (doc.getInteger("room nr").equals(roomNumber)) {
-                room = createRoom(doc);
-            }
-        }
-        return room;
-    }
 
     public void deleteReservationByRoomNumber(int roomNumber) {
 
         reservations.deleteOne(eq("room", roomNumber));
     }
 
+    /**
+     * This method is used to get all the reservation
+     *  from the database.
+     *
+     * @return
+     *      return array of all the reservation
+     */
     public ArrayList<Reservation> getAllReservations() {
         try {
             cursor = reservations.find().iterator();
@@ -492,6 +497,12 @@ public class DBParser {
         return listOfReservation;
     }
 
+    /**
+     * This method save a new created reservation to the database
+     *
+     * @param reservation
+     *              The new created reservation
+     */
     public void saveReservationToDB(Reservation reservation) {
         Date ArrivalDate = Date.from(reservation.getArrivalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
         Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -505,7 +516,12 @@ public class DBParser {
 
         reservations.insertOne(doc);
     }
-    // Deletes reservations that has departure date before todays date and unbooks the corresponding rooms
+    /**
+     * Deletes reservations that has departure date before
+     * today's date and unbooks the corresponding rooms
+     *
+     */
+    //
     public void deleteOldReservations() {
         Instant instant = Instant.now().minus(1, ChronoUnit.DAYS);
         Date time = Date.from(instant);
@@ -544,13 +560,21 @@ public class DBParser {
         Double price = doc.getDouble("price");
         int roomID = doc.getInteger("room");
         String guestID = doc.getString("guest");
-        Boolean checkedIn=doc.getBoolean("is checkedIn");
+        Boolean checkedIn = doc.getBoolean("is checkedIn");
         Reservation reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
         reservation.setCheckedIn(checkedIn);
         return reservation;
 
     }
-
+    /**
+     * This method update an existing reservation when the user check
+     *  in or check out a reservation
+     *
+     * @param reservation
+     *              The reservation that needed to be updated
+     * @return Reservation
+     *              The updated version
+     */
     public void refreshReservationStatus(Reservation reservation) {
 
         Date arrivalDate = Date.from(reservation.getArrivalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());

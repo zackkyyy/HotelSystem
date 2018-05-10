@@ -127,4 +127,19 @@ public class Guest {
 	 public String getNotes() {
 		 return notes;
 	 }
+
+	@Override
+	public String toString() {
+		return "Guest{" +
+				"name='" + name + '\'' +
+				", lastName='" + lastName + '\'' +
+				", address='" + address + '\'' +
+				", phoneNr='" + phoneNr + '\'' +
+				", id='" + id + '\'' +
+				", identityNr='" + identityNr + '\'' +
+				", creditCard='" + creditCard + '\'' +
+				", birthday=" + birthday +
+				", notes='" + notes + '\'' +
+				'}';
+	}
 }

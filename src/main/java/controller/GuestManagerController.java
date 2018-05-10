@@ -165,20 +165,30 @@ public class GuestManagerController implements Initializable {
             temporaryGst.setNotes(notes.getText());
             temporaryGst.setIdentityNr(identityNr.getText());
             temporaryGst.setBirthday(birthday.getValue());
-
+            temporaryGst.setId(idField.getText());
             guestController = new DBParser();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Are you sure you want to edit " + selectedItem + " ?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get().equals(ButtonType.OK)) {
                 list.getItems().remove(0, list.getItems().size());
-                guestController.editGuest(selectedItem, temporaryGst);
+                guestController.editGuest(temporaryGst);
                 getGuestFromDb();
                 returnToDefault();
             }
         }
 
     }
+    public void getGuestFromDb() {
+        list.getItems().removeAll();
+        guestController = new DBParser();
+        list.getItems().removeAll();
+        for (int i = 0; i < guestController.getGuestsInArray().size(); i++) {
+            String str = guestController.getGuestsInArray().get(i).getName()+ " " + guestController.getGuestsInArray().get(i).getLastName();
+            list.getItems().add(str);
+        }
+    }
+
 
     public void addGuest(ActionEvent actionEvent) throws IOException {
         AddGuestController controller = new AddGuestController();
@@ -195,14 +205,6 @@ public class GuestManagerController implements Initializable {
         phoneNr.cancelEdit();
     }
 
-    public void getGuestFromDb() {
-        list.getItems().removeAll();
-        guestController = new DBParser();
-        list.getItems().removeAll();
-        for (int i = 0; i < guestController.getGuestNames().length; i++) {
-            list.getItems().add(guestController.getGuestNames()[i]);
-        }
-    }
 
     public boolean validateFields(){
         if (name.getText().isEmpty() ||name.getText().matches(".*\\d+.*")) {
