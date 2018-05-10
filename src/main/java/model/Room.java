@@ -1,8 +1,7 @@
 package model;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import model.enums.City;
-import model.enums.RoomType;
+import model.enums.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,13 +16,53 @@ public class Room extends RecursiveTreeObject<Room> {
     private int roomNr;
     private Double price ;
     private City city;
+    private Smoking smoking;
+    private Adjacent adjoined;
+    private Quality quality;
 
-    public Room(RoomType roomType,Boolean booked, int roomNr, Double price, City city) {
+
+
+    public Room(RoomType roomType, Boolean booked, int roomNr, Double price, City city) {
         this.city=city;
         this.booked = booked;
         this.roomNr = roomNr;
         this.price = price;
         this.roomType=roomType;
+    }
+
+
+    public Quality getQuality() {
+        return quality;
+    }
+
+    public void setQuality(Quality quality) {
+        this.quality = quality;
+    }
+    public Smoking getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(Smoking smoking) {
+        this.smoking = smoking;
+    }
+
+    public Adjacent getAdjoined() {
+        return adjoined;
+    }
+
+    public void setAdjoined(Adjacent adjoined) {
+        this.adjoined = adjoined;
+    }
+
+    public Room(RoomType roomType, boolean booked, int roomNr, Double price, City city, Smoking smooking, Adjacent adjoined) {
+
+        this.roomType = roomType;
+        this.booked = booked;
+        this.roomNr = roomNr;
+        this.price = price;
+        this.city = city;
+        this.smoking = smooking;
+        this.adjoined = adjoined;
     }
 
     public Room() {
@@ -37,6 +76,8 @@ public class Room extends RecursiveTreeObject<Room> {
                 ", roomNr=" + roomNr +
                 ", price=" + price +
                 ", city=" + city +
+                ", smoking=" + smoking +
+                ", adjoined=" + adjoined +
                 '}';
     }
 

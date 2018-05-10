@@ -260,8 +260,8 @@
                                         <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
                                           <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
                                           <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
-                                          <TableColumn fx:id="roomNrCol1" prefWidth="130.0" text="room id" />
-                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="floor" />
+                                          <TableColumn fx:id="roomIdCol" prefWidth="130.0" text="Adjacent" />
+                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="Smoking" />
                                           <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
                                           <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
                                       </columns>
@@ -386,12 +386,12 @@
                                           <Insets />
                                        </VBox.margin>
                                     </Text>
-                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
+                                    <JFXToggleButton fx:id="smokingBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
                                     </JFXToggleButton>
-                                    <JFXToggleButton prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
+                                    <JFXToggleButton fx:id="adjacentBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
                                     <HBox prefHeight="31.0" prefWidth="132.0">
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
@@ -404,11 +404,11 @@
                                           </Text>
                                           <MenuButton fx:id="quality" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: orange;" text="★" textFill="GOLD">
                                              <items>
-                                                <MenuItem mnemonicParsing="false" text="★" />
-                                                <MenuItem mnemonicParsing="false" text="★★" />
-                                                <MenuItem mnemonicParsing="false" text="★★★" />
-                                                <MenuItem mnemonicParsing="false" text="★★★★" />
-                                                <MenuItem mnemonicParsing="false" text="★★★★★" />
+                                                <MenuItem fx:id="star1" mnemonicParsing="false" text="★" />
+                                                <MenuItem fx:id="star2" mnemonicParsing="false" text="★★" />
+                                                <MenuItem fx:id="star3" mnemonicParsing="false" text="★★★" />
+                                                <MenuItem fx:id="star4" mnemonicParsing="false" text="★★★★" />
+                                                <MenuItem fx:id="star5" mnemonicParsing="false" text="★★★★★" />
                                              </items>
                                              <HBox.margin>
                                                 <Insets left="10.0" />

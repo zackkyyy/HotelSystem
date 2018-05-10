@@ -33,7 +33,6 @@ public class LoginController {
 
 	public boolean checkForLogIn() {
 		DBParser userController = new DBParser();
-
 		if(user1.getText().equals("1") && pass1.getText().equals("1")){
 			System.out.println("Correct login");
 			return true;

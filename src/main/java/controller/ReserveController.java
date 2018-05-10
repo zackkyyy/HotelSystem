@@ -1,28 +1,31 @@
 package controller;
 
 
-import com.itextpdf.text.*;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXToggleButton;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 import model.Guest;
 import model.Reservation;
@@ -30,9 +33,11 @@ import model.Room;
 import org.bson.Document;
 import org.controlsfx.control.textfield.TextFields;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.print.*;
+import java.awt.print.PrinterJob;
+import java.io.*;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -65,15 +70,17 @@ public class ReserveController implements Initializable {
     @FXML
     private JFXDatePicker checkOutField, checkInField;
     @FXML
-    private MenuButton personsNumber, roomsNumber, cityName;
+    private JFXToggleButton adjacentBtn , smokingBtn;
     @FXML
-    private MenuItem p1, p2, p3, p4, r1, r2, r3, r4, r5, kalmar, växjö;
+    private MenuButton personsNumber, roomsNumber, cityName ,quality;
+    @FXML
+    private MenuItem p1, p2, p3, p4, r1, r2, r3, r4, r5, kalmar, växjö,star1,star2,star3,star4,star5;
     @FXML
     private TableColumn<model.Room, Integer> roomNrCol, roomTypeCol, priceCol, cityCol;
     @FXML
     private TableColumn<model.Room, Integer> roomIdCol;
     @FXML
-    private TableColumn<ImageView, ImageView> floorCol;
+    private TableColumn<Room, Integer> floorCol;
     @FXML
     private TableColumn<model.Room, Integer> qualityCol;
     @FXML
@@ -132,6 +139,27 @@ public class ReserveController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        smokingBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (smokingBtn.isSelected()==false){
+                    removeSmokingFilter();
+                    }else{
+                    filterBySmoking();
+                }
+            }
+        });
+        adjacentBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (adjacentBtn.isSelected()==false){
+                    addToTable();  // add rooms to the table
+                }else{
+                    filterByAdjacent();
+                }
+            }
+        });
+
         dbParser = new DBParser();
         dbParser.deleteOldReservations();
 
@@ -174,6 +202,21 @@ public class ReserveController implements Initializable {
             personsNumber.setText("4");
             filterByType("4");
 
+        });
+        star1.setOnAction(event -> {
+            quality.setText("★");
+        });
+        star2.setOnAction(event -> {
+            quality.setText("★★");
+        });
+        star3.setOnAction(event -> {
+            quality.setText("★★★");
+        });
+        star4.setOnAction(event -> {
+            quality.setText("★★★★");
+        });
+        star5.setOnAction(event -> {
+            quality.setText("★★★★★");
         });
 
         /*
@@ -347,17 +390,68 @@ public class ReserveController implements Initializable {
     public void addToTable() {
         dbParser = new DBParser();
         table.getItems().remove(0, table.getItems().size());
-        listOfRooms = FXCollections.observableArrayList(dbParser.getAllRoom());
+        listOfRooms = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
         table.setItems(listOfRooms);
         roomNrCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomNr"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("price"));
         cityCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("city"));
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomType"));
+        floorCol.setCellValueFactory(new PropertyValueFactory<Room , Integer>("smoking"));
+        roomIdCol.setCellValueFactory(new PropertyValueFactory<Room , Integer>("adjoined"));
+        qualityCol.setCellValueFactory(new PropertyValueFactory<Room , Integer>("quality"));
         searchRoom.clear();
         removeTypeSearch.setVisible(false);
         removeCitySearch.setVisible(false);
     }
 
+    public void filterBySmoking(){
+        dbParser = new DBParser();
+        ObservableList<Room> list=table.getItems();;
+        ArrayList<Room> listOfRooms = new ArrayList<Room>();
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+            if (list.get(i).getSmoking().toString().equals("Yes")) {
+                listOfRooms.add(list.get(i));
+            }
+        }
+
+        table.getItems().removeAll();
+        list = FXCollections.observableArrayList(listOfRooms);
+        table.setItems(list);
+    }
+
+    public void removeSmokingFilter(){
+
+        if (removeCitySearch.isVisible()&&removeTypeSearch.isVisible()){
+            filterByCity(cityName.getText());
+        }else if(removeTypeSearch.isVisible()&&!removeCitySearch.isVisible()){
+            filterByType(personsNumber.getText());
+        }else if(!removeTypeSearch.isVisible()&&removeCitySearch.isVisible()){
+            filterByCity(cityName.getText());
+        }else if (!removeCitySearch.isVisible()&& !removeTypeSearch.isVisible() && !adjacentBtn.isSelected()){
+            addToTable();
+            adjacentBtn.setSelected(false);
+        }else if (adjacentBtn.isSelected()){
+            filterByAdjacent();
+        }
+    }
+
+    public void filterByAdjacent(){
+        dbParser = new DBParser();
+        ObservableList<Room> list=table.getItems();;
+        ArrayList<Room> listOfRooms = new ArrayList<Room>();
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+            if (list.get(i).getAdjoined().toString().equals("Yes")) {
+                listOfRooms.add(list.get(i));
+            }
+        }
+        table.getItems().removeAll();
+        list = FXCollections.observableArrayList(listOfRooms);
+        table.setItems(list);
+    }
     public void filterByCity(String string) {
         ObservableList<Room> list;
         dbParser = new DBParser();
@@ -370,13 +464,13 @@ public class ReserveController implements Initializable {
             removeCitySearch.setVisible(true);
 
         } else if (removeCitySearch.isVisible() && !removeTypeSearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllRoom());
+            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
             table.getItems().removeAll();
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
             table.setItems(listOfRooms);
 
         } else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllRoom());
+            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
             ObservableList<Room> filteredByRoom = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), filteredByRoom));
             table.getItems().removeAll();
@@ -395,13 +489,13 @@ public class ReserveController implements Initializable {
             removeTypeSearch.setVisible(true);
 
         } else if (removeTypeSearch.isVisible() && !removeCitySearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllRoom());
+            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
             table.getItems().removeAll();
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), list));
             table.setItems(listOfRooms);
 
         } else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible()) {
-            list = FXCollections.observableArrayList(dbParser.getAllRoom());
+            list = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
             ObservableList<Room> filteredByCity = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), list));
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), filteredByCity));
             table.getItems().removeAll();
@@ -411,7 +505,7 @@ public class ReserveController implements Initializable {
 
     public void removeCitySearch() {
         dbParser = new DBParser();
-        listOfRooms = FXCollections.observableArrayList(dbParser.getAllRoom());
+        listOfRooms = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
 
         if (removeTypeSearch.isVisible()) {
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), listOfRooms));
@@ -425,7 +519,7 @@ public class ReserveController implements Initializable {
 
     public void removeTypeSearch() {
         dbParser = new DBParser();
-        listOfRooms = FXCollections.observableArrayList(dbParser.getAllRoom());
+        listOfRooms = FXCollections.observableArrayList(dbParser.getAllFreeRoom());
 
         if (removeCitySearch.isVisible()) {
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByCity(cityName.getText(), listOfRooms));
@@ -440,7 +534,7 @@ public class ReserveController implements Initializable {
 
     public void findRoom() {
         DBParser dbParser = new DBParser();
-        ArrayList<Room> arrayList = dbParser.getAllRoom();
+        ArrayList<Room> arrayList = dbParser.getAllFreeRoom();
         String searchedRoom = searchRoom.getText();
 
         if (!searchRoom.getText().isEmpty()) {
@@ -554,13 +648,12 @@ public class ReserveController implements Initializable {
             bookedRoom.get(i).setBooked(true);
             dbParser.refreshRoomStatus(bookedRoom.get(i));
             dbParser.saveReservationToDB(reservation);
-
-            this.reservation=reservation;
+            createPdfRec(reservation);
         }
 
         VBox.setVisible(false);
         confirm.setVisible(false);
-        createPdfRec();
+        createPdfRec(reservation);
         pane.setVisible(true);
         addToTable();
     }
@@ -643,7 +736,6 @@ public class ReserveController implements Initializable {
     private void updateDepartureDateCells() {
         checkOutField.hide();
         Callback<DatePicker, DateCell> dayCellFactory;
-
         dayCellFactory = new Callback<DatePicker, DateCell>() {
             public DateCell call(final DatePicker datePicker) {
                 return new DateCell() {
@@ -689,20 +781,39 @@ public class ReserveController implements Initializable {
 
     /* This method create a pdf file if we need it later  */
 
-    public com.itextpdf.text.Document createPdfRec()  {
-        com.itextpdf.text.Document document = new com.itextpdf.text.Document();
-       //PdfWriter.getInstance(document, new FileOutputStream("file.pdf"));
-        document.open();
-        Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
-        Chunk chunk = new Chunk("price: ", font);
-       // Chunk chunk1 = new Chunk("price: "+totalPrice.getText(), font);
-        try {
-            document.add(chunk);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-        document.close();
-        return document;
+    public com.itextpdf.text.Document createPdfRec(Reservation reservation) throws FileNotFoundException, DocumentException {
+        com.itextpdf.text.Document layoutDocument = new com.itextpdf.text.Document(PageSize.A6);
+        PdfWriter.getInstance(layoutDocument, new FileOutputStream("file.pdf"));
+        layoutDocument.open();
+        layoutDocument.add(new Paragraph("INVOICE"));
+        layoutDocument.add(new Paragraph("Lineaus Hotel"));
+        layoutDocument.add(new Paragraph("Växjö/Kalmar"));
+        layoutDocument.add(new Paragraph("   "));
+        layoutDocument.add(new Paragraph("   "));
+        layoutDocument.add(new Paragraph(" Customer :" +reservation.getGuest() ));
+        layoutDocument.add(new Paragraph("   "));
+        layoutDocument.add(new Paragraph("   "));
+
+        PdfPTable table1 = new PdfPTable(2);
+        DecimalFormat df = new DecimalFormat("200");
+        double total = 0;
+        table1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+        table1.setWidthPercentage(110f);
+        table1.getDefaultCell().setPadding(3);
+        table1.addCell("Arrival");
+        table1.addCell(reservation.getArrivalDate().toString());
+        table1.addCell("Departure");
+        table1.addCell(reservation.getDepartureDate().toString());
+        table1.addCell("Number of nights");
+        table1.addCell(nights.getText());
+        table1.addCell("Number of guest");
+        table1.addCell(personsNumber.getText());
+        table1.addCell("Total");
+        table1.addCell(reservation.getPrice().toString());
+        layoutDocument.add(table1);
+
+        layoutDocument.close();
+        return layoutDocument;
     }
 
     /**
@@ -710,29 +821,51 @@ public class ReserveController implements Initializable {
      * TODO: make the printed object looks better
      * at the moment it copies every thing and print it
      */
-    public void print() {
-        Printer printer = Printer.getDefaultPrinter();
-        Stage stage = new Stage(StageStyle.DECORATED);
-        PrinterJob job = PrinterJob.createPrinterJob(printer);
-        if (job != null) {
-            boolean showDialog = job.showPrintDialog(stage);
-            if (showDialog) {
-                VBox.setVisible(true);
-                boolean success = job.printPage(VBox);
-                if (success) {
-                    job.endJob();
-                }
-                VBox.setVisible(false);
+    public void print() throws IOException, PrintException {
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
 
-            }
+        PrintService printService = null;
+        if(printerJob.printDialog())
+        {
+            printService = printerJob.getPrintService();
         }
+        DocFlavor docType = DocFlavor.INPUT_STREAM.AUTOSENSE;
+        File file = new File("file.pdf");
+        FileInputStream fis = new FileInputStream(file);
+
+
+            DocPrintJob printJob = printService.createPrintJob();
+            final byte[] byteStream = fis.toString().getBytes();
+                    Doc documentToBePrinted = new SimpleDoc(new ByteArrayInputStream(byteStream), docType, null);
+            printJob.print(documentToBePrinted, null);
+
+
     }
 
 
-    public String makeRec() {
-   return reservation.toString();
+/*
+    public void print1() {
+        System.out.println("her111");
+        Printer printer = Printer.getDefaultPrinter();
+        // PrinterJob printerJob = PrinterJob.getPrinterJob();
+
+        PrintService printService = null;
+        if(printerJob.printDialog())
+        {
+            printService = printerJob.getPrintService();
+        }
+        DocFlavor docType = DocFlavor.INPUT_STREAM.AUTOSENSE;
+        System.out.println("her222");
+
+        FileInputStream fis = new FileInputStream("file.pdf");
+        Doc pdfDoc = new SimpleDoc(fis, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
+        DocPrintJob printJob = printService.createPrintJob();
+        System.out.println("her3");
+
+        printJob.print(pdfDoc, new HashPrintRequestAttributeSet());
+        fis.close();
     }
- /*
+
     public void print(java.awt.event.ActionEvent e)  {
        UIManager.put("swing.boldMetal", Boolean.FALSE);
         JFrame f = new JFrame("Hello World Printer");
@@ -780,6 +913,7 @@ public class ReserveController implements Initializable {
 
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
+
             PrinterJob job = PrinterJob.getPrinterJob();
             job.setPrintable(this);
             boolean ok = job.printDialog();

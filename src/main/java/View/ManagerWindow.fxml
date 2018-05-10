@@ -21,7 +21,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManagerController">
    <children>
       <TabPane fx:id="tabPane1" prefHeight="722.0" prefWidth="1023.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -197,7 +197,7 @@
                                     </JFXTextField>
                                  </children>
                                  <padding>
-                                    <Insets top="10.0" />
+                                    <Insets top="5.0" />
                                  </padding>
                                  <VBox.margin>
                                     <Insets left="3.0" />
@@ -210,7 +210,7 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Text>
-                                    <MenuButton fx:id="roomType" mnemonicParsing="false" prefHeight="29.0" prefWidth="122.0" style="-fx-background-color: white; -fx-border-color: #fe9939;" text="Single">
+                                    <MenuButton fx:id="roomType" minHeight="27.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" style="-fx-background-color: white; -fx-border-color: #fe9939; -fx-border-radius: 8px;" text="Single">
                                        <items>
                                           <MenuItem fx:id="singleItem" mnemonicParsing="false" text="Single" />
                                           <MenuItem fx:id="doubleItem" mnemonicParsing="false" text="Double" />
@@ -223,10 +223,13 @@
                                     </MenuButton>
                                  </children>
                                  <VBox.margin>
-                                    <Insets left="3.0" top="35.0" />
+                                    <Insets left="3.0" />
                                  </VBox.margin>
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
                               </HBox>
-                              <VBox prefHeight="38.0" prefWidth="292.0">
+                              <VBox prefHeight="35.0" prefWidth="292.0">
                                  <children>
                                     <HBox prefHeight="0.0" prefWidth="292.0">
                                        <children>
@@ -235,7 +238,7 @@
                                                 <Insets />
                                              </HBox.margin>
                                           </Text>
-                                          <MenuButton fx:id="city" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" style="-fx-border-color: #fe9939; -fx-background-color: white;" text="Växjö">
+                                          <MenuButton fx:id="city" minHeight="27.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" style="-fx-border-color: #fe9939; -fx-background-color: white; -fx-border-radius: 8px;" text="Växjö">
                                             <items>
                                               <MenuItem fx:id="växjöItem" mnemonicParsing="false" text="Växjö" />
                                               <MenuItem fx:id="kalmarItem" mnemonicParsing="false" text="Kalmar" />
@@ -246,21 +249,87 @@
                                           </MenuButton>
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="3.0" top="20.0" />
+                                          <Insets left="3.0" top="5.0" />
                                        </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="0.0" prefWidth="292.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Smoking">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <MenuButton fx:id="smoking" minHeight="27.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" style="-fx-border-color: #fe9939; -fx-background-color: white; -fx-border-radius: 8px;" text="No">
+                                             <items>
+                                                <MenuItem fx:id="smoYes" mnemonicParsing="false" text="Yes" />
+                                                <MenuItem fx:id="smoNo" mnemonicParsing="false" text="No" />
+                                             </items>
+                                             <HBox.margin>
+                                                <Insets left="46.0" />
+                                             </HBox.margin>
+                                          </MenuButton>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="3.0" top="5.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="0.0" prefWidth="292.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Adjacent">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <MenuButton fx:id="adjacent" maxHeight="27.0" minHeight="27.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="123.0" style="-fx-border-color: #fe9939; -fx-background-color: white; -fx-border-radius: 8px;" text="No">
+                                             <items>
+                                                <MenuItem fx:id="adjYes" mnemonicParsing="false" text="Yes" />
+                                                <MenuItem fx:id="adjNo" mnemonicParsing="false" text="No" />
+                                             </items>
+                                             <HBox.margin>
+                                                <Insets left="45.0" />
+                                             </HBox.margin>
+                                          </MenuButton>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="3.0" top="5.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="29.0" prefWidth="292.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
+                                             <HBox.margin>
+                                                <Insets left="3.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <MenuButton fx:id="qualityBtn" minHeight="27.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" style="-fx-background-color: white; -fx-border-color: #fe9939; -fx-border-radius: 8px;" text="★" textFill="GOLD">
+                                             <items>
+                                                <MenuItem fx:id="star1" mnemonicParsing="false" text="★" />
+                                                <MenuItem fx:id="star2" mnemonicParsing="false" text="★★" />
+                                                <MenuItem fx:id="star3" mnemonicParsing="false" text="★★★" />
+                                                <MenuItem fx:id="star4" mnemonicParsing="false" text="★★★★" />
+                                                <MenuItem fx:id="star5" mnemonicParsing="false" text="★★★★★" />
+                                             </items>
+                                             <HBox.margin>
+                                                <Insets left="57.0" />
+                                             </HBox.margin>
+                                          </MenuButton>
+                                       </children>
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
                                     </HBox>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets />
                                  </VBox.margin>
                               </VBox>
-                              <VBox prefHeight="43.0" prefWidth="177.0">
+                              <VBox prefHeight="12.0" prefWidth="269.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
-                                    <JFXTextField fx:id="price" focusColor="#fe9939" maxWidth="122.0" prefHeight="28.0" prefWidth="108.0" unFocusColor="#aba9a6">
+                                    <JFXTextField fx:id="price" focusColor="#fe9939" maxWidth="122.0" prefHeight="25.0" prefWidth="108.0" unFocusColor="#aba9a6">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -269,12 +338,12 @@
                                        </VBox.margin>
                                     </JFXTextField>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets left="3.0" />
+                                 </VBox.margin>
                                  <padding>
                                     <Insets top="10.0" />
                                  </padding>
-                                 <VBox.margin>
-                                    <Insets left="3.0" top="5.0" />
-                                 </VBox.margin>
                               </VBox>
                               <Label fx:id="errorLabel1" textFill="RED" visible="false">
                                  <VBox.margin>

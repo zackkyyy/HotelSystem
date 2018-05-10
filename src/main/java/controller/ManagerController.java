@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import model.Reservation;
 import model.Room;
 import model.User;
+import model.enums.Quality;
 import org.bson.Document;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -48,9 +49,10 @@ public class ManagerController implements Initializable {
     @FXML
     private JFXTextField password, userName, userLastName, UserFirstName, price, roomNr;
     @FXML
-    private MenuButton roomType, city, month, city1;
+    private MenuButton roomType, city, month, smoking ,adjacent,qualityBtn;
     @FXML
-    private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem, jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec, vxj, klr;
+    private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem, jan, feb, mar, apr, may,
+            jun, jul, aug, sep, oct, nov, dec, vxj, klr,adjYes , adjNo ,smoYes , smoNo,star5,star4,star3,star2,star1;
     @FXML
     private Label errorLabel;
     @FXML
@@ -78,6 +80,40 @@ public class ManagerController implements Initializable {
         kalmarItem.setOnAction(event1 -> {
             city.setText("Kalmar");
         });
+        smoYes.setOnAction(event -> {
+            smoking.setText("Yes");
+        });
+        smoNo.setOnAction(event -> {
+            smoking.setText("No");
+        });
+        adjNo.setOnAction(event -> {
+            adjacent.setText("No");
+        });
+        adjYes.setOnAction(event -> {
+            adjacent.setText("Yes");
+        });
+
+
+        star1.setOnAction(event -> {
+            qualityBtn.setText("★");
+        });
+        star2.setOnAction(event -> {
+            qualityBtn.setText("★★");
+        });
+
+        star3.setOnAction(event -> {
+            qualityBtn.setText("★★★");
+        });
+
+        star4.setOnAction(event -> {
+            qualityBtn.setText("★★★★");
+        });
+
+        star5.setOnAction(event -> {
+            qualityBtn.setText("★★★★★");
+        });
+
+
 
         singleItem.setOnAction(event1 -> {
             roomType.setText("Single");
@@ -94,6 +130,8 @@ public class ManagerController implements Initializable {
         apartmentItem.setOnAction(event1 -> {
             roomType.setText("Apartment");
         });
+
+
 
         apr.setOnAction(event -> {
             month.setText("APRIL");
@@ -269,6 +307,9 @@ public class ManagerController implements Initializable {
                     roomType.setText(room.getRoomType().toString());
                     price.setText(String.valueOf(room.getPrice()));
                     city.setText(room.getCity().toString());
+                    smoking.setText(room.getSmoking().toString());
+                    adjacent.setText(room.getAdjoined().toString());
+                    qualityBtn.setText(room.getQuality().toString());
                 }
 
             }
@@ -330,6 +371,9 @@ public class ManagerController implements Initializable {
             temporaryRoom.setCity(model.enums.City.toEnum(city.getText()));
             temporaryRoom.setPrice(Double.valueOf(price.getText()));
             temporaryRoom.setRoomNr(Integer.parseInt(roomNr.getText()));
+            temporaryRoom.setAdjoined(model.enums.Adjacent.toEnum(adjacent.getText()));
+            temporaryRoom.setSmoking(model.enums.Smoking.toEnum(smoking.getText()));
+            temporaryRoom.setQuality(Quality.toEnum(qualityBtn.getText()));
             roomController = new DBParser();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Are you sure you want to edit room nr " + selectedItem + " ?");
@@ -355,6 +399,9 @@ public class ManagerController implements Initializable {
             room.setPrice(Double.valueOf(price.getText()));
             room.setCity(model.enums.City.toEnum(city.getText()));
             room.setRoomType(model.enums.RoomType.toEnum(roomType.getText()));
+            room.setAdjoined(model.enums.Adjacent.toEnum(adjacent.getText()));
+            room.setSmoking(model.enums.Smoking.toEnum(smoking.getText()));
+            room.setQuality(Quality.toEnum(qualityBtn.getText()));
             roomController.createNewRoom(room);
             roomList.getItems().remove(0, roomList.getItems().size());
             getDataFromDB();

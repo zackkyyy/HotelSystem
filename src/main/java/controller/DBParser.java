@@ -7,13 +7,16 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import javafx.collections.ObservableList;
-import model.*;
-import model.enums.City;
-import model.enums.RoomType;
+import model.Guest;
+import model.Reservation;
+import model.Room;
+import model.User;
+import model.enums.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +40,7 @@ public class DBParser {
 
 
    String uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
-   // String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
+  // String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
     //String uri = "mongodb://zacky:group15@hotelmanagerdb-shard-00-00-nxz5u.mongodb.net:27017,hotelmanagerdb-shard-00-01-nxz5u.mongodb.net:27017,hotelmanagerdb-shard-00-02-nxz5u.mongodb.net:27017/test?ssl=true&replicaSet=HotelManagerDB-shard-0&authSource=admin";
     MongoClientURI clientURI = new MongoClientURI(uri);
     //  ******uncomment the next line and comment the previous if you want a cloud database******
@@ -185,7 +188,10 @@ public class DBParser {
         Document doc = new Document("room nr", temporaryRoom.getRoomNr())
                 .append("room type", temporaryRoom.getRoomType().toString())
                 .append("price", temporaryRoom.getPrice())
-                .append("city", temporaryRoom.getCity().toString());
+                .append("city", temporaryRoom.getCity().toString())
+                .append("smoking",temporaryRoom.getSmoking().toString())
+                .append("adjacent",temporaryRoom.getAdjoined().toString())
+                .append("quality",temporaryRoom.getQuality().toString());
         rooms.deleteOne(doc);
     }
 
@@ -325,25 +331,38 @@ public class DBParser {
      *
      * @return list of room in array list
      */
+    public ArrayList<Room> getAllFreeRoom() {
+        ArrayList<Room> listOfFreeRooms = new ArrayList<Room>();
+        for (int i = 0 ;i<getAllRoom().size() ; i++){
+            if (!getAllRoom().get(i).isBooked()){
+                listOfFreeRooms.add(getAllRoom().get(i));
+            }
+        }
+        return listOfFreeRooms;
+
+    }
     public ArrayList<Room> getAllRoom() {
         cursor = rooms.find().iterator();
         ArrayList<Room> listOfRooms = new ArrayList<Room>();
-
         for (int i = 0; i < rooms.count(); i++) {
             doc = cursor.next();
-            if (!doc.getBoolean("is booked")) {
                 RoomType roomType = toRoomType(doc.getString("room type"));
                 boolean booked = doc.getBoolean("is booked");
                 int roomNr = doc.getInteger("room nr");
                 Double price = doc.getDouble("price");
                 City city = toCity(doc.getString("city"));
+                Smoking smoking= Smoking.toEnum(doc.getString("smoking"));
+                Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
+                Quality quality = Quality.toEnum(doc.getString("quality"));
                 Room room = new Room(roomType, booked, roomNr, price, city);
+                room.setAdjoined(adjacent);
+                room.setSmoking(smoking);
+                room.setQuality(quality);
                 listOfRooms.add(room);
-            }
+
         }
         return listOfRooms;
     }
-
 
     public Room createRoom(Document doc) {
         RoomType roomType = toRoomType(doc.getString("room type"));
@@ -351,7 +370,13 @@ public class DBParser {
         int roomNr = doc.getInteger("room nr");
         Double price = doc.getDouble("price");
         City city = toCity(doc.getString("city"));
+        Smoking smoking= Smoking.toEnum(doc.getString("smoking"));
+        Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
+        Quality quality = Quality.toEnum(doc.getString("quality"));
         Room room1 = new Room(roomType, booked, roomNr, price, city);
+        room1.setAdjoined(adjacent);
+        room1.setSmoking(smoking);
+        room1.setQuality(quality);
         return room1;
     }
 
@@ -380,7 +405,10 @@ public class DBParser {
                 new Document("room nr", temporaryRoom.getRoomNr())
                         .append("room type", temporaryRoom.getRoomType().toString())
                         .append("price", temporaryRoom.getPrice())
-                        .append("city", temporaryRoom.getCity().toString())));
+                        .append("city", temporaryRoom.getCity().toString())
+                        .append("smoking",temporaryRoom.getSmoking().toString())
+                        .append("adjacent",temporaryRoom.getAdjoined().toString())
+                        .append("quality",temporaryRoom.getQuality().toString())));
     }
 
     public void refreshRoomStatus(Room room) {
@@ -413,11 +441,13 @@ public class DBParser {
                 objectId = doc.getObjectId("_id");
             }
         }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(temporaryUser.getPassword());
         users.updateOne(eq("_id", objectId), new Document("$set",
                 new Document("name", temporaryUser.getName())
                         .append("last name", temporaryUser.getLastName())
                         .append("username", temporaryUser.getUserName())
-                        .append("password", temporaryUser.getPassword())));
+                        .append("password", hashedPassword)));
     }
 
     public void createNewUser(User newUser) {
@@ -474,7 +504,7 @@ public class DBParser {
             throw new java.lang.IllegalArgumentException("Password is saved in invalid hash form");
 
         passwordMatch = BCrypt.checkpw(password_String, hashed_pass);
-
+        System.out.println(hashed_pass);
         return(passwordMatch);
     }
 
@@ -511,21 +541,12 @@ public class DBParser {
                 .append("room type", room.getRoomType().toString())
                 .append("price", room.getPrice())
                 .append("is booked", false)
-                .append("city", room.getCity().toString());
+                .append("city", room.getCity().toString())
+                .append("smoking",room.getSmoking().toString())
+                .append("adjacent",room.getAdjoined().toString())
+                .append("quality",room.getQuality().toString());
 
         rooms.insertOne(doc);
-    }
-
-    public int getRoomNumberByID(ObjectId id) {
-        cursor = rooms.find().iterator();
-        int roomNr = 0;
-        for (int i = 0; i < rooms.count(); i++) {
-            doc = cursor.next();
-            if (doc.getObjectId("_id").equals(id)) {
-                roomNr = doc.getInteger("room nr");
-            }
-        }
-        return roomNr;
     }
 
     public Room copyRoomByRoomNumber(int roomNumber) {
