@@ -55,14 +55,14 @@ public class CheckOutController implements Initializable {
 
         checkInButton.setOnAction(event -> {
             try {
-                mu.ShowCheckInPage(event);
+                mu.showCheckInPage(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
         reserveButton.setOnAction(event -> {
             try {
-                mu.ShowMainPage(event);
+                mu.showMainPage(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }

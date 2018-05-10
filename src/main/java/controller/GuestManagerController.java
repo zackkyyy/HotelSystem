@@ -67,7 +67,7 @@ public class GuestManagerController implements Initializable {
 
         checkInButton.setOnAction(event -> {
             try {
-                mu.ShowCheckInPage(event);
+                mu.showCheckInPage(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -88,7 +88,7 @@ public class GuestManagerController implements Initializable {
         });
         reserveButton.setOnAction(event -> {
             try {
-                mu.ShowMainPage(event);
+                mu.showMainPage(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
