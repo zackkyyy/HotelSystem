@@ -147,18 +147,13 @@
                         </JFXButton>
                         <VBox alignment="CENTER" prefHeight="52.0" prefWidth="124.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MR. name">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="12.0" />
-                                 </font>
-                              </Text>
-                              <JFXButton fx:id="logOutBtn" prefHeight="27.0" prefWidth="93.0" text="Log Out">
+                              <JFXButton fx:id="logOutBtn" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="93.0" text="Log Out">
                                  <graphic>
                                     <FontAwesomeIconView glyphName="SIGN_OUT" />
                                  </graphic>
+                                 <VBox.margin>
+                                    <Insets left="30.0" top="5.0" />
+                                 </VBox.margin>
                               </JFXButton>
                            </children>
                            <HBox.margin>
