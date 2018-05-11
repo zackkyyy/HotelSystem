@@ -88,13 +88,13 @@ public class CheckOutController implements Initializable {
     public void getReservation() {
         DBParser dbParser = new DBParser();
         ObservableList<Reservation> listOfReservations = FXCollections.observableArrayList(dbParser.getAllReservations());
-        ArrayList<Reservation> filteredList=new ArrayList<Reservation>();
-        for (int i = 0 ; i<listOfReservations.size();i++){
-            if (listOfReservations.get(i).getDepartureDate().equals(date.getValue()) && listOfReservations.get(i).getCheckedIn()){
+        ArrayList<Reservation> filteredList = new ArrayList<Reservation>();
+        for (int i = 0; i < listOfReservations.size(); i++) {
+            if (listOfReservations.get(i).getDepartureDate().equals(date.getValue()) && listOfReservations.get(i).getCheckedIn()) {
                 filteredList.add(listOfReservations.get(i));
             }
         }
-        listOfReservations=FXCollections.observableArrayList(filteredList);
+        listOfReservations = FXCollections.observableArrayList(filteredList);
         table.setItems(listOfReservations);
         arrivalCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("arrivalDate"));
         departCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("departureDate"));
@@ -136,36 +136,42 @@ public class CheckOutController implements Initializable {
                 // Deletes the reservations and unbook the rooms
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Do you want to add notes in the guest profile");
+                Button okButton = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+                okButton.setText("Yes");
+                Button NoButton = (Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL);
+                NoButton.setText("No");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-                    noteText.setVisible(true);
-                    noteButton.setVisible(true);
-                    noteButton.setOnAction(event -> {
-                        if (reservations.size() == 0) {
-                            selectionError.setVisible(true);
-                        } else {
-                            selectionError.setVisible(false);
-                            for (int i = 0; i < reservations.size(); i++) {
-                                int roomNumber = reservations.get(i).getRoom();
-                                String GuestName = reservations.get(i).getGuest();
-                                Guest gst = dbParser.getGuestByName(GuestName);
-                                gst.setNotes(noteText.getText());
-                                try {
-                                    dbParser.editGuest(gst);
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
-                                }
-                                Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-                                tempRoom.setBooked(false);
-                                dbParser.refreshRoomStatus(tempRoom);
-                                dbParser.deleteReservationByRoomNumber(roomNumber);
-                                getReservation();
-                                noteText.setVisible(false);
-                                noteButton.setVisible(false);
-                                checkedOutText.setVisible(true);
+                    for (int i = 0; i < reservations.size(); i++) {
+                        int roomNumber = reservations.get(i).getRoom();
+                        checkedOutText.setVisible(true);
+                        Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
+                        String GuestName = reservations.get(i).getGuest();
+
+                        tempRoom.setBooked(false);
+                        dbParser.refreshRoomStatus(tempRoom);
+                        dbParser.deleteReservationByRoomNumber(roomNumber);
+                        getReservation();
+
+
+                        noteText.setVisible(true);
+                        noteButton.setVisible(true);
+                        noteButton.setOnAction(event -> {
+                            Guest gst = dbParser.getGuestByName(GuestName);
+                            gst.setNotes(noteText.getText());
+
+                            try {
+                                dbParser.editGuest(gst);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-                        }
-                    });
+
+
+                            noteText.setVisible(false);
+                            noteButton.setVisible(false);
+                        });
+
+                    }
                 } else {
                     for (int i = 0; i < reservations.size(); i++) {
                         checkedOutText.setVisible(true);

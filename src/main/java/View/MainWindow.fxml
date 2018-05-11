@@ -189,7 +189,7 @@
                      <bottom>
                         <Pane BorderPane.alignment="CENTER">
                            <children>
-                              <VBox prefHeight="236.0" prefWidth="1020.0">
+                              <VBox prefHeight="271.0" prefWidth="1020.0">
                                  <children>
                                     <HBox prefHeight="36.0" prefWidth="459.0">
                                        <children>
@@ -257,7 +257,7 @@
                                           </JFXButton>
                                           <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="307.0" textFill="#fc0000" visible="false">
                                              <HBox.margin>
-                                                <Insets top="-40.0" />
+                                                <Insets top="-20.0" />
                                              </HBox.margin>
                                           </Label>
                                        </children>
@@ -265,7 +265,7 @@
                                           <Insets left="15.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="table" prefHeight="200.0" prefWidth="995.0" stylesheets="@css/reservePage.css">
+                                    <TableView fx:id="table" maxWidth="887.0" minWidth="887.0" prefHeight="260.0" prefWidth="887.0" stylesheets="@css/reservePage.css">
                                       <columns>
                                         <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
                                         <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
@@ -273,8 +273,7 @@
                                           <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
                                           <TableColumn fx:id="roomIdCol" prefWidth="130.0" text="Adjacent" />
                                           <TableColumn fx:id="floorCol" prefWidth="130.0" text="Smoking" />
-                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="qualit" />
-                                          <TableColumn fx:id="bookedCol1" prefWidth="130.0" text="booked" />
+                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="Quality" />
                                       </columns>
                                        <VBox.margin>
                                           <Insets />

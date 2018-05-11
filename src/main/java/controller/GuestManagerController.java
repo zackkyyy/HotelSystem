@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import model.Guest;
@@ -17,6 +16,7 @@ import model.Guest;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -35,13 +35,11 @@ public class GuestManagerController implements Initializable {
     @FXML
     private JFXListView list;
     @FXML
-    private JFXTextField name, lastName, address, phoneNr, idField, identityNr, credit, notes;
+    private JFXTextField name, lastName, address, phoneNr, idField, identityNr, credit, notes,search;
     @FXML
     private JFXDatePicker birthday;
     @FXML
     private JFXButton checkInButton, reserveButton, checkOutButton, logOutBtn;
-    @FXML
-    private AnchorPane anchorpane;
     private MenuController mu;
     private DBParser guestController;
     private String errMsg;
@@ -118,6 +116,8 @@ public class GuestManagerController implements Initializable {
             list.getItems().remove(selected);
             list.getItems().remove(0, list.getItems().size());
             getGuestFromDb();
+            list.getSelectionModel().selectFirst();
+            fillFields();
         }
 
 
@@ -180,9 +180,8 @@ public class GuestManagerController implements Initializable {
 
     }
     public void getGuestFromDb() {
-        list.getItems().removeAll();
+        list.getItems().removeAll(0,list.getItems().size());
         guestController = new DBParser();
-        list.getItems().removeAll();
         for (int i = 0; i < guestController.getGuestsInArray().size(); i++) {
             String str = guestController.getGuestsInArray().get(i).getName()+ " " + guestController.getGuestsInArray().get(i).getLastName();
             list.getItems().add(str);
@@ -256,5 +255,20 @@ public class GuestManagerController implements Initializable {
         notes.setPromptText("");
         notes.setUnFocusColor(Paint.valueOf("bcbaba"));
 
+    }
+    public void findGuest() {
+        DBParser dbParser = new DBParser();
+        ArrayList<Guest> arrayList = dbParser.getGuestsInArray();
+        if (!search.getText().isEmpty()) {
+            list.getItems().remove(0, list.getItems().size());
+            for (int i = 0; i < arrayList.size(); i++) {
+                if ((arrayList.get(i).getName()+" "+arrayList.get(i).getLastName()).toLowerCase().contains(search.getText().toLowerCase())) {
+                    list.getItems().addAll(arrayList.get(i).getName()+" "+arrayList.get(i).getLastName());
+                }
+            }
+        }else {
+            list.getItems().remove(0, list.getItems().size());
+            getGuestFromDb();
+        }
     }
 }

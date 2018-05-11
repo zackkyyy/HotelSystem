@@ -311,7 +311,15 @@ public class ReserveController implements Initializable {
 
         updateRoomPrice();
     }
-
+    public void clearFields(){
+        name.clear();
+        lastName.clear();
+        phoneNr.clear();
+        address.clear();
+        creditCard.clear();
+        identityNr.clear();
+        errorMsg.setVisible(false);
+    }
     public void moveToNextTab() {
         if (tabPane.getSelectionModel().isSelected(1)) {
             customer = getCustomer();
@@ -325,6 +333,7 @@ public class ReserveController implements Initializable {
                 tabPane.getSelectionModel().selectNext();
                 arrDate.setText(checkInField.getValue().toString());
                 depDate.setText(checkOutField.getValue().toString());
+                clearFields();
             } else {
                 System.out.println("No customer chosen");
             }
@@ -375,7 +384,7 @@ public class ReserveController implements Initializable {
     public void moveToFirstTab() {
         tabPane.getSelectionModel().selectFirst();
         pane.setVisible(false);
-        confirm.setVisible(false);
+        confirm.setVisible(true);
         VBox.setVisible(true);
         updateRoomPrice();
 
@@ -894,6 +903,7 @@ public class ReserveController implements Initializable {
 
 
     }
+
 
 
 /*

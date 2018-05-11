@@ -327,23 +327,20 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets top="15.0" />
                                        </VBox.margin></Text>
                                     <JFXTextField fx:id="price" focusColor="#fe9939" maxWidth="122.0" prefHeight="25.0" prefWidth="108.0" unFocusColor="#aba9a6">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="100.0" top="-22.0" />
+                                          <Insets left="100.0" top="-25.0" />
                                        </VBox.margin>
                                     </JFXTextField>
                                  </children>
                                  <VBox.margin>
                                     <Insets left="3.0" />
                                  </VBox.margin>
-                                 <padding>
-                                    <Insets top="10.0" />
-                                 </padding>
                               </VBox>
                               <Label fx:id="errorLabel1" textFill="RED" visible="false">
                                  <VBox.margin>

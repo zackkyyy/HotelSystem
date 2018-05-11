@@ -24,7 +24,6 @@ public class AddGuestController {
 	private Stage stage;
 	private Scene scene;
 	private String errMsg;
-	public GuestManagerController guestManagerController;
 
 	public void showStage() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("/addGuest.fxml")));
@@ -51,7 +50,6 @@ public class AddGuestController {
 			newGuest.setIdentityNr(identityNr.getText());
 			newGuest.setCreditCard(creditCard.getText());
 			guestController.createNewGuest(newGuest);
-
 			clearFields();
 		} else if (!checkFields()) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
