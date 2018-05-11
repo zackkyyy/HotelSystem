@@ -34,17 +34,17 @@
                <content>
                   <BorderPane maxWidth="1024.0" pickOnBounds="false" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: white;">
                      <right>
-                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.7" prefHeight="233.0" prefWidth="184.0" style="-fx-border-color: fe9939; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="184.0" style="-fx-border-color: fe9939; -fx-border-width: 2;" BorderPane.alignment="CENTER">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Summary">
                                  <VBox.margin>
-                                    <Insets top="3.0" />
+                                    <Insets left="55.0" top="6.0" />
                                  </VBox.margin>
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Text>
-                              <HBox prefHeight="40.0" prefWidth="186.0">
+                              <HBox prefHeight="33.0" prefWidth="180.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nights:">
                                        <HBox.margin>
@@ -53,13 +53,16 @@
                                     </Text>
                                     <JFXTextField fx:id="nights" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                        <HBox.margin>
-                                          <Insets left="15.0" top="7.0" />
+                                          <Insets left="14.0" top="7.0" />
                                        </HBox.margin>
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </JFXTextField>
                                  </children>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
                               </HBox>
                               <HBox prefHeight="40.0" prefWidth="186.0">
                                  <children>
@@ -70,7 +73,7 @@
                                     </Text>
                                     <JFXTextField fx:id="rooms" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                        <HBox.margin>
-                                          <Insets left="18.0" top="7.0" />
+                                          <Insets left="13.0" top="7.0" />
                                        </HBox.margin>
                                        <font>
                                           <Font size="18.0" />
@@ -95,12 +98,12 @@
                                     </JFXTextField>
                                  </children>
                                  <VBox.margin>
-                                    <Insets left="15.0" top="50.0" />
+                                    <Insets left="15.0" top="30.0" />
                                  </VBox.margin>
                               </HBox>
                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#moveToNextTab" text="Next">
                                  <VBox.margin>
-                                    <Insets bottom="5.0" left="70.0" />
+                                    <Insets bottom="5.0" left="65.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
@@ -411,7 +414,7 @@
                                     </VBox>
                                     <HBox prefHeight="100.0" prefWidth="778.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality:">
+                                          <Text opacity="0.8" strokeType="OUTSIDE" strokeWidth="0.0" text="Quality:">
                                              <HBox.margin>
                                                 <Insets top="5.0" />
                                              </HBox.margin>
@@ -454,7 +457,7 @@
                                  <children>
                                     <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="Back">
                                        <HBox.margin>
-                                          <Insets left="200.0" />
+                                          <Insets left="50.0" top="10.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
@@ -605,22 +608,25 @@
                                              </children>
                                           </VBox>
                                        </center>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
                                     </BorderPane>
                                  </children>
                                  <BorderPane.margin>
-                                    <Insets left="25.0" top="10.0" />
+                                    <Insets left="45.0" top="30.0" />
                                  </BorderPane.margin>
                               </VBox>
                            </left>
                            <right>
-                              <VBox maxHeight="233.0" maxWidth="217.0" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                              <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="184.0" style="-fx-border-color: FE9939; -fx-border-width: 2;" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Summary">
                                        <VBox.margin>
-                                          <Insets top="3.0" />
+                                          <Insets left="55.0" top="6.0" />
                                        </VBox.margin>
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font size="16.0" />
                                        </font>
                                     </Text>
                                     <HBox prefHeight="40.0" prefWidth="186.0">
@@ -632,13 +638,16 @@
                                           </Text>
                                           <JFXTextField fx:id="nights1" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                              <HBox.margin>
-                                                <Insets left="15.0" top="7.0" />
+                                                <Insets left="14.0" top="7.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </JFXTextField>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox prefHeight="40.0" prefWidth="186.0">
                                        <children>
@@ -649,7 +658,7 @@
                                           </Text>
                                           <JFXTextField fx:id="rooms1" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                              <HBox.margin>
-                                                <Insets left="18.0" top="7.0" />
+                                                <Insets left="13.0" top="7.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="18.0" />
@@ -674,17 +683,17 @@
                                           </JFXTextField>
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="15.0" top="50.0" />
+                                          <Insets left="15.0" top="30.0" />
                                        </VBox.margin>
                                     </HBox>
                                     <Button mnemonicParsing="false" onAction="#moveToNextTab" text="Continue">
                                        <VBox.margin>
-                                          <Insets left="50.0" />
+                                          <Insets bottom="5.0" left="57.0" top="20.0" />
                                        </VBox.margin>
                                     </Button>
                                  </children>
                                  <BorderPane.margin>
-                                    <Insets right="15.0" top="-150.0" />
+                                    <Insets right="28.0" top="-184.0" />
                                  </BorderPane.margin>
                               </VBox>
                            </right>
@@ -712,7 +721,7 @@
                                           </VBox>
                                           <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
                                              <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets bottom="1.0" left="10.0" />
                                              </HBox.margin>
                                           </Line>
                                           <VBox alignment="CENTER">
@@ -734,7 +743,7 @@
                                           </VBox>
                                           <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
                                              <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets bottom="1.0" left="10.0" />
                                              </HBox.margin>
                                           </Line>
                                           <VBox alignment="CENTER">
@@ -756,7 +765,7 @@
                                           </VBox>
                                        </children>
                                        <VBox.margin>
-                                          <Insets bottom="10.0" left="7.0" />
+                                          <Insets bottom="10.0" left="7.0" right="4.0" top="1.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>
@@ -773,22 +782,32 @@
                      <children>
                         <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <bottom>
-                              <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                              <HBox prefHeight="74.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="back" />
+                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="Back">
+                                       <HBox.margin>
+                                          <Insets left="60.0" top="5.0" />
+                                       </HBox.margin></Button>
                                     <Button fx:id="confirm" mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
                                        <HBox.margin>
-                                          <Insets left="700.0" />
+                                          <Insets left="400.0" top="5.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" onAction="#print" text="Button" />
+                                    <Button mnemonicParsing="false" onAction="#print" text="Print">
+                                       <HBox.margin>
+                                          <Insets left="300.0" top="5.0" />
+                                       </HBox.margin>
+                                    </Button>
                                  </children>
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
                               </HBox>
                            </bottom>
                            <center>
-                              <VBox fx:id="VBox" prefHeight="421.0" prefWidth="719.0" spacing="8.0" BorderPane.alignment="CENTER">
+                              <VBox fx:id="VBox" maxHeight="-Infinity" prefHeight="459.0" prefWidth="677.0" spacing="8.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Text fill="#973c3c" fontSmoothingType="LCD" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Details" textAlignment="CENTER" underline="true">
+                                    <Text fontSmoothingType="LCD" opacity="0.8" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Details" textAlignment="CENTER" underline="true">
                                        <VBox.margin>
                                           <Insets left="150.0" />
                                        </VBox.margin>
@@ -815,6 +834,9 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox>
                                        <children>
@@ -832,18 +854,24 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </HBox>
-                                    <HBox maxWidth="502.0" prefHeight="32.0" prefWidth="502.0" style="-fx-background-color: #4d4d4d;">
+                                    <HBox maxWidth="502.0" minWidth="-Infinity" prefHeight="32.0" prefWidth="502.0" style="-fx-background-color: #4d4d4d; -fx-background-radius: 10;">
                                        <children>
                                           <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Room Information" wrappingWidth="225.80406188964844">
                                              <font>
                                                 <Font name="Serif Regular" size="20.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets top="3.0" />
+                                                <Insets top="5.0" />
                                              </HBox.margin>
                                           </Text>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <VBox>
                                        <children>
@@ -853,6 +881,9 @@
                                                    <font>
                                                       <Font name="Serif Bold Italic" size="17.0" />
                                                    </font>
+                                                   <HBox.margin>
+                                                      <Insets />
+                                                   </HBox.margin>
                                                 </Text>
                                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room type">
                                                    <font>
@@ -869,12 +900,18 @@
                                                       <Font name="Serif Bold Italic" size="17.0" />
                                                    </font>
                                                    <HBox.margin>
-                                                      <Insets left="25.0" />
+                                                      <Insets left="30.0" />
                                                    </HBox.margin>
                                                 </Text>
                                              </children>
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
                                           </HBox>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets bottom="-20.0" />
+                                       </VBox.margin>
                                     </VBox>
                                     <HBox fx:id="roomInfoBox1" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
                                        <children>
@@ -912,7 +949,7 @@
                                           </Label>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="-20.0" />
+                                          <Insets left="25.0" />
                                        </VBox.margin>
                                     </HBox>
                                     <HBox fx:id="roomInfoBox2" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
@@ -950,6 +987,9 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="25.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox fx:id="roomInfoBox3" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
                                        <children>
@@ -986,6 +1026,9 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="25.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox fx:id="roomInfoBox4" maxHeight="24.0" minHeight="24.0" prefHeight="20.0" prefWidth="629.0">
                                        <children>
@@ -1022,20 +1065,23 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="25.0" />
+                                       </VBox.margin>
                                     </HBox>
-                                    <HBox maxWidth="498.0" prefHeight="29.0" prefWidth="498.0" style="-fx-background-color: #4d4d4d;">
+                                    <HBox maxWidth="498.0" minWidth="-Infinity" prefHeight="32.0" prefWidth="502.0" style="-fx-background-color: #4d4d4d; -fx-background-radius: 10;">
                                        <children>
                                           <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Guest Information" wrappingWidth="225.80406188964844">
                                              <font>
                                                 <Font name="Serif Regular" size="20.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets top="3.0" />
+                                                <Insets top="5.0" />
                                              </HBox.margin>
                                           </Text>
                                        </children>
                                        <VBox.margin>
-                                          <Insets top="10.0" />
+                                          <Insets top="20.0" />
                                        </VBox.margin>
                                     </HBox>
                                     <HBox>
@@ -1054,6 +1100,9 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox>
                                        <children>
@@ -1071,6 +1120,9 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox>
                                        <children>
@@ -1088,6 +1140,9 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox>
                                        <children>
@@ -1105,10 +1160,13 @@
                                              </font>
                                           </Label>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets left="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                  </children>
                                  <BorderPane.margin>
-                                    <Insets left="100.0" right="30.0" top="25.0" />
+                                    <Insets left="40.0" right="30.0" />
                                  </BorderPane.margin>
                                  <padding>
                                     <Insets left="20.0" />
@@ -1116,14 +1174,14 @@
                               </VBox>
                            </center>
                            <right>
-                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                              <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="184.0" style="-fx-border-color: fe9939; -fx-border-width: 2;" BorderPane.alignment="TOP_CENTER">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Summary">
                                        <VBox.margin>
-                                          <Insets top="3.0" />
+                                          <Insets left="-4.0" top="1.0" />
                                        </VBox.margin>
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font size="16.0" />
                                        </font>
                                     </Text>
                                     <HBox prefHeight="40.0" prefWidth="186.0">
@@ -1135,13 +1193,16 @@
                                           </Text>
                                           <JFXTextField fx:id="nights2" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                              <HBox.margin>
-                                                <Insets left="15.0" top="7.0" />
+                                                <Insets left="14.0" top="7.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </JFXTextField>
                                        </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
                                     </HBox>
                                     <HBox prefHeight="40.0" prefWidth="186.0">
                                        <children>
@@ -1152,7 +1213,7 @@
                                           </Text>
                                           <JFXTextField fx:id="rooms2" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
                                              <HBox.margin>
-                                                <Insets left="18.0" top="7.0" />
+                                                <Insets left="13.0" top="7.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="18.0" />
@@ -1177,16 +1238,19 @@
                                           </JFXTextField>
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="15.0" top="50.0" />
+                                          <Insets left="15.0" top="30.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>
+                                 <BorderPane.margin>
+                                    <Insets right="30.0" top="21.0" />
+                                 </BorderPane.margin>
                               </VBox>
                            </right>
                            <top>
                               <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                                    <HBox alignment="CENTER" prefHeight="85.0" prefWidth="990.0">
                                        <children>
                                           <VBox alignment="CENTER">
                                              <HBox.margin>
@@ -1207,7 +1271,7 @@
                                           </VBox>
                                           <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
                                              <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets bottom="1.0" left="10.0" />
                                              </HBox.margin>
                                           </Line>
                                           <VBox alignment="CENTER">
@@ -1229,7 +1293,7 @@
                                           </VBox>
                                           <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
                                              <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets bottom="1.0" left="10.0" />
                                              </HBox.margin>
                                           </Line>
                                           <VBox alignment="CENTER">
@@ -1251,7 +1315,7 @@
                                           </VBox>
                                        </children>
                                        <VBox.margin>
-                                          <Insets bottom="10.0" left="3.0" />
+                                          <Insets bottom="10.0" left="3.0" right="3.0" top="2.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>
