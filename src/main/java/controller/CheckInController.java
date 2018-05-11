@@ -66,7 +66,7 @@ public class CheckInController implements Initializable {
 		});
 		reserveButton.setOnAction(event -> {
 			try {
-				mu.ShowMainPage(event);
+				mu.showMainPage(event);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -8,14 +8,14 @@ import java.time.LocalDate;
  * @Project : HotelSystem
  * */
 public class Guest {
-	String name;
-	String lastName;
-	String address;
-	String phoneNr;
-	String id;
-	String identityNr;
-	String creditCard;
-	LocalDate birthday;
+	private String name;
+	private String lastName;
+	private String address;
+	private String phoneNr;
+	private String id;
+	private String identityNr;
+	private String creditCard;
+	private LocalDate birthday;
 	private String notes;
 
 	public Guest(String  id , String name, String lastName, String address, String phoneNr ,String identityNr , String creditCard , LocalDate birthday, String notes)  {

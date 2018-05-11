@@ -46,6 +46,7 @@ public class DBParser {
      */
     // String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
     MongoClientURI clientURI = new MongoClientURI(uri);
+    //  ******uncomment the next line and comment the previous if you want a cloud database******
     MongoClient mongoClient = new MongoClient(clientURI);
     private Document doc;
     private MongoDatabase db = mongoClient.getDatabase("hotelSystem");
