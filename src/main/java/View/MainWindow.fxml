@@ -356,8 +356,6 @@
                                                       <MenuItem fx:id="r2" mnemonicParsing="false" text="2" />
                                                       <MenuItem fx:id="r3" mnemonicParsing="false" text="3" />
                                                       <MenuItem fx:id="r4" mnemonicParsing="false" text="4" />
-                                                      <MenuItem fx:id="r5" mnemonicParsing="false" text="5" />
-                                                      <MenuItem fx:id="more1" mnemonicParsing="false" text="more" />
                                                    </items>
                                                    <opaqueInsets>
                                                       <Insets />

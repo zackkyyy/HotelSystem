@@ -333,6 +333,19 @@ public class DBParser {
         }
         return room;
     }
+    public ArrayList<Room> copyRoomByRoomNumber(ArrayList<Integer> arrayList) {
+        ArrayList<Room> listOfRoom = getAllRoom();
+        ArrayList<Room> rooms=new ArrayList<Room>();
+        for (int i = 0; i < listOfRoom.size(); i++) {
+            for (int j = 0 ; j<arrayList.size() ; j++){
+                if (listOfRoom.get(i).getRoomNr()==arrayList.get(j)){
+
+                    rooms.add(listOfRoom.get(i));
+                }
+            }
+        }
+        return rooms;
+    }
 
            /**********************************************/
           /**                 User Part                **/
@@ -468,9 +481,9 @@ public class DBParser {
     /**********************************************/
 
 
-    public void deleteReservationByRoomNumber(int roomNumber) {
 
-        reservations.deleteOne(eq("room", roomNumber));
+    public void deleteReservationByRoomNumber(ObjectId id) {
+        reservations.deleteOne(eq("_id", id));
     }
 
     /**
@@ -509,11 +522,11 @@ public class DBParser {
         Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         doc = new Document("guest", reservation.getGuest())
-                .append("room", reservation.getRoom())
                 .append("arrival", ArrivalDate)
                 .append("departure", departureDate)
                 .append("price", reservation.getPrice())
-                .append("is checkedIn", reservation.getCheckedIn());
+                .append("is checkedIn", reservation.getCheckedIn())
+                .append("rooms",reservation.getRooms());
 
         reservations.insertOne(doc);
     }
@@ -536,11 +549,13 @@ public class DBParser {
             doc = reservationCursor.next();
 
             if (doc.getDate("departure").before(time)) {
-                int roomID = doc.getInteger("room");
+                ArrayList<Integer> rooms = (ArrayList<Integer>)doc.get("rooms");
 
-                Room tempRoom = copyRoomByRoomNumber(roomID);
-                tempRoom.setBooked(false);
-                refreshRoomStatus(tempRoom);
+              ArrayList  <Room> tempRoom = copyRoomByRoomNumber(rooms);
+              for(int j = 0 ;j<tempRoom.size();j++){
+                tempRoom.get(j).setBooked(false);
+                refreshRoomStatus(tempRoom.get(j));
+              }
             }
         }
 
@@ -559,11 +574,18 @@ public class DBParser {
         LocalDate arrivalDate = doc.getDate("arrival").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate departureDate = doc.getDate("departure").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Double price = doc.getDouble("price");
-        int roomID = doc.getInteger("room");
         String guestID = doc.getString("guest");
         Boolean checkedIn = doc.getBoolean("is checkedIn");
-        Reservation reservation = new Reservation(roomID, guestID, arrivalDate, departureDate, price);
+        Reservation reservation = new Reservation();
+        reservation.setDepartureDate(departureDate);
+        reservation.setGuest(guestID);
+        reservation.setArrivalDate(arrivalDate);
+        reservation.setPrice(price);
         reservation.setCheckedIn(checkedIn);
+        ObjectId id = doc.getObjectId("_id");
+        reservation.setId(id);
+        ArrayList<Integer> rooms = (ArrayList<Integer>)doc.get("rooms");
+        reservation.setRooms(rooms);
         return reservation;
 
     }
@@ -582,12 +604,25 @@ public class DBParser {
         Date departureDate = Date.from(reservation.getDepartureDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         System.out.println(reservation.getCheckedIn());
-        System.out.println(reservations.updateOne(eq("room", reservation.getRoom()), new Document("$set",
-                new Document("guest", reservation.getGuest())
-                        .append("room", reservation.getRoom())
-                        .append("arrival", arrivalDate)
-                        .append("departure", departureDate)
-                        .append("price", reservation.getPrice())
-                        .append("is checkedIn", reservation.getCheckedIn()))));
+
+        cursor = reservations.find().iterator();
+        ObjectId objectId = null;
+        for (int i = 0; i < reservations.count(); i++) {
+            doc = cursor.next();
+            if (reservation.getId().equals(doc.getObjectId("_id"))) {
+                objectId = doc.getObjectId("_id");
+                System.out.println(objectId.toString() +" the object id");
+            }
+        }
+        reservations.updateOne(eq("_id", objectId), new Document("$set",
+                new Document("guest",reservation.getGuest())
+                        .append("arrival",arrivalDate)
+                        .append("departure",departureDate)
+                        .append("price",reservation.getPrice())
+                        .append("is checkedIn",reservation.getCheckedIn())
+                        .append("rooms",reservation.getRooms())));
+
+
+
     }
 }

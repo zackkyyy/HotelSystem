@@ -33,7 +33,6 @@ import javax.print.*;
 import java.awt.print.PrinterJob;
 import java.io.*;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -68,7 +67,7 @@ public class ReserveController implements Initializable {
     @FXML
     private MenuButton personsNumber, roomsNumber, cityName ,quality;
     @FXML
-    private MenuItem p1, p2, p3, p4, r1, r2, r3, r4, r5, kalmar, växjö,star1,star2,star3,star4,star5;
+    private MenuItem p1, p2, p3, p4, r1, r2, r3, r4, kalmar, växjö,star1,star2,star3,star4,star5;
     @FXML
     private TableColumn<model.Room, Integer> roomNrCol, roomTypeCol, priceCol, cityCol;
     @FXML
@@ -228,10 +227,6 @@ public class ReserveController implements Initializable {
         r4.setOnAction(event1 -> {
             rooms.setText("4");
             roomsNumber.setText("4");
-        });
-        r5.setOnAction(event1 -> {
-            rooms.setText("5");
-            roomsNumber.setText("5");
         });
 
         kalmar.setOnAction(t -> {
@@ -683,25 +678,30 @@ public class ReserveController implements Initializable {
 
     public void createReservation(ActionEvent actionEvent) throws FileNotFoundException, DocumentException {
         String guestID = customer.getName() + " " + customer.getLastName();
-
+        ArrayList<Integer>bookedRooms = new ArrayList<Integer>();
+        double price=0;
         for (int i = 0; i < bookedRoom.size(); i++) {
+            bookedRooms.add(bookedRoom.get(i).getRoomNr());
+            price+=bookedRoom.get(i).getPrice();
+            bookedRoom.get(i).setBooked(true);
+            dbParser.refreshRoomStatus(bookedRoom.get(i));
+        }
+        System.out.println(bookedRooms.toString()+ "booked numbers");
             reservation = new Reservation();
-            int roomID = bookedRoom.get(i).getRoomNr();
+            //int roomID = bookedRoom.get(i).getRoomNr();
             reservation.setGuest(guestID);
-            reservation.setRoom(roomID);
+            reservation.setRooms(bookedRooms);
             reservation.setArrivalDate(checkInField.getValue());
             reservation.setDepartureDate(checkOutField.getValue());
             reservation.setCheckedIn(false);
-            reservation.setPrice(bookedRoom.get(i).getPrice() * Integer.parseInt(nights.getText()));
-            bookedRoom.get(i).setBooked(true);
-            dbParser.refreshRoomStatus(bookedRoom.get(i));
+            reservation.setPrice(price * Integer.parseInt(nights.getText()));
             dbParser.saveReservationToDB(reservation);
-            createPdfRec(reservation);
-        }
+            generateInvoice(reservation);
+
 
         VBox.setVisible(false);
         confirm.setVisible(false);
-        createPdfRec(reservation);
+        generateInvoice(reservation);
         pane.setVisible(true);
         addToTable();
     }
@@ -829,7 +829,7 @@ public class ReserveController implements Initializable {
 
     /* This method create a pdf file if we need it later  */
 
-    public com.itextpdf.text.Document createPdfRec(Reservation reservation) throws FileNotFoundException, DocumentException {
+    public com.itextpdf.text.Document generateInvoice(Reservation reservation) throws FileNotFoundException, DocumentException {
         com.itextpdf.text.Document layoutDocument = new com.itextpdf.text.Document(PageSize.A6);
         PdfWriter.getInstance(layoutDocument, new FileOutputStream("file.pdf"));
         layoutDocument.open();
@@ -843,8 +843,7 @@ public class ReserveController implements Initializable {
         layoutDocument.add(new Paragraph("   "));
 
         PdfPTable table1 = new PdfPTable(2);
-        DecimalFormat df = new DecimalFormat("200");
-        double total = 0;
+
         table1.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         table1.setWidthPercentage(110f);
         table1.getDefaultCell().setPadding(3);
@@ -854,6 +853,8 @@ public class ReserveController implements Initializable {
         table1.addCell(reservation.getDepartureDate().toString());
         table1.addCell("Number of nights");
         table1.addCell(nights.getText());
+        table1.addCell("Number of rooms");
+        table1.addCell(rooms.getText());
         table1.addCell("Number of guest");
         table1.addCell(personsNumber.getText());
         table1.addCell("Total");

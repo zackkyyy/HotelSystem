@@ -2,8 +2,6 @@ package controller;
 
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +17,6 @@ import model.Reservation;
 import model.Room;
 import model.User;
 import model.enums.Quality;
-import org.bson.Document;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
@@ -49,12 +46,12 @@ public class ManagerController implements Initializable {
     @FXML
     private JFXTextField password, userName, userLastName, UserFirstName, price, roomNr;
     @FXML
-    private MenuButton roomType, city, month, smoking ,adjacent,qualityBtn;
+    private MenuButton roomType, city, month, smoking, adjacent, qualityBtn;
     @FXML
     private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem, jan, feb, mar, apr, may,
-            jun, jul, aug, sep, oct, nov, dec, vxj, klr,adjYes , adjNo ,smoYes , smoNo,star5,star4,star3,star2,star1;
+            jun, jul, aug, sep, oct, nov, dec, adjYes, adjNo, smoYes, smoNo, star5, star4, star3, star2, star1;
     @FXML
-    private Label errorLabel,roomErrorLabel;
+    private Label errorLabel, roomErrorLabel;
     @FXML
     private TableColumn<model.Reservation, Integer> arrivalCol, departCol, priceCol, guestCol, roomCol;
     @FXML
@@ -63,9 +60,6 @@ public class ManagerController implements Initializable {
 
     private DBParser userController, dbParser;
     private DBParser roomController;
-    private MongoCollection users, rooms;
-    private Document doc;
-    private MongoCursor<Document> cursor;
     private String errMsg;
 
     @Override
@@ -114,7 +108,6 @@ public class ManagerController implements Initializable {
         });
 
 
-
         singleItem.setOnAction(event1 -> {
             roomType.setText("Single");
         });
@@ -130,7 +123,6 @@ public class ManagerController implements Initializable {
         apartmentItem.setOnAction(event1 -> {
             roomType.setText("Apartment");
         });
-
 
 
         apr.setOnAction(event -> {
@@ -383,7 +375,7 @@ public class ManagerController implements Initializable {
                 temporaryRoom.setQuality(Quality.toEnum(qualityBtn.getText()));
                 roomController = new DBParser();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setContentText("Are you sure you want to edit room "+selectedItem+ "?");
+                alert.setContentText("Are you sure you want to edit room " + selectedItem + "?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get().equals(ButtonType.OK)) {
                     roomList.getItems().remove(0, userList.getItems().size());
@@ -391,7 +383,7 @@ public class ManagerController implements Initializable {
                     getDataFromDB();
                     roomErrorLabel.setVisible(false);
                 }
-            }else {
+            } else {
                 roomErrorLabel.setText("Choose room from list first");
                 roomErrorLabel.setVisible(true);
             }
@@ -422,7 +414,6 @@ public class ManagerController implements Initializable {
 
     /**
      * Method to add users from manager log in to the database
-     *
      */
     public void addUser() {
 

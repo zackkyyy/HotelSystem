@@ -103,7 +103,7 @@ public class CheckInController implements Initializable {
 		departCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("departureDate"));
 		priceCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("price"));
 		guestCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("guest"));
-		roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("room"));
+		roomCol.setCellValueFactory(new PropertyValueFactory<Reservation,Integer>("rooms"));
 	}
 
 	public void nextDay(ActionEvent e){
@@ -135,6 +135,8 @@ public class CheckInController implements Initializable {
 			for(int i = 0; i < reservations.size(); i++) {
 				if(isCorrectDates(reservations.get(i))) {
 					reservations.get(i).setCheckedIn(true);
+					System.out.println(reservations.get(i).getCheckedIn().toString() +"rsafrsararara");
+
 					dbParser.refreshReservationStatus(reservations.get(i));
 					checkedInText.setVisible(true);
 				} else {
@@ -202,21 +204,32 @@ public class CheckInController implements Initializable {
 						int numberOfNights = reservations.get(i).getDepartureDate().getDayOfYear()- reservations.get(i).getArrivalDate().getDayOfYear();
 						errorText.setText("NOTE: Customer should pay  "+ reservations.get(i).getPrice()/numberOfNights);
 						errorText.setVisible(true);
-						int roomNumber = reservations.get(i).getRoom();
-						Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-						tempRoom.setBooked(false);
-						dbParser.refreshRoomStatus(tempRoom);
-						dbParser.deleteReservationByRoomNumber(roomNumber);
+						ArrayList<Integer> arrayList=new ArrayList<Integer>();
+						for (int z=0;z<reservations.get(i).getRooms().size() ; z++){
+							arrayList.add(reservations.get(i).getRooms().get(z));
+						}
+						ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
+						for(int j = 0;j<tempRoom.size();j++){
+							tempRoom.get(j).setBooked(false);
+							dbParser.refreshRoomStatus(tempRoom.get(j));
+						}
+						dbParser.deleteReservationByRoomNumber(reservations.get(0).getId());
 						checkedInText.setText("Reservation Has been canceled");
 						checkedInText.setVisible(true);
 
 
 					}
-					int roomNumber = reservations.get(i).getRoom();
-					Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-					tempRoom.setBooked(false);
-					dbParser.refreshRoomStatus(tempRoom);
-					dbParser.deleteReservationByRoomNumber(roomNumber);
+					ArrayList<Integer> arrayList=new ArrayList<Integer>();
+					for (int z=0;z<reservations.get(i).getRooms().size() ; z++){
+						arrayList.add(reservations.get(i).getRooms().get(z));
+					}
+					ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
+					for(int j = 0;j<tempRoom.size();j++){
+						tempRoom.get(j).setBooked(false);
+						dbParser.refreshRoomStatus(tempRoom.get(j));
+					}
+					dbParser.deleteReservationByRoomNumber(reservations.get(0).getId());
+
 					checkedInText.setText("Reservation Has been canceled");
 					checkedInText.setVisible(true);
 				}
@@ -225,7 +238,6 @@ public class CheckInController implements Initializable {
 			}
 
 	}
-
 	// Returns false if current date is before arrival date OR if current date is after departure date. Otherwise it returns true
 	private boolean isCorrectDates(Reservation reservation) {
 		if(LocalDate.now().isBefore(reservation.getArrivalDate()) || LocalDate.now().isAfter(reservation.getDepartureDate())) {

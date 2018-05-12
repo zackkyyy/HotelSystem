@@ -1,6 +1,9 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,7 +13,8 @@ import java.time.LocalDate;
  * @Project : HotelSystem
  */
     public class Reservation {
-    private int room;
+    private ObjectId id;
+    private ArrayList<Integer> rooms;
     private String guest;
     private LocalDate arrivalDate;
     private LocalDate departureDate;
@@ -19,31 +23,6 @@ import java.time.LocalDate;
 
     public Reservation(){
 
-    }
-
-    public Reservation(int room, String guest, LocalDate arrivalDate, LocalDate departureDate, Double price, Boolean checkedIn) {
-        this.room = room;
-        this.guest = guest;
-        this.arrivalDate = arrivalDate;
-        this.departureDate = departureDate;
-        this.price = price;
-        this.checkedIn = checkedIn;
-    }
-
-    public Reservation(int roomID, String guestID, LocalDate arrivalDate, LocalDate departureDate, Double price) {
-        this.room = roomID;
-        this.guest = guestID;
-        this.arrivalDate = arrivalDate;
-        this.departureDate = departureDate;
-        this.price = price;
-    }
-
-    public int getRoom() {
-        return room;
-    }
-
-    public void setRoom(int room) {
-        this.room = room;
     }
 
     public String getGuest() {
@@ -82,18 +61,37 @@ import java.time.LocalDate;
         return checkedIn;
     }
 
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "room =" + room +
-                ", guest =" + guest +
-                ", arrivalDate =" + arrivalDate +
-                ", departureDate =" + departureDate +
-                ", price =" + price +
-                '}';
+
+    public ArrayList<Integer> getRooms() {
+        return rooms;
     }
+
+    public void setRooms(ArrayList<Integer> rooms) {
+        this.rooms = rooms;
+    }
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
 
     public void setCheckedIn(Boolean checkedIn) {
         this.checkedIn = checkedIn;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", rooms=" + rooms +
+                ", guest='" + guest + '\'' +
+                ", arrivalDate=" + arrivalDate +
+                ", departureDate=" + departureDate +
+                ", price=" + price +
+                ", checkedIn=" + checkedIn +
+                '}';
     }
 }

@@ -100,7 +100,7 @@ public class CheckOutController implements Initializable {
         departCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("departureDate"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("price"));
         guestCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("guest"));
-        roomCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("room"));
+        roomCol.setCellValueFactory(new PropertyValueFactory<Reservation, Integer>("rooms"));
     }
 
     public void nextDay(ActionEvent e) {
@@ -129,10 +129,6 @@ public class CheckOutController implements Initializable {
             reservations = table.getSelectionModel().getSelectedItems();
             checkedOutText.setVisible(false);
 
-            if (reservations.size() == 0) {
-                selectionError.setVisible(true);
-            } else {
-                selectionError.setVisible(false);
                 // Deletes the reservations and unbook the rooms
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setContentText("Do you want to add notes in the guest profile");
@@ -143,14 +139,19 @@ public class CheckOutController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.isPresent() && result.get().equals(ButtonType.OK)) {
                     for (int i = 0; i < reservations.size(); i++) {
-                        int roomNumber = reservations.get(i).getRoom();
-                        checkedOutText.setVisible(true);
-                        Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
                         String GuestName = reservations.get(i).getGuest();
+                        ArrayList<Integer> arrayList=new ArrayList<Integer>();
+                        checkedOutText.setVisible(true);
 
-                        tempRoom.setBooked(false);
-                        dbParser.refreshRoomStatus(tempRoom);
-                        dbParser.deleteReservationByRoomNumber(roomNumber);
+                        for (int z=0;z<reservations.get(i).getRooms().size() ; z++){
+                            arrayList.add(reservations.get(i).getRooms().get(z));
+                        }
+                        ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
+                        for(int j = 0;j<tempRoom.size();j++){
+                            tempRoom.get(j).setBooked(false);
+                            dbParser.refreshRoomStatus(tempRoom.get(j));
+                        }
+                        dbParser.deleteReservationByRoomNumber(reservations.get(i).getId());
                         getReservation();
 
 
@@ -159,14 +160,11 @@ public class CheckOutController implements Initializable {
                         noteButton.setOnAction(event -> {
                             Guest gst = dbParser.getGuestByName(GuestName);
                             gst.setNotes(noteText.getText());
-
                             try {
                                 dbParser.editGuest(gst);
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
-
                             noteText.setVisible(false);
                             noteButton.setVisible(false);
                         });
@@ -174,15 +172,21 @@ public class CheckOutController implements Initializable {
                     }
                 } else {
                     for (int i = 0; i < reservations.size(); i++) {
+                        ArrayList<Integer> arrayList=new ArrayList<Integer>();
                         checkedOutText.setVisible(true);
-                        int roomNumber = reservations.get(i).getRoom();
-                        Room tempRoom = dbParser.copyRoomByRoomNumber(roomNumber);
-                        tempRoom.setBooked(false);
-                        dbParser.refreshRoomStatus(tempRoom);
-                        dbParser.deleteReservationByRoomNumber(roomNumber);
+
+                        for (int z=0;z<reservations.get(i).getRooms().size() ; z++){
+                            arrayList.add(reservations.get(i).getRooms().get(z));
+                        }
+                        ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
+                        for(int j = 0;j<tempRoom.size();j++){
+                            tempRoom.get(j).setBooked(false);
+                            dbParser.refreshRoomStatus(tempRoom.get(j));
+                        }
+                        dbParser.deleteReservationByRoomNumber(reservations.get(i).getId());
                     }
                 }
-            }
+
             // Updates the table
             getReservation();
         }
