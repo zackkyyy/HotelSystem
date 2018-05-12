@@ -268,7 +268,7 @@
                                           <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="258.0" prefWidth="971.0" stylesheets="@css/reservePage.css">
+                                    <TableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="971.0" stylesheets="@css/reservePage.css">
                                       <columns>
                                         <TableColumn fx:id="roomNrCol" prefWidth="140.0" text="Room Number" />
                                         <TableColumn fx:id="roomTypeCol" prefWidth="140.0" text="Room Type " />
