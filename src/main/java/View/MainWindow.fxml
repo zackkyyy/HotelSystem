@@ -88,12 +88,12 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                                        <HBox.margin>
-                                          <Insets top="15.0" />
+                                          <Insets top="10.0" />
                                        </HBox.margin>
                                     </Text>
                                     <JFXTextField fx:id="totalPrice" prefHeight="21.0" prefWidth="80.0" unFocusColor="WHITE">
                                        <HBox.margin>
-                                          <Insets left="15.0" />
+                                          <Insets left="15.0" top="5.0" />
                                        </HBox.margin>
                                     </JFXTextField>
                                  </children>
@@ -558,9 +558,6 @@
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
                                                             <JFXTextField fx:id="phoneNr" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="28.0" prefWidth="506.0" unFocusColor="#fe9939">
-                                                               <font>
-                                                                  <Font size="14.0" />
-                                                               </font>
                                                                <VBox.margin>
                                                                   <Insets left="75.0" top="-22.0" />
                                                                </VBox.margin>
@@ -576,9 +573,6 @@
                                                             </FontAwesomeIconView>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" />
                                                             <JFXTextField fx:id="creditCard" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="31.0" prefWidth="499.0" unFocusColor="#fe9939">
-                                                               <font>
-                                                                  <Font size="14.0" />
-                                                               </font>
                                                                <VBox.margin>
                                                                   <Insets left="75.0" top="-22.0" />
                                                                </VBox.margin>
@@ -589,9 +583,6 @@
                                                          <children>
                                                             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identity nr" />
                                                             <JFXTextField fx:id="identityNr" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="28.0" prefWidth="503.0" unFocusColor="#fe9939">
-                                                               <font>
-                                                                  <Font size="14.0" />
-                                                               </font>
                                                                <VBox.margin>
                                                                   <Insets left="75.0" top="-22.0" />
                                                                </VBox.margin>
@@ -673,7 +664,7 @@
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                                              <HBox.margin>
-                                                <Insets top="15.0" />
+                                                <Insets top="10.0" />
                                              </HBox.margin>
                                           </Text>
                                           <JFXTextField fx:id="totalPrice1" prefHeight="21.0" prefWidth="80.0">
@@ -809,7 +800,7 @@
                                  <children>
                                     <Text fontSmoothingType="LCD" opacity="0.8" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Details" textAlignment="CENTER" underline="true">
                                        <VBox.margin>
-                                          <Insets left="150.0" />
+                                          <Insets bottom="10.0" left="150.0" />
                                        </VBox.margin>
                                        <font>
                                           <Font name="Bangla MN" size="27.0" />
@@ -1093,7 +1084,7 @@
                                           </Text>
                                           <Label fx:id="gstName" prefHeight="17.0" prefWidth="205.0" text="Single">
                                              <HBox.margin>
-                                                <Insets left="35.0" top="5.0" />
+                                                <Insets left="24.0" top="5.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font name="Serif Regular" size="13.0" />
@@ -1133,7 +1124,7 @@
                                           </Text>
                                           <Label fx:id="gstID" prefHeight="17.0" prefWidth="296.0">
                                              <HBox.margin>
-                                                <Insets left="35.0" top="5.0" />
+                                                <Insets left="33.0" top="5.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font name="Serif Regular" size="13.0" />
@@ -1153,7 +1144,7 @@
                                           </Text>
                                           <Label fx:id="gstCredit" prefHeight="17.0" prefWidth="287.0">
                                              <HBox.margin>
-                                                <Insets left="30.0" top="5.0" />
+                                                <Insets left="28.0" top="5.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font name="Serif Regular" size="13.0" />
@@ -1228,7 +1219,7 @@
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
                                              <HBox.margin>
-                                                <Insets top="15.0" />
+                                                <Insets top="10.0" />
                                              </HBox.margin>
                                           </Text>
                                           <JFXTextField fx:id="totalPrice2" prefHeight="21.0" prefWidth="80.0">
@@ -1326,7 +1317,7 @@
                            <children>
                               <Button fx:id="print" mnemonicParsing="false" onAction="#print" text="Print" />
                               <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFirstTab" text="Return" />
-                              <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation hase been done successfully ">
+                              <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation has been done successfully!">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
