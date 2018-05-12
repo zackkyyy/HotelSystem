@@ -262,7 +262,7 @@ public class ReserveController implements Initializable {
 
         checkInButton.setOnAction(event -> {
             try {
-                mu.ShowCheckInPage(event);
+                mu.showCheckInPage(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -350,9 +350,12 @@ public class ReserveController implements Initializable {
                     for (int i = 0; i < bookedRoom.size(); i++) {
                         String s = bookedRoom.get(i).getRoomNr() + " ";
                         String city = bookedRoom.get(i).getStringCity();
+                        String type = bookedRoom.get(i).getRoomType().toString();
+                        
                         roomNrs[i].setText(s);
                         roomCities[i].setText(city);
                         guestNrs[i].setText(personsNumber.getText());
+                        roomTypes[i].setText(type);
                         tempTotalPrice += bookedRoom.get(i).getPrice() * Integer.parseInt(nights.getText());
                         totalPrice1.setText(totalPrice.getText());
                         totalPrice2.setText(totalPrice.getText());
