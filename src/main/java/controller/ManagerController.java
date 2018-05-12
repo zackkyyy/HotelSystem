@@ -54,7 +54,7 @@ public class ManagerController implements Initializable {
     private MenuItem kalmarItem, växjöItem, singleItem, doubleItem, tripleItem, apartmentItem, jan, feb, mar, apr, may,
             jun, jul, aug, sep, oct, nov, dec, vxj, klr,adjYes , adjNo ,smoYes , smoNo,star5,star4,star3,star2,star1;
     @FXML
-    private Label errorLabel;
+    private Label errorLabel,roomErrorLabel;
     @FXML
     private TableColumn<model.Reservation, Integer> arrivalCol, departCol, priceCol, guestCol, roomCol;
     @FXML
@@ -188,6 +188,7 @@ public class ManagerController implements Initializable {
     public void goToUserTab() {
         tabPane1.getSelectionModel().select(userTab);
         getDataFromDB();
+        errorLabel.setVisible(false);
     }
 
     /**
@@ -197,6 +198,7 @@ public class ManagerController implements Initializable {
         tabPane1.getSelectionModel().select(roomTab);
         getDataFromDB();
         roomList.getItems().sorted();
+        roomErrorLabel.setVisible(false);
     }
 
     public void goToReservationTab() {
@@ -363,27 +365,35 @@ public class ManagerController implements Initializable {
                 }
             }
         } else if (tabPane1.getSelectionModel().isSelected(2)) {
-            String selectedItem = roomList.getSelectionModel().getSelectedItem().toString();
-            Room temporaryRoom = new Room();
+            String selectedItem;
+            if (roomList.getSelectionModel().getSelectedItems().size() > 0) {
+                selectedItem = roomList.getSelectionModel().getSelectedItem().toString();
 
-            // add values from text fields to the temporary guest
 
-            temporaryRoom.setRoomType(model.enums.RoomType.toEnum(roomType.getText()));
-            temporaryRoom.setCity(model.enums.City.toEnum(city.getText()));
-            temporaryRoom.setPrice(Double.valueOf(price.getText()));
-            temporaryRoom.setRoomNr(Integer.parseInt(roomNr.getText()));
-            temporaryRoom.setAdjoined(model.enums.Adjacent.toEnum(adjacent.getText()));
-            temporaryRoom.setSmoking(model.enums.Smoking.toEnum(smoking.getText()));
-            temporaryRoom.setQuality(Quality.toEnum(qualityBtn.getText()));
-            roomController = new DBParser();
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Are you sure you want to edit room nr " + selectedItem + " ?");
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get().equals(ButtonType.OK)) {
-                roomList.getItems().remove(0, userList.getItems().size());
-                roomController.refreshRoomStatus( temporaryRoom);
-                getDataFromDB();
-                errorLabel.setVisible(false);
+                Room temporaryRoom = new Room();
+
+                // add values from text fields to the temporary guest
+
+                temporaryRoom.setRoomType(model.enums.RoomType.toEnum(roomType.getText()));
+                temporaryRoom.setCity(model.enums.City.toEnum(city.getText()));
+                temporaryRoom.setPrice(Double.valueOf(price.getText()));
+                temporaryRoom.setRoomNr(Integer.parseInt(roomNr.getText()));
+                temporaryRoom.setAdjoined(model.enums.Adjacent.toEnum(adjacent.getText()));
+                temporaryRoom.setSmoking(model.enums.Smoking.toEnum(smoking.getText()));
+                temporaryRoom.setQuality(Quality.toEnum(qualityBtn.getText()));
+                roomController = new DBParser();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Are you sure you want to edit room "+selectedItem+ "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get().equals(ButtonType.OK)) {
+                    roomList.getItems().remove(0, userList.getItems().size());
+                    roomController.refreshRoomStatus(temporaryRoom);
+                    getDataFromDB();
+                    roomErrorLabel.setVisible(false);
+                }
+            }else {
+                roomErrorLabel.setText("Choose room from list first");
+                roomErrorLabel.setVisible(true);
             }
         }
     }
@@ -406,8 +416,7 @@ public class ManagerController implements Initializable {
             roomController.createNewRoom(room);
             roomList.getItems().remove(0, roomList.getItems().size());
             getDataFromDB();
-        } else {
-            System.out.println("something wrong");
+            roomErrorLabel.setVisible(false);
         }
     }
 
@@ -458,13 +467,15 @@ public class ManagerController implements Initializable {
     public boolean checkForEmptyFields() {
         if (roomNr.getText().isEmpty() || city.getText().isEmpty()
                 || price.getText().isEmpty() || roomType.getText().isEmpty()) {
-            System.out.println("room nr is empty");
+            errorLabel.setText("fill all the fields");
+            errorLabel.setVisible(true);
             return false;
         }
 
         for (int i = 0; i < roomList.getItems().size(); i++) {
             if (roomList.getItems().get(i).toString().contains(roomNr.getText() + "    " + city.getText())) {
-                System.out.println("it is exist");
+                roomErrorLabel.setText("This room is existed");
+                roomErrorLabel.setVisible(true);
                 return false;
             }
         }

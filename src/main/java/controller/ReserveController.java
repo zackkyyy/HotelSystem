@@ -11,9 +11,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,7 +27,6 @@ import javafx.util.Callback;
 import model.Guest;
 import model.Reservation;
 import model.Room;
-import org.bson.Document;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.print.*;
@@ -61,9 +57,7 @@ public class ReserveController implements Initializable {
     @FXML
     private TabPane tabPane;
     @FXML
-    private JFXButton removeCitySearch, removeTypeSearch,removeQualitySearch;
-    @FXML
-    private Button confirm;
+    private JFXButton removeCitySearch, removeTypeSearch,removeQualitySearch,confirm;
     @FXML
     private JFXTextField nights, rooms, search, searchRoom, name, lastName,
             address, phoneNr, identityNr, creditCard, totalPrice, totalPrice1, totalPrice2, rooms1, rooms2, nights1, nights2;
@@ -84,10 +78,6 @@ public class ReserveController implements Initializable {
     @FXML
     private TableColumn<model.Room, Integer> qualityCol;
     @FXML
-    private TableColumn<Room, Integer> bookedCol;
-    @FXML
-    private FontAwesomeIconView removeRoomSearch;
-    @FXML
     private Label errorLabel, errorMsg, gstID, gstName, gstCredit, gstPhone, depDate, arrDate, nameLabel;
     @FXML
     private Label roomNr1, guestNr1, roomType1, roomCity1, roomNr2, guestNr2, roomType2, roomCity2,
@@ -102,15 +92,8 @@ public class ReserveController implements Initializable {
     private Label[] roomTypes = new Label[4];
     private Label[] roomCities = new Label[4];
     private HBox[] roomInfoBoxes = new HBox[4];
-
-    private MongoCollection persons;
-    private MongoCursor<Document> cursor;
-    private Document doc;
-    private MongoCollection roomsList;
     @FXML
     private TableView table;
-   @FXML
-   private Button print;
     private DBParser dbParser;
     private ObservableList<Room> listOfRooms;
     private Guest customer;
