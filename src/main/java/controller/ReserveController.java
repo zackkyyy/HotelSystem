@@ -30,11 +30,17 @@ import model.Room;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.print.*;
-import java.awt.print.PrinterJob;
-import java.io.*;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Sides;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 
@@ -865,118 +871,35 @@ public class ReserveController implements Initializable {
         return layoutDocument;
     }
 
-    /**
+  /*  /**
      * This method prints the reservation details
-     * TODO: make the printed object looks better
      * at the moment it copies every thing and print it
      */
     public void print() throws IOException, PrintException {
-        PrinterJob printerJob = PrinterJob.getPrinterJob();
-
-        PrintService printService = null;
-        if(printerJob.printDialog())
-        {
-            printService = printerJob.getPrintService();
+        DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
+        PrintRequestAttributeSet patts = new HashPrintRequestAttributeSet();
+        patts.add(Sides.DUPLEX);
+        PrintService[] ps = PrintServiceLookup.lookupPrintServices(flavor, patts);
+        if (ps.length == 0) {
+            throw new IllegalStateException("No Printer found");
         }
-        DocFlavor docType = DocFlavor.INPUT_STREAM.AUTOSENSE;
-        File file = new File("file.pdf");
-        FileInputStream fis = new FileInputStream(file);
+        System.out.println("Available printers: " + Arrays.asList(ps));
 
-
-            DocPrintJob printJob = printService.createPrintJob();
-            final byte[] byteStream = fis.toString().getBytes();
-                    Doc documentToBePrinted = new SimpleDoc(new ByteArrayInputStream(byteStream), docType, null);
-            printJob.print(documentToBePrinted, null);
-
-
-    }
-
-
-
-/*
-    public void print1() {
-        System.out.println("her111");
-        Printer printer = Printer.getDefaultPrinter();
-        // PrinterJob printerJob = PrinterJob.getPrinterJob();
-
-        PrintService printService = null;
-        if(printerJob.printDialog())
-        {
-            printService = printerJob.getPrintService();
+        PrintService myService = ps[0];
+        myService =ServiceUI.printDialog(null, 200, 200,
+                ps, ps[0], flavor, patts);
+        if (myService == null) {
+            throw new IllegalStateException("Printer not found");
         }
-        DocFlavor docType = DocFlavor.INPUT_STREAM.AUTOSENSE;
-        System.out.println("her222");
 
         FileInputStream fis = new FileInputStream("file.pdf");
         Doc pdfDoc = new SimpleDoc(fis, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
-        DocPrintJob printJob = printService.createPrintJob();
-        System.out.println("her3");
-
+        DocPrintJob printJob = myService.createPrintJob();
         printJob.print(pdfDoc, new HashPrintRequestAttributeSet());
         fis.close();
+
+        System.out.println("printed");
     }
 
-    public void print(java.awt.event.ActionEvent e)  {
-       UIManager.put("swing.boldMetal", Boolean.FALSE);
-        JFrame f = new JFrame("Hello World Printer");
-        f.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {System.exit(0);}
-        });
-        JButton printButton = new JButton("Print Hello World");
-        f.add("Center", printButton);
-        f.pack();
-        f.setVisible(true);
-
-
-
-
-    }
-
-
-
-    public static class HelloWorldPrinter implements Printable , ActionListener {
-
-
-        public int print(Graphics g, PageFormat pf, int page) throws
-                PrinterException {
-
-            if (page > 0) {
-                return NO_SUCH_PAGE;
-            }
-
-
-            Graphics2D g2d = (Graphics2D)g;
-            g2d.translate(pf.getImageableX(), pf.getImageableY());
-
-
-            g.drawString("Hello world!", 100, 100);
-
-            return PAGE_EXISTS;
-        }
-
-
-        public static void main(String args[]) {
-
-        }
-
-
-
-        @Override
-        public void actionPerformed(java.awt.event.ActionEvent e) {
-
-            PrinterJob job = PrinterJob.getPrinterJob();
-            job.setPrintable(this);
-            boolean ok = job.printDialog();
-            if (ok) {
-                try {
-                    job.print();
-                } catch (PrinterException ex) {
-
-                }
-            }
-        }
-
-    }
-    **/
 }
 
