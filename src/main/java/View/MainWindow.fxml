@@ -26,15 +26,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
    <children>
       <TabPane fx:id="tabPane" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
          <tabs>
             <Tab closable="false" text="Findroom">
                <content>
-                  <BorderPane pickOnBounds="false" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: white;">
+                  <BorderPane maxWidth="1024.0" pickOnBounds="false" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: white;">
                      <right>
-                        <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.7" prefHeight="233.0" prefWidth="184.0" style="-fx-border-color: fe9939; -fx-border-width: 2;" BorderPane.alignment="CENTER">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
                                  <VBox.margin>
@@ -98,21 +98,21 @@
                                     <Insets left="15.0" top="50.0" />
                                  </VBox.margin>
                               </HBox>
-                              <Button mnemonicParsing="false" onAction="#moveToNextTab" text="Next">
+                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#moveToNextTab" text="Next">
                                  <VBox.margin>
-                                    <Insets left="50.0" />
+                                    <Insets bottom="5.0" left="70.0" />
                                  </VBox.margin>
                               </Button>
                            </children>
                            <BorderPane.margin>
-                              <Insets right="10.0" />
+                              <Insets right="30.0" />
                            </BorderPane.margin>
                         </VBox>
                      </right>
                      <top>
                         <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                              <HBox alignment="CENTER" maxWidth="1024.0" prefHeight="86.0" prefWidth="997.0">
                                  <children>
                                     <VBox alignment="CENTER">
                                        <HBox.margin>
@@ -189,19 +189,19 @@
                      <bottom>
                         <Pane BorderPane.alignment="CENTER">
                            <children>
-                              <VBox prefHeight="271.0" prefWidth="1020.0">
+                              <VBox alignment="CENTER" layoutY="-25.0" prefHeight="296.0" prefWidth="1020.0">
                                  <children>
-                                    <HBox prefHeight="36.0" prefWidth="459.0">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="920.0">
                                        <children>
-                                          <Label prefHeight="26.0" prefWidth="150.0" text="Search for room" textAlignment="CENTER">
+                                          <Label prefHeight="27.0" prefWidth="142.0" text="Search for room" textAlignment="CENTER">
                                              <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets left="30.0" top="5.0" />
                                              </HBox.margin>
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label alignment="CENTER" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
+                                          <Label alignment="CENTER" prefHeight="25.0" prefWidth="25.0">
                                              <graphic>
                                                 <FontAwesomeIconView boundsType="VISUAL" glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
                                              </graphic>
@@ -214,7 +214,7 @@
                                                 <Font size="12.0" />
                                              </font>
                                              <HBox.margin>
-                                                <Insets left="3.0" top="8.0" />
+                                                <Insets top="8.0" />
                                              </HBox.margin>
                                           </JFXTextField>
                                           <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
@@ -262,18 +262,18 @@
                                           </Label>
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="15.0" />
+                                          <Insets bottom="3.0" />
                                        </VBox.margin>
                                     </HBox>
-                                    <TableView fx:id="table" maxWidth="887.0" minWidth="887.0" prefHeight="260.0" prefWidth="887.0" stylesheets="@css/reservePage.css">
+                                    <TableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="258.0" prefWidth="971.0" stylesheets="@css/reservePage.css">
                                       <columns>
-                                        <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
-                                        <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
-                                          <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
-                                          <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
-                                          <TableColumn fx:id="roomIdCol" prefWidth="130.0" text="Adjacent" />
-                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="Smoking" />
-                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="Quality" />
+                                        <TableColumn fx:id="roomNrCol" prefWidth="140.0" text="Room Number" />
+                                        <TableColumn fx:id="roomTypeCol" prefWidth="140.0" text="Room Type " />
+                                          <TableColumn fx:id="cityCol" prefWidth="140.0" text="City" />
+                                          <TableColumn fx:id="priceCol" prefWidth="140.0" text="Price" />
+                                          <TableColumn fx:id="roomIdCol" prefWidth="140.0" text="Adjacent" />
+                                          <TableColumn fx:id="floorCol" prefWidth="140.0" text="Smoking" />
+                                          <TableColumn fx:id="qualityCol" prefWidth="127.0" text="Quality" />
                                       </columns>
                                        <VBox.margin>
                                           <Insets />
@@ -285,9 +285,9 @@
                         </Pane>
                      </bottom>
                      <left>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="221.0" prefWidth="712.0" BorderPane.alignment="TOP_CENTER">
                            <children>
-                              <HBox maxHeight="96.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="96.0" prefWidth="1024.0" style=" -fx-border-radius: 10px ">
+                              <HBox maxHeight="96.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="733.0" prefHeight="96.0" prefWidth="733.0" style=" -fx-border-radius: 10px ">
                                  <children>
                                     <VBox>
                                        <children>
@@ -383,36 +383,40 @@
                                     </VBox>
                                  </children>
                                  <VBox.margin>
-                                    <Insets left="20.0" top="10.0" />
+                                    <Insets left="25.0" top="10.0" />
                                  </VBox.margin>
                               </HBox>
-                              <VBox prefHeight="165.0" prefWidth="800.0">
+                              <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="    Room Filter ">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </Text>
-                                    <JFXToggleButton fx:id="smokingBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
-                                    </JFXToggleButton>
-                                    <JFXToggleButton fx:id="adjacentBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
-                                    <HBox prefHeight="31.0" prefWidth="132.0">
+                                    <VBox prefHeight="100.0" prefWidth="323.0">
                                        <children>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="    Room Filter ">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Text>
+                                          <JFXToggleButton fx:id="smokingBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
+                                             <VBox.margin>
+                                                <Insets top="10.0" />
+                                             </VBox.margin>
+                                          </JFXToggleButton>
+                                          <JFXToggleButton fx:id="adjacentBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <HBox prefHeight="100.0" prefWidth="778.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality:">
                                              <HBox.margin>
                                                 <Insets top="5.0" />
                                              </HBox.margin>
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
                                           </Text>
-                                          <MenuButton fx:id="quality" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: orange;" text="★" textFill="GOLD">
+                                          <MenuButton fx:id="quality" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: orange;" text="★" textFill="#fe9939">
                                              <items>
                                                 <MenuItem fx:id="star1" mnemonicParsing="false" text="★" />
                                                 <MenuItem fx:id="star2" mnemonicParsing="false" text="★★" />
@@ -421,16 +425,19 @@
                                                 <MenuItem fx:id="star5" mnemonicParsing="false" text="★★★★★" />
                                              </items>
                                              <HBox.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="5.0" />
                                              </HBox.margin>
                                           </MenuButton>
                                        </children>
-                                       <VBox.margin>
-                                          <Insets left="15.0" top="10.0" />
-                                       </VBox.margin>
+                                       <HBox.margin>
+                                          <Insets top="38.0" />
+                                       </HBox.margin>
+                                       <padding>
+                                          <Insets left="25.0" />
+                                       </padding>
                                     </HBox>
                                  </children>
-                              </VBox>
+                              </HBox>
                            </children>
                         </VBox>
                      </left>
