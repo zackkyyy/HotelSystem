@@ -45,7 +45,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXTextField>
-                              <JFXListView fx:id="userList" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillFields" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
+                              <JFXListView fx:id="userList" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillFields" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;" stylesheets="@css/reservePage.css">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -173,7 +173,7 @@
                                     <Insets />
                                  </VBox.margin>
                               </JFXTextField>
-                              <JFXListView fx:id="roomList" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillFields" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;">
+                              <JFXListView fx:id="roomList" maxHeight="401.0" maxWidth="283.0" minHeight="349.0" minWidth="228.0" onMouseClicked="#fillFields" prefHeight="365.0" prefWidth="283.0" style="-fx-background-radius: 4px; -fx-background-size: 26px;" stylesheets="@css/reservePage.css">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>

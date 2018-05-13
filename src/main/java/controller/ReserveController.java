@@ -30,17 +30,14 @@ import model.Room;
 import org.controlsfx.control.textfield.TextFields;
 
 import javax.print.*;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Sides;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 
@@ -60,20 +57,22 @@ public class ReserveController implements Initializable {
     @FXML
     private VBox VBox;
     @FXML
+    private HBox hBox;
+    @FXML
     private TabPane tabPane;
     @FXML
-    private JFXButton removeCitySearch, removeTypeSearch,removeQualitySearch,confirm;
+    private JFXButton removeCitySearch, removeTypeSearch, removeQualitySearch;
     @FXML
     private JFXTextField nights, rooms, search, searchRoom, name, lastName,
             address, phoneNr, identityNr, creditCard, totalPrice, totalPrice1, totalPrice2, rooms1, rooms2, nights1, nights2;
     @FXML
     private JFXDatePicker checkOutField, checkInField;
     @FXML
-    private JFXToggleButton adjacentBtn , smokingBtn;
+    private JFXToggleButton adjacentBtn, smokingBtn;
     @FXML
-    private MenuButton personsNumber, roomsNumber, cityName ,quality;
+    private MenuButton personsNumber, roomsNumber, cityName, quality;
     @FXML
-    private MenuItem p1, p2, p3, p4, r1, r2, r3, r4, kalmar, växjö,star1,star2,star3,star4,star5;
+    private MenuItem p1, p2, p3, p4, r1, r2, r3, r4, kalmar, växjö, star1, star2, star3, star4, star5;
     @FXML
     private TableColumn<model.Room, Integer> roomNrCol, roomTypeCol, priceCol, cityCol;
     @FXML
@@ -104,6 +103,7 @@ public class ReserveController implements Initializable {
     private Guest customer;
     private ObservableList<Room> bookedRoom;
     public Reservation reservation;
+    private boolean smokingFilter, cityFilter,typeFilter,adjacentFilter,qualityFilter =false;
 
     public static boolean creditCardValidator(String str) {
         if (str.length() < 13 || str.length() > 16) {
@@ -131,9 +131,9 @@ public class ReserveController implements Initializable {
         smokingBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (smokingBtn.isSelected()==false){
+                if (smokingBtn.isSelected() == false) {
                     removeSmokingFilter();
-                    }else{
+                } else {
                     filterBySmoking();
                 }
             }
@@ -141,9 +141,9 @@ public class ReserveController implements Initializable {
         adjacentBtn.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (adjacentBtn.isSelected()==false){
+                if (adjacentBtn.isSelected() == false) {
                     addToTable();  // add rooms to the table
-                }else{
+                } else {
                     filterByAdjacent();
                 }
             }
@@ -335,7 +335,7 @@ public class ReserveController implements Initializable {
                         String s = bookedRoom.get(i).getRoomNr() + " ";
                         String city = bookedRoom.get(i).getStringCity();
                         String type = bookedRoom.get(i).getRoomType().toString();
-                        
+
                         roomNrs[i].setText(s);
                         roomCities[i].setText(city);
                         guestNrs[i].setText(personsNumber.getText());
@@ -371,7 +371,7 @@ public class ReserveController implements Initializable {
     public void moveToFirstTab() {
         tabPane.getSelectionModel().selectFirst();
         pane.setVisible(false);
-        confirm.setVisible(true);
+        hBox.setVisible(true);
         VBox.setVisible(true);
         updateRoomPrice();
 
@@ -381,8 +381,8 @@ public class ReserveController implements Initializable {
         String[] listOfNames = new String[dbParser.getGuestsInArray().size()];
         DBParser dbParser = new DBParser();
         for (int i = 0; i < dbParser.getGuestsInArray().size(); i++) {
-            String str = dbParser.getGuestsInArray().get(i).getName()+ " " + dbParser.getGuestsInArray().get(i).getLastName();
-            listOfNames [i]=str;
+            String str = dbParser.getGuestsInArray().get(i).getName() + " " + dbParser.getGuestsInArray().get(i).getLastName();
+            listOfNames[i] = str;
         }
         try {
             TextFields.bindAutoCompletion(search, listOfNames);
@@ -400,86 +400,112 @@ public class ReserveController implements Initializable {
         priceCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("price"));
         cityCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("city"));
         roomTypeCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("roomType"));
-        floorCol.setCellValueFactory(new PropertyValueFactory<Room , Integer>("smoking"));
-        roomIdCol.setCellValueFactory(new PropertyValueFactory<Room , Integer>("adjoined"));
-        qualityCol.setCellValueFactory(new PropertyValueFactory<Room , Integer>("quality"));
+        floorCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("smoking"));
+        roomIdCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("adjoined"));
+        qualityCol.setCellValueFactory(new PropertyValueFactory<Room, Integer>("quality"));
         searchRoom.clear();
         removeTypeSearch.setVisible(false);
         removeCitySearch.setVisible(false);
     }
 
-    public void filterBySmoking(){
-        dbParser = new DBParser();
-        ObservableList<Room> list=table.getItems();;
-        ArrayList<Room> listOfRooms = new ArrayList<Room>();
-
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
-            if (list.get(i).getSmoking().toString().equals("Yes")) {
-                listOfRooms.add(list.get(i));
-            }
-        }
-
+    public void filterBySmoking() {
+        ObservableList<Room> list = table.getItems();
+        ArrayList<Room>list1 = new ArrayList<Room>();
+        list.stream().filter(s -> s.getSmoking().toString().equals("Yes"))
+                .forEach(list1::add);
         table.getItems().removeAll();
-        list = FXCollections.observableArrayList(listOfRooms);
+        list = FXCollections.observableArrayList(list1);
         table.setItems(list);
+        smokingFilter=true;
     }
-    public void filterByQuality(String str){
+
+    public void filterByQuality(String str) {
         dbParser = new DBParser();
-        if(!removeQualitySearch.isVisible()) {
-
+        if (!removeQualitySearch.isVisible()) {
             ObservableList<Room> list = table.getItems();
-            ;
-            ArrayList<Room> listOfRooms = new ArrayList<Room>();
-
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println(list.get(i));
-                if (list.get(i).getQuality().toString().equals(str)) {
-                    listOfRooms.add(list.get(i));
-                }
-            }
+            ArrayList<Room>list1 = new ArrayList<Room>();
+            list.stream().filter(s -> s.getQuality().toString().equals(str))
+                    .forEach(list1::add);
             table.getItems().removeAll();
-            list = FXCollections.observableArrayList(listOfRooms);
+            list = FXCollections.observableArrayList(list1);
             table.setItems(list);
             removeQualitySearch.setVisible(true);
-        }else{
+            qualityFilter=true;
+        } else {
             ArrayList<Room> listOfRooms = getFreeRoom();
-            ArrayList<Room> filteredList =new ArrayList<>();
-
-            for (int i = 0; i < listOfRooms.size(); i++) {
-                System.out.println(listOfRooms.get(i));
-                if (listOfRooms.get(i).getQuality().toString().equals(str)) {
-                    filteredList.add(listOfRooms.get(i));
-                }
-            }
-            ObservableList<Room> list ;
+            ObservableList<Room> list;
+            ArrayList<Room>list1 = new ArrayList<Room>();
+            listOfRooms.stream().filter(s -> s.getQuality().toString().equals(str))
+                    .forEach(list1::add);
             table.getItems().removeAll();
-            list = FXCollections.observableArrayList(filteredList);
+            list = FXCollections.observableArrayList(list1);
             table.setItems(list);
             removeQualitySearch.setVisible(true);
+            qualityFilter=true;
         }
     }
-    public void removeSmokingFilter(){
 
-        if (removeCitySearch.isVisible()&&removeTypeSearch.isVisible()){
+    public void removeSmokingFilter() {
+        if(removeTypeSearch.isVisible() &&removeCitySearch.isVisible()&& removeQualitySearch.isVisible()){
+        filterByCity(cityName.getText());
+        filterByQuality(quality.getText());
+        } else if (removeCitySearch.isVisible() && removeTypeSearch.isVisible() &&!removeQualitySearch.isVisible()) {
             filterByCity(cityName.getText());
-        }else if(removeTypeSearch.isVisible()&&!removeCitySearch.isVisible()){
+        } else if (removeTypeSearch.isVisible() && !removeCitySearch.isVisible() &&!removeQualitySearch.isVisible()) {
             filterByType(personsNumber.getText());
-        }else if(!removeTypeSearch.isVisible()&&removeCitySearch.isVisible()){
+        } else if (!removeTypeSearch.isVisible() && removeCitySearch.isVisible()&&!removeQualitySearch.isVisible()) {
             filterByCity(cityName.getText());
-        }else if (!removeCitySearch.isVisible()&& !removeTypeSearch.isVisible() && !adjacentBtn.isSelected()){
+        } else if (!removeCitySearch.isVisible() && !removeTypeSearch.isVisible() && !adjacentBtn.isSelected()) {
             addToTable();
             adjacentBtn.setSelected(false);
-        }else if (adjacentBtn.isSelected()){
+        } else if (adjacentBtn.isSelected()) {
             filterByAdjacent();
         }
+        smokingFilter=false;
     }
-    public void removeQualitySearch(){
+
+
+    public void removeQualitySearch() {
+        ArrayList<Room> list1 = new ArrayList<Room>();
+        if(typeFilter && cityFilter && smokingFilter && adjacentFilter){
+            ArrayList<Room> listOfRooms = getFreeRoom();
+
+            listOfRooms.stream().filter(s->s.getSmoking().toString().equals("Yes")&&s.getAdjoined().toString().equals("yes")
+          &&s.getCity().toString().equals(cityName.getText())).
+                    forEach(list1::add);
+
+        }else if( cityFilter && smokingFilter && adjacentFilter){
+            ArrayList<Room> listOfRooms = getFreeRoom();
+
+            listOfRooms.stream().filter(s->s.getSmoking().toString().equals("Yes")&&s.getAdjoined().toString().equals("yes")
+                    &&s.getCity().toString().equals(cityName.getText())).
+                    forEach(list1::add);
+
+        }else if(smokingFilter && adjacentFilter){
+            ArrayList<Room> listOfRooms = getFreeRoom();
+
+            listOfRooms.stream().filter(s->s.getSmoking().toString().equals("Yes")&&s.getAdjoined().toString().equals("yes")
+            ).forEach(list1::add);
+
+        }
+        else if(smokingFilter ){
+            ArrayList<Room> listOfRooms = getFreeRoom();
+
+            listOfRooms.stream().filter(s->s.getSmoking().toString().equals("Yes")
+            ).forEach(list1::add);
+
+        }
+        table.getItems().removeAll();
+        ObservableList<Room> list = FXCollections.observableArrayList(list1);
+        table.setItems(list);
         removeQualitySearch.setVisible(false);
+        qualityFilter=false;
     }
-    public void filterByAdjacent(){
+
+    public void filterByAdjacent() {
         dbParser = new DBParser();
-        ObservableList<Room> list=table.getItems();;
+        ObservableList<Room> list = table.getItems();
+        ;
         ArrayList<Room> listOfRooms = new ArrayList<Room>();
 
         for (int i = 0; i < list.size(); i++) {
@@ -491,6 +517,7 @@ public class ReserveController implements Initializable {
         table.getItems().removeAll();
         list = FXCollections.observableArrayList(listOfRooms);
         table.setItems(list);
+        adjacentFilter=true;
     }
     public void filterByCity(String string) {
         ObservableList<Room> list;
@@ -516,6 +543,7 @@ public class ReserveController implements Initializable {
             table.getItems().removeAll();
             table.setItems(listOfRooms);
         }
+        cityFilter=true;
     }
 
     public void filterByType(String string) {
@@ -541,12 +569,12 @@ public class ReserveController implements Initializable {
             table.getItems().removeAll();
             table.setItems(listOfRooms);
         }
+        typeFilter=true;
     }
 
     public void removeCitySearch() {
         dbParser = new DBParser();
         listOfRooms = FXCollections.observableArrayList(getFreeRoom());
-
         if (removeTypeSearch.isVisible()) {
             listOfRooms = FXCollections.observableArrayList(dbParser.filterByRoomType(personsNumber.getText(), listOfRooms));
             table.setItems(listOfRooms);
@@ -555,6 +583,7 @@ public class ReserveController implements Initializable {
             table.setItems(listOfRooms);
         }
         removeCitySearch.setVisible(false);
+        cityFilter=false;
     }
 
     public void removeTypeSearch() {
@@ -570,17 +599,19 @@ public class ReserveController implements Initializable {
         }
         removeTypeSearch.setVisible(false);
         personsNumber.setText("1");
+        typeFilter=false;
     }
 
-    public ArrayList<Room> getFreeRoom(){
+    public ArrayList<Room> getFreeRoom() {
         ArrayList<Room> listOfFreeRooms = new ArrayList<Room>();
-        for (int i = 0 ;i<dbParser.getAllRoom().size() ; i++){
-            if (!dbParser.getAllRoom().get(i).isBooked()){
+        for (int i = 0; i < dbParser.getAllRoom().size(); i++) {
+            if (!dbParser.getAllRoom().get(i).isBooked()) {
                 listOfFreeRooms.add(dbParser.getAllRoom().get(i));
             }
         }
         return listOfFreeRooms;
     }
+
     public void findRoom() {
         DBParser dbParser = new DBParser();
         ArrayList<Room> arrayList = getFreeRoom();
@@ -684,29 +715,29 @@ public class ReserveController implements Initializable {
 
     public void createReservation(ActionEvent actionEvent) throws FileNotFoundException, DocumentException {
         String guestID = customer.getName() + " " + customer.getLastName();
-        ArrayList<Integer>bookedRooms = new ArrayList<Integer>();
-        double price=0;
+        ArrayList<Integer> bookedRooms = new ArrayList<Integer>();
+        double price = 0;
         for (int i = 0; i < bookedRoom.size(); i++) {
             bookedRooms.add(bookedRoom.get(i).getRoomNr());
-            price+=bookedRoom.get(i).getPrice();
+            price += bookedRoom.get(i).getPrice();
             bookedRoom.get(i).setBooked(true);
             dbParser.refreshRoomStatus(bookedRoom.get(i));
         }
-        System.out.println(bookedRooms.toString()+ "booked numbers");
-            reservation = new Reservation();
-            //int roomID = bookedRoom.get(i).getRoomNr();
-            reservation.setGuest(guestID);
-            reservation.setRooms(bookedRooms);
-            reservation.setArrivalDate(checkInField.getValue());
-            reservation.setDepartureDate(checkOutField.getValue());
-            reservation.setCheckedIn(false);
-            reservation.setPrice(price * Integer.parseInt(nights.getText()));
-            dbParser.saveReservationToDB(reservation);
-            generateInvoice(reservation);
+        System.out.println(bookedRooms.toString() + "booked numbers");
+        reservation = new Reservation();
+        //int roomID = bookedRoom.get(i).getRoomNr();
+        reservation.setGuest(guestID);
+        reservation.setRooms(bookedRooms);
+        reservation.setArrivalDate(checkInField.getValue());
+        reservation.setDepartureDate(checkOutField.getValue());
+        reservation.setCheckedIn(false);
+        reservation.setPrice(price * Integer.parseInt(nights.getText()));
+        dbParser.saveReservationToDB(reservation);
+        generateInvoice(reservation);
 
 
         VBox.setVisible(false);
-        confirm.setVisible(false);
+        hBox.setVisible(false);
         generateInvoice(reservation);
         pane.setVisible(true);
         addToTable();
@@ -825,7 +856,7 @@ public class ReserveController implements Initializable {
         for (int i = 0; i < selectedRooms.size(); i++) {
             price += selectedRooms.get(i).getPrice() * Integer.parseInt(nights.getText());
         }
-        if (!ss.getText().isEmpty()&& Double.valueOf(ss.getText()) > price) {   //compare price with max daily rate of the rooms
+        if (!ss.getText().isEmpty() && Double.valueOf(ss.getText()) > price) {   //compare price with max daily rate of the rooms
             errorLabel.setText("Price you entered is more than the max rate");
             errorLabel.setVisible(true);
             return false;
@@ -844,7 +875,7 @@ public class ReserveController implements Initializable {
         layoutDocument.add(new Paragraph("Växjö/Kalmar"));
         layoutDocument.add(new Paragraph("   "));
         layoutDocument.add(new Paragraph("   "));
-        layoutDocument.add(new Paragraph(" Customer :" +reservation.getGuest() ));
+        layoutDocument.add(new Paragraph(" Customer :" + reservation.getGuest()));
         layoutDocument.add(new Paragraph("   "));
         layoutDocument.add(new Paragraph("   "));
 
@@ -871,33 +902,16 @@ public class ReserveController implements Initializable {
         return layoutDocument;
     }
 
-  /*  /**
+    /**
      * This method prints the reservation details
      * at the moment it copies every thing and print it
      */
-    public void print() throws IOException, PrintException {
-        DocFlavor flavor = DocFlavor.SERVICE_FORMATTED.PAGEABLE;
-        PrintRequestAttributeSet patts = new HashPrintRequestAttributeSet();
-        patts.add(Sides.DUPLEX);
-        PrintService[] ps = PrintServiceLookup.lookupPrintServices(flavor, patts);
-        if (ps.length == 0) {
-            throw new IllegalStateException("No Printer found");
-        }
-        System.out.println("Available printers: " + Arrays.asList(ps));
-
-        PrintService myService = ps[0];
-        myService =ServiceUI.printDialog(null, 200, 200,
-                ps, ps[0], flavor, patts);
-        if (myService == null) {
-            throw new IllegalStateException("Printer not found");
-        }
-
-        FileInputStream fis = new FileInputStream("file.pdf");
-        Doc pdfDoc = new SimpleDoc(fis, DocFlavor.INPUT_STREAM.AUTOSENSE, null);
-        DocPrintJob printJob = myService.createPrintJob();
-        printJob.print(pdfDoc, new HashPrintRequestAttributeSet());
-        fis.close();
-
+    public void print() throws PrintException, MalformedURLException {
+        PrintService defaultPrintService = PrintServiceLookup.lookupDefaultPrintService();
+        DocPrintJob printerJob = defaultPrintService.createPrintJob();
+        File pdfFile = new File("file.pdf");
+        SimpleDoc simpleDoc = new SimpleDoc(pdfFile.toURL(), DocFlavor.URL.AUTOSENSE, null);
+        printerJob.print(simpleDoc, null);
         System.out.println("printed");
     }
 

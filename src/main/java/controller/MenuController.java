@@ -41,7 +41,7 @@ public class MenuController {
 	 * @throws IOException
 	 */
 	public void showCheckInPage(ActionEvent event) throws IOException {
-		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkInWindow.fxml")));
+		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/CheckInPage.fxml")));
 		Scene CheckInScene = new Scene(CheckInPage);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(CheckInScene);
@@ -55,7 +55,7 @@ public class MenuController {
 	 * @throws IOException
 	 */
 	public void showCheckOutWindow(ActionEvent event) throws IOException {
-		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/checkOutWindow.fxml")));
+		Parent CheckInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/CheckOutPage.fxml")));
 		Scene mainWindowScene = new Scene(CheckInPage);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(mainWindowScene);
@@ -69,12 +69,13 @@ public class MenuController {
 	 * @throws IOException
 	 */
 	public void showGuestManagement(ActionEvent event) throws IOException {
-		Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/guestManagement.fxml")));
+		Parent checkInPage = FXMLLoader.load(getClass().getResource(String.valueOf("/GuestManagerPage.fxml")));
 		Scene CheckInScene = new Scene(checkInPage);
 		Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		app_stage.setScene(CheckInScene);
 		app_stage.show();
 	}
+
 
 	/**
 	 * This method runs when ever the user press on the Guest management option in the header

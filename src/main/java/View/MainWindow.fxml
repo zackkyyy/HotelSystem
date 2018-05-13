@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXToggleButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -270,15 +269,15 @@
                                                 <Insets bottom="3.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <TableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="971.0" stylesheets="@css/reservePage.css">
+                                          <TableView fx:id="table" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="217.0" prefWidth="886.0" stylesheets="@css/reservePage.css">
                                             <columns>
-                                              <TableColumn fx:id="roomNrCol" prefWidth="140.0" text="Room Number" />
-                                              <TableColumn fx:id="roomTypeCol" prefWidth="140.0" text="Room Type " />
-                                                <TableColumn fx:id="cityCol" prefWidth="140.0" text="City" />
-                                                <TableColumn fx:id="priceCol" prefWidth="140.0" text="Price" />
-                                                <TableColumn fx:id="roomIdCol" prefWidth="140.0" text="Adjacent" />
-                                                <TableColumn fx:id="floorCol" prefWidth="140.0" text="Smoking" />
-                                                <TableColumn fx:id="qualityCol" prefWidth="127.0" text="Quality" />
+                                              <TableColumn fx:id="roomNrCol" prefWidth="99.18833541870117" text="Room Number" />
+                                              <TableColumn fx:id="roomTypeCol" prefWidth="134.67442321777344" text="Room Type " />
+                                                <TableColumn fx:id="cityCol" prefWidth="128.99761962890625" text="City" />
+                                                <TableColumn fx:id="priceCol" prefWidth="135.83480834960938" text="Price" />
+                                                <TableColumn fx:id="roomIdCol" prefWidth="120.45574951171875" text="Adjacent" />
+                                                <TableColumn fx:id="floorCol" prefWidth="137.8348388671875" text="Smoking" />
+                                                <TableColumn fx:id="qualityCol" prefWidth="124.37432861328125" text="Quality" />
                                             </columns>
                                              <VBox.margin>
                                                 <Insets />
@@ -401,12 +400,12 @@
                                                       <Insets />
                                                    </VBox.margin>
                                                 </Text>
-                                                <JFXToggleButton fx:id="smokingBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
+                                                <JFXToggleButton fx:id="smokingBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939" toggleLineColor="#999999">
                                                    <VBox.margin>
                                                       <Insets top="10.0" />
                                                    </VBox.margin>
                                                 </JFXToggleButton>
-                                                <JFXToggleButton fx:id="adjacentBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
+                                                <JFXToggleButton fx:id="adjacentBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" toggleLineColor="#999999" />
                                              </children>
                                              <HBox.margin>
                                                 <Insets left="15.0" />
@@ -775,7 +774,7 @@
                      <children>
                         <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <bottom>
-                              <HBox prefHeight="74.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                              <HBox fx:id="hBox" prefHeight="74.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <JFXButton onAction="#moveToPreviousTab" style="-fx-border-color: orange;" text="Back">
                                        <HBox.margin>
@@ -787,10 +786,13 @@
                                           <Insets left="400.0" top="5.0" />
                                        </HBox.margin>
                                     </JFXButton>
-                                    <JFXButton onAction="#print" style="-fx-border-color: orange;" text="Print">
+                                    <JFXButton onAction="#print" prefHeight="29.0" prefWidth="75.0" style="-fx-border-color: orange;" text="Print">
                                        <HBox.margin>
                                           <Insets left="300.0" top="5.0" />
                                        </HBox.margin>
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="PRINT" />
+                                       </graphic>
                                     </JFXButton>
                                  </children>
                                  <BorderPane.margin>
@@ -1318,13 +1320,17 @@
                         </BorderPane>
                         <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
                            <children>
-                              <Button fx:id="print" mnemonicParsing="false" onAction="#print" text="Print" />
-                              <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFirstTab" text="Return" />
                               <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation has been done successfully!">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </Text>
+                              <JFXButton fx:id="print" layoutX="355.0" layoutY="250.0" onAction="#print" prefHeight="29.0" prefWidth="73.0" style="-fx-border-color: orange;" text="Print">
+                                 <graphic>
+                                    <FontAwesomeIconView glyphName="PRINT" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="ret" layoutX="216.0" layoutY="251.0" onAction="#moveToFirstTab" style="-fx-border-color: orange;" text="Return" />
                            </children>
                         </Pane>
                      </children>
