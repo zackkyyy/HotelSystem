@@ -135,7 +135,6 @@ public class CheckInController implements Initializable {
 			for(int i = 0; i < reservations.size(); i++) {
 				if(isCorrectDates(reservations.get(i))) {
 					reservations.get(i).setCheckedIn(true);
-					System.out.println(reservations.get(i).getCheckedIn().toString() +"rsafrsararara");
 
 					dbParser.refreshReservationStatus(reservations.get(i));
 					checkedInText.setVisible(true);
@@ -210,7 +209,6 @@ public class CheckInController implements Initializable {
 						}
 						ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
 						for(int j = 0;j<tempRoom.size();j++){
-							tempRoom.get(j).setBooked(false);
 							dbParser.refreshRoomStatus(tempRoom.get(j));
 						}
 						dbParser.deleteReservationByRoomNumber(reservations.get(0).getId());
@@ -225,7 +223,6 @@ public class CheckInController implements Initializable {
 					}
 					ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
 					for(int j = 0;j<tempRoom.size();j++){
-						tempRoom.get(j).setBooked(false);
 						dbParser.refreshRoomStatus(tempRoom.get(j));
 					}
 					dbParser.deleteReservationByRoomNumber(reservations.get(0).getId());

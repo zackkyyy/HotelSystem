@@ -274,14 +274,17 @@ public class DBParser {
         for (int i = 0; i < rooms.count(); i++) {
             doc = cursor.next();
             RoomType roomType = RoomType.toEnum(doc.getString("room type"));
-            boolean booked = doc.getBoolean("is booked");
             int roomNr = doc.getInteger("room nr");
             Double price = doc.getDouble("price");
             City city = City.toEnum(doc.getString("city"));
             Smoking smoking = Smoking.toEnum(doc.getString("smoking"));
             Adjacent adjacent = Adjacent.toEnum(doc.getString("adjacent"));
             Quality quality = Quality.toEnum(doc.getString("quality"));
-            Room room = new Room(roomType, booked, roomNr, price, city);
+            Room room = new Room();
+            room.setRoomNr(roomNr);
+            room.setRoomType(roomType);
+            room.setPrice(price);
+            room.setCity(city);
             room.setAdjoined(adjacent);
             room.setSmoking(smoking);
             room.setQuality(quality);
@@ -304,7 +307,6 @@ public class DBParser {
                 new Document("room nr", room.getRoomNr())
                         .append("room type", room.getRoomType().toString())
                         .append("price", room.getPrice())
-                        .append("is booked", room.isBooked())
                         .append("city", room.getCity().toString())));
     }
 
@@ -312,7 +314,6 @@ public class DBParser {
         doc = new Document("room nr", room.getRoomNr())
                 .append("room type", room.getRoomType().toString())
                 .append("price", room.getPrice())
-                .append("is booked", false)
                 .append("city", room.getCity().toString())
                 .append("smoking", room.getSmoking().toString())
                 .append("adjacent", room.getAdjoined().toString())
@@ -506,7 +507,6 @@ public class DBParser {
             doc = cursor.next();
             reservation = getReservationFromDB(doc);
             listOfReservation.add(reservation);
-            System.out.println(reservation.toString());
         }
         return listOfReservation;
     }
@@ -553,7 +553,6 @@ public class DBParser {
 
               ArrayList  <Room> tempRoom = copyRoomByRoomNumber(rooms);
               for(int j = 0 ;j<tempRoom.size();j++){
-                tempRoom.get(j).setBooked(false);
                 refreshRoomStatus(tempRoom.get(j));
               }
             }

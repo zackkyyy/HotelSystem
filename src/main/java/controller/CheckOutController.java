@@ -148,7 +148,6 @@ public class CheckOutController implements Initializable {
                         }
                         ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
                         for(int j = 0;j<tempRoom.size();j++){
-                            tempRoom.get(j).setBooked(false);
                             dbParser.refreshRoomStatus(tempRoom.get(j));
                         }
                         dbParser.deleteReservationByRoomNumber(reservations.get(i).getId());
@@ -180,7 +179,6 @@ public class CheckOutController implements Initializable {
                         }
                         ArrayList<Room> tempRoom = dbParser.copyRoomByRoomNumber(arrayList);
                         for(int j = 0;j<tempRoom.size();j++){
-                            tempRoom.get(j).setBooked(false);
                             dbParser.refreshRoomStatus(tempRoom.get(j));
                         }
                         dbParser.deleteReservationByRoomNumber(reservations.get(i).getId());

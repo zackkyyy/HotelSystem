@@ -148,7 +148,20 @@ public class ReserveController implements Initializable {
                 }
             }
         });
-
+        checkOutField.setOnAction(event -> {
+            table.getItems().removeAll();
+            getFreeRoom();
+            addToTable();
+            updateDepartureDateCells();
+            calculateNights();
+        });
+        checkInField.setOnAction(event -> {
+            table.getItems().removeAll();;
+            getFreeRoom();
+            addToTable();
+            updateDepartureDateCells();
+            calculateNights();
+        });
         dbParser = new DBParser();
         dbParser.deleteOldReservations();
 
@@ -160,6 +173,7 @@ public class ReserveController implements Initializable {
         disablePreviousDates();
         addToTable();  // add rooms to the table
         initRoomInfo();
+
 
         // Adds listener to table, updating the total price
 
@@ -340,7 +354,8 @@ public class ReserveController implements Initializable {
                         roomCities[i].setText(city);
                         guestNrs[i].setText(personsNumber.getText());
                         roomTypes[i].setText(type);
-                        tempTotalPrice += bookedRoom.get(i).getPrice() * Integer.parseInt(nights.getText());
+                        tempTotalPrice += bookedRoom.get(i).getPrice() ;
+                        tempTotalPrice*=  Integer.parseInt(nights.getText());
                         totalPrice1.setText(totalPrice.getText());
                         totalPrice2.setText(totalPrice.getText());
                     }
@@ -512,7 +527,6 @@ public class ReserveController implements Initializable {
         ArrayList<Room> listOfRooms = new ArrayList<Room>();
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
             if (list.get(i).getAdjoined().toString().equals("Yes")) {
                 listOfRooms.add(list.get(i));
             }
@@ -606,13 +620,38 @@ public class ReserveController implements Initializable {
     }
 
     public ArrayList<Room> getFreeRoom() {
-        ArrayList<Room> listOfFreeRooms = new ArrayList<Room>();
-        for (int i = 0; i < dbParser.getAllRoom().size(); i++) {
-            if (!dbParser.getAllRoom().get(i).isBooked()) {
-                listOfFreeRooms.add(dbParser.getAllRoom().get(i));
-            }
+
+        ArrayList<Room> listOfFreeRooms = dbParser.getAllRoom();
+            for (int i = 0; i < listOfFreeRooms.size(); i++) {
+                 if(isBookedThisDate(listOfFreeRooms.get(i),checkInField.getValue(), checkOutField.getValue())){
+                 System.out.println(listOfFreeRooms.get(i) + " the booked room");
+               listOfFreeRooms.remove(listOfFreeRooms.get(i));
+           }else
+                 {
+                     System.out.println("added");
+                 }
         }
+
         return listOfFreeRooms;
+    }
+
+    private  boolean isBookedThisDate(Room room , LocalDate arr , LocalDate dep){
+       ArrayList<Reservation> listOfReservation= dbParser.getAllReservations();
+       for (int i = 0; i<listOfReservation.size();i++){
+           if(listOfReservation.get(i).getRooms().contains(room.getRoomNr())){
+                   if ((listOfReservation.get(i).getArrivalDate().isAfter(arr) && listOfReservation.get(i).getArrivalDate().isBefore(dep))
+                           || (listOfReservation.get(i).getDepartureDate().isAfter(arr) && listOfReservation.get(i).getDepartureDate().isBefore(dep))
+                           ||(listOfReservation.get(i).getArrivalDate().isEqual(arr))
+                           ||(listOfReservation.get(i).getArrivalDate().isEqual(dep))
+                           ||(listOfReservation.get(i).getDepartureDate().isEqual(arr))
+                           ||(listOfReservation.get(i).getDepartureDate().isEqual(dep))) {
+                       return true;
+
+                   }
+
+           }
+       }
+       return false;
     }
 
     public void findRoom() {
@@ -622,7 +661,7 @@ public class ReserveController implements Initializable {
 
         if (!searchRoom.getText().isEmpty()) {
             for (int i = 0; i < arrayList.size(); i++) {
-                if (arrayList.get(i).getRoomNr() == Integer.parseInt(searchedRoom) && !arrayList.get(i).isBooked()) {
+                if (arrayList.get(i).getRoomNr() == Integer.parseInt(searchedRoom) ) {
                     table.getItems().remove(0, table.getItems().size());
                     table.getItems().add(arrayList.get(i));
                 }
@@ -722,11 +761,10 @@ public class ReserveController implements Initializable {
         double price = 0;
         for (int i = 0; i < bookedRoom.size(); i++) {
             bookedRooms.add(bookedRoom.get(i).getRoomNr());
-            price += bookedRoom.get(i).getPrice();
-            bookedRoom.get(i).setBooked(true);
+            price += bookedRoom.get(i).getPrice() ;
+            price*=Integer.parseInt(nights.getText());
             dbParser.refreshRoomStatus(bookedRoom.get(i));
         }
-        System.out.println(bookedRooms.toString() + "booked numbers");
         reservation = new Reservation();
         //int roomID = bookedRoom.get(i).getRoomNr();
         reservation.setGuest(guestID);
@@ -841,6 +879,9 @@ public class ReserveController implements Initializable {
             }
         };
         checkOutField.setDayCellFactory(dayCellFactory);
+        if (checkOutField.getValue().isBefore(checkInField.getValue())){
+            checkOutField.setValue(checkInField.getValue().plusDays(1));
+        }
     }
 
 
