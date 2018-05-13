@@ -22,7 +22,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("/Untitled.fxml")));
 		Scene scene = new Scene(root, 1024, 720);
-		Stage stage = new Stage();
+		Stage stage= new Stage();
 		stage.setTitle("Hotel Management");
 		stage.setScene(scene);
 		stage.setMinWidth(1024);
