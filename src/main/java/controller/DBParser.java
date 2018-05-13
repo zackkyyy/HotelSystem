@@ -39,12 +39,12 @@ import static com.mongodb.client.model.Filters.eq;
 public class DBParser {
 
 
-    String uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
+    //String uri = "mongodb://localhost:27017,localhost:27017/replicaSet=hotelSystem";
 
     /**
      * Use this Link to change to cloud Data base
      */
-    // String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
+     String uri ="mongodb+srv://zacky:group15@hotelmanagerdb-nxz5u.mongodb.net/test";
     MongoClientURI clientURI = new MongoClientURI(uri);
     //  ******uncomment the next line and comment the previous if you want a cloud database******
     MongoClient mongoClient = new MongoClient(clientURI);
