@@ -64,15 +64,27 @@ public class LoginController {
 
 	}
 
-	public void aboutUs() throws IOException {
+	public void contactUs() throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("/contactUs.fxml")));
-		Scene scene = new Scene(root, 400, 350);
+		Scene scene = new Scene(root, 450, 350);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setMinWidth(400);
+		stage.setMinWidth(450);
 		stage.setMinHeight(350);
 		stage.setMaxHeight(350);
-		stage.setMaxWidth(400);
+		stage.setMaxWidth(450);
+		stage.show();
+	}
+	
+	public void aboutUs() throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource(String.valueOf("/aboutUs.fxml")));
+		Scene scene = new Scene(root, 450, 350);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.setMinWidth(450);
+		stage.setMinHeight(350);
+		stage.setMaxHeight(350);
+		stage.setMaxWidth(450);
 		stage.show();
 	}
 
