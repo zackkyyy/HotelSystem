@@ -1,0 +1,6 @@
+.jfx-date-picker .input-line {
+    -fx-background-color: #aba9a6;
+}
+.jfx-date-picker .input-focused-line {
+    -fx-background-color: #fe9939;
+}

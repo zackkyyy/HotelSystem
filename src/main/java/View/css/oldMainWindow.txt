@@ -1,0 +1,1340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReserveController">
+   <children>
+      <TabPane fx:id="tabPane" layoutX="-11.0" layoutY="21.0" prefHeight="699.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="21.0">
+         <tabs>
+            <Tab closable="false" text="Findroom">
+               <content>
+                  <BorderPane pickOnBounds="false" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: white;">
+                     <right>
+                        <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                 <VBox.margin>
+                                    <Insets top="3.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Text>
+                              <HBox prefHeight="40.0" prefWidth="186.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nights:">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <JFXTextField fx:id="nights" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="7.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </JFXTextField>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="40.0" prefWidth="186.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
+                                       <HBox.margin>
+                                          <Insets left="15.0" top="15.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <JFXTextField fx:id="rooms" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="18.0" top="7.0" />
+                                       </HBox.margin>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </JFXTextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="54.0" prefWidth="186.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                                       <HBox.margin>
+                                          <Insets top="15.0" />
+                                       </HBox.margin>
+                                    </Text>
+                                    <JFXTextField fx:id="totalPrice" prefHeight="21.0" prefWidth="80.0" unFocusColor="WHITE">
+                                       <HBox.margin>
+                                          <Insets left="15.0" />
+                                       </HBox.margin>
+                                    </JFXTextField>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="15.0" top="50.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <Button mnemonicParsing="false" onAction="#moveToNextTab" text="Next">
+                                 <VBox.margin>
+                                    <Insets left="50.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets right="10.0" />
+                           </BorderPane.margin>
+                        </VBox>
+                     </right>
+                     <top>
+                        <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <HBox.margin>
+                                          <Insets top="20.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Circle>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
+                                             <VBox.margin>
+                                                <Insets top="3.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                    <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Line>
+                                    <VBox alignment="CENTER">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="20.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#fe9939" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Circle>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
+                                             <VBox.margin>
+                                                <Insets top="3.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                    <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Line>
+                                    <VBox alignment="CENTER">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="20.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#fe9939" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Circle>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
+                                             <VBox.margin>
+                                                <Insets top="3.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                        </VBox>
+                     </top>
+                     <bottom>
+                        <Pane BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="271.0" prefWidth="1020.0">
+                                 <children>
+                                    <HBox prefHeight="36.0" prefWidth="459.0">
+                                       <children>
+                                          <Label prefHeight="26.0" prefWidth="150.0" text="Search for room" textAlignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: #FE9939;">
+                                             <graphic>
+                                                <FontAwesomeIconView boundsType="VISUAL" glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <JFXTextField fx:id="searchRoom" focusColor="#ff9321" maxHeight="25.0" minHeight="25.0" onKeyPressed="#findRoom" onMousePressed="#findRoom" prefHeight="25.0" prefWidth="165.0" promptText="Enter a room number" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="3.0" top="8.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                          <FontAwesomeIconView fx:id="removeRoomSearch" glyphName="CLOSE" onMouseClicked="#addToTable" size="15">
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="15.0" />
+                                             </HBox.margin>
+                                          </FontAwesomeIconView>
+                                          <JFXButton fx:id="removeCitySearch" onAction="#removeCitySearch" prefHeight="24.0" prefWidth="77.0" text="City" textFill="#f10000" visible="false">
+                                             <font>
+                                                <Font name="System Bold" size="11.0" />
+                                             </font>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="10.0" />
+                                             </HBox.margin>
+                                          </JFXButton>
+                                          <JFXButton fx:id="removeTypeSearch" onAction="#removeTypeSearch" prefHeight="24.0" prefWidth="84.0" text="Type" textFill="#f10000" visible="false">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="?" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets top="10.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                          </JFXButton>
+                                          <JFXButton fx:id="removeQualitySearch" onAction="#removeQualitySearch" prefHeight="24.0" prefWidth="76.0" text="Quality" textFill="#f10000" visible="false">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="#f10000" glyphName="CLOSE" size="15" text="?" />
+                                             </graphic>
+                                             <font>
+                                                <Font size="11.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="5.0" top="10.0" />
+                                             </HBox.margin>
+                                          </JFXButton>
+                                          <Label fx:id="errorLabel" prefHeight="17.0" prefWidth="307.0" textFill="#fc0000" visible="false">
+                                             <HBox.margin>
+                                                <Insets top="-20.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TableView fx:id="table" maxWidth="887.0" minWidth="887.0" prefHeight="260.0" prefWidth="887.0" stylesheets="@css/reservePage.css">
+                                      <columns>
+                                        <TableColumn fx:id="roomNrCol" prefWidth="130.0" text="Room Number" />
+                                        <TableColumn fx:id="roomTypeCol" prefWidth="130.0" text="Room Type " />
+                                          <TableColumn fx:id="cityCol" prefWidth="130.0" text="City" />
+                                          <TableColumn fx:id="priceCol" prefWidth="130.0" text="Price" />
+                                          <TableColumn fx:id="roomIdCol" prefWidth="130.0" text="Adjacent" />
+                                          <TableColumn fx:id="floorCol" prefWidth="130.0" text="Smoking" />
+                                          <TableColumn fx:id="qualityCol" prefWidth="130.0" text="Quality" />
+                                      </columns>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
+                     </bottom>
+                     <left>
+                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <HBox maxHeight="96.0" maxWidth="1.7976931348623157E308" minHeight="60.0" minWidth="780.0" prefHeight="96.0" prefWidth="1024.0" style=" -fx-border-radius: 10px ">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check in">
+                                             <VBox.margin>
+                                                <Insets bottom="-3.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <JFXDatePicker fx:id="checkInField" defaultColor="#fe9939" minWidth="100.0" onAction="#calculateNights" prefHeight="27.0" prefWidth="125.0" />
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="15.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="15.0" />
+                                       </HBox.margin>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Check out">
+                                             <VBox.margin>
+                                                <Insets bottom="-3.0" />
+                                             </VBox.margin>
+                                          </Text>
+                                          <JFXDatePicker fx:id="checkOutField" defaultColor="#fe9939" minWidth="100.0" onAction="#calculateNights" prefHeight="27.0" prefWidth="125.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ff8811" glyphName="USER_PLUS" size="20" text="?">
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin>
+                                          </FontAwesomeIconView>
+                                          <MenuButton fx:id="personsNumber" mnemonicParsing="false" prefHeight="29.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: orange;" text="1">
+                                             <items>
+                                                <MenuItem fx:id="p1" mnemonicParsing="false" text="1" />
+                                                <MenuItem fx:id="p2" mnemonicParsing="false" text="2" />
+                                                <MenuItem fx:id="p3" mnemonicParsing="false" text="3" />
+                                                <MenuItem fx:id="p4" mnemonicParsing="false" text="4" />
+                                             </items>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </MenuButton>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="7.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ee8503" glyphName="BED" size="20" text="?">
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin>
+                                          </FontAwesomeIconView>
+                                          <MenuButton fx:id="roomsNumber" maxHeight="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: orange;" text="1">
+                                             <items>
+                                                <MenuItem fx:id="r1" mnemonicParsing="false" text="1" />
+                                                <MenuItem fx:id="r2" mnemonicParsing="false" text="2" />
+                                                <MenuItem fx:id="r3" mnemonicParsing="false" text="3" />
+                                                <MenuItem fx:id="r4" mnemonicParsing="false" text="4" />
+                                                <MenuItem fx:id="r5" mnemonicParsing="false" text="5" />
+                                                <MenuItem fx:id="more1" mnemonicParsing="false" text="more" />
+                                             </items>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </MenuButton>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="7.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER">
+                                       <children>
+                                          <FontAwesomeIconView fill="#ff870f" glyphName="MAP_MARKER" size="20" text="?">
+                                             <VBox.margin>
+                                                <Insets bottom="3.0" />
+                                             </VBox.margin>
+                                          </FontAwesomeIconView>
+                                          <MenuButton fx:id="cityName" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="29.0" prefWidth="83.0" style="-fx-background-color: white; -fx-border-color: orange;" text="Växjö">
+                                            <items>
+                                              <MenuItem fx:id="växjö" mnemonicParsing="false" text="Växjö" />
+                                              <MenuItem fx:id="kalmar" mnemonicParsing="false" text="Kalmar" />
+                                            </items>
+                                          </MenuButton>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="7.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="20.0" top="10.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <VBox prefHeight="165.0" prefWidth="800.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="    Room Filter ">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </Text>
+                                    <JFXToggleButton fx:id="smokingBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Smoking free" toggleColor="#fe9939">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </JFXToggleButton>
+                                    <JFXToggleButton fx:id="adjacentBtn" prefHeight="35.0" prefWidth="134.0" size="5.0" text="Adjoint Room" toggleColor="#fe9939" />
+                                    <HBox prefHeight="31.0" prefWidth="132.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quality">
+                                             <HBox.margin>
+                                                <Insets top="5.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Text>
+                                          <MenuButton fx:id="quality" mnemonicParsing="false" style="-fx-background-color: white; -fx-border-color: orange;" text="?" textFill="GOLD">
+                                             <items>
+                                                <MenuItem fx:id="star1" mnemonicParsing="false" text="?" />
+                                                <MenuItem fx:id="star2" mnemonicParsing="false" text="??" />
+                                                <MenuItem fx:id="star3" mnemonicParsing="false" text="???" />
+                                                <MenuItem fx:id="star4" mnemonicParsing="false" text="????" />
+                                                <MenuItem fx:id="star5" mnemonicParsing="false" text="?????" />
+                                             </items>
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </MenuButton>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </left>
+                  </BorderPane>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Guest">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <BorderPane layoutX="-2.0" prefHeight="547.0" prefWidth="801.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0">
+                           <bottom>
+                              <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="Back">
+                                       <HBox.margin>
+                                          <Insets left="200.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </bottom>
+                           <left>
+                              <VBox prefHeight="477.0" prefWidth="577.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find an existing guest">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="44.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="35.0" prefWidth="30.0" style="-fx-background-color: #FE9939;">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="SEARCH" size="14.0" smooth="false" stroke="BLACK" strokeType="INSIDE" style="-fx-background-color: RED;" textAlignment="RIGHT" wrappingWidth="22.259979248046875" />
+                                             </graphic>
+                                          </Label>
+                                          <JFXTextField fx:id="search" focusColor="#ff9321" onMousePressed="#autoCompletion" prefHeight="33.0" prefWidth="525.0" promptText="   Enter a search" stylesheets="@css/logIN.css" unFocusColor="#d7d7d7">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin></JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="20.0" />
+                                       </VBox.margin></HBox>
+                                    <BorderPane prefHeight="350.0" prefWidth="568.0" style="-fx-background-color: white;">
+                                       <top>
+                                          <VBox prefHeight="66.0" prefWidth="546.0" BorderPane.alignment="CENTER">
+                                             <BorderPane.margin>
+                                                <Insets bottom="20.0" />
+                                             </BorderPane.margin>
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add a new guest">
+                                                   <font>
+                                                      <Font size="21.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets top="30.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                                <Separator maxWidth="577.0" minWidth="300.0" prefHeight="11.0" prefWidth="577.0" style="-fx-border-radius: 10px;">
+                                                   <effect>
+                                                      <InnerShadow />
+                                                   </effect>
+                                                </Separator>
+                                             </children>
+                                          </VBox>
+                                       </top>
+                                       <center>
+                                          <VBox BorderPane.alignment="CENTER">
+                                             <children>
+                                                <VBox minWidth="500.0" prefHeight="100.0" prefWidth="500.0" spacing="10.0">
+                                                   <children>
+                                                      <HBox maxWidth="200.0" prefHeight="31.0" prefWidth="565.0">
+                                                         <children>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" />
+                                                                  <JFXTextField fx:id="name" focusColor="BLACK" minWidth="200.0" prefHeight="27.0" prefWidth="200.0" unFocusColor="#fe9939">
+                                                                     <VBox.margin>
+                                                                        <Insets left="75.0" top="-22.0" />
+                                                                     </VBox.margin>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                            </VBox>
+                                                            <VBox>
+                                                               <children>
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
+                                                                  <JFXTextField fx:id="lastName" focusColor="BLACK" maxWidth="212.0" minWidth="200.0" prefHeight="27.0" prefWidth="212.0" unFocusColor="#fe9939">
+                                                                     <VBox.margin>
+                                                                        <Insets left="70.0" top="-22.0" />
+                                                                     </VBox.margin>
+                                                                  </JFXTextField>
+                                                               </children>
+                                                               <HBox.margin>
+                                                                  <Insets left="25.0" />
+                                                               </HBox.margin>
+                                                            </VBox>
+                                                         </children>
+                                                      </HBox>
+                                                      <VBox>
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address" />
+                                                            <JFXTextField fx:id="address" focusColor="BLACK" minHeight="31.0" minWidth="500.0" unFocusColor="#fe9939">
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox minHeight="31.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr" />
+                                                            <JFXTextField fx:id="phoneNr" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="28.0" prefWidth="506.0" unFocusColor="#fe9939">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox>
+                                                         <children>
+                                                            <FontAwesomeIconView glyphName="CREDIT_CARD" size="15">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="-20.0" left="350.0" />
+                                                               </VBox.margin>
+                                                            </FontAwesomeIconView>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit card" />
+                                                            <JFXTextField fx:id="creditCard" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="31.0" prefWidth="499.0" unFocusColor="#fe9939">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="31.0">
+                                                         <children>
+                                                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identity nr" />
+                                                            <JFXTextField fx:id="identityNr" focusColor="BLACK" maxWidth="-Infinity" minHeight="31.0" minWidth="-Infinity" prefHeight="28.0" prefWidth="503.0" unFocusColor="#fe9939">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                               <VBox.margin>
+                                                                  <Insets left="75.0" top="-22.0" />
+                                                               </VBox.margin>
+                                                            </JFXTextField>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                                <Label fx:id="errorMsg" prefHeight="17.0" prefWidth="501.0" textFill="RED">
+                                                   <VBox.margin>
+                                                      <Insets left="15.0" top="15.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets left="25.0" top="10.0" />
+                                 </BorderPane.margin>
+                              </VBox>
+                           </left>
+                           <right>
+                              <VBox maxHeight="233.0" maxWidth="217.0" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                       <VBox.margin>
+                                          <Insets top="3.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nights:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="nights1" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="rooms1" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="18.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="54.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="totalPrice1" prefHeight="21.0" prefWidth="80.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" top="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <Button mnemonicParsing="false" onAction="#moveToNextTab" text="Continue">
+                                       <VBox.margin>
+                                          <Insets left="50.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets right="15.0" top="-150.0" />
+                                 </BorderPane.margin>
+                              </VBox>
+                           </right>
+                           <top>
+                              <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                                       <children>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#fe9939" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="7.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </top>
+                        </BorderPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab closable="false" text="Confirmation">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane layoutY="2.0" prefHeight="656.0" prefWidth="1024.0" style="-fx-background-color: white; " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <bottom>
+                              <HBox prefHeight="100.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#moveToPreviousTab" text="back" />
+                                    <Button fx:id="confirm" mnemonicParsing="false" onAction="#createReservation" text="Confirm ">
+                                       <HBox.margin>
+                                          <Insets left="700.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#print" text="Button" />
+                                 </children>
+                              </HBox>
+                           </bottom>
+                           <center>
+                              <VBox fx:id="VBox" prefHeight="421.0" prefWidth="719.0" spacing="8.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text fill="#973c3c" fontSmoothingType="LCD" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Details" textAlignment="CENTER" underline="true">
+                                       <VBox.margin>
+                                          <Insets left="150.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="Bangla MN" size="27.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="20.0" prefWidth="579.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival Date">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Text>
+                                          <Label fx:id="arrDate" prefHeight="17.0" prefWidth="159.0" text="Label">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Departure Date">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="depDate" prefHeight="17.0" prefWidth="151.0" text="Label">
+                                             <HBox.margin>
+                                                <Insets left="27.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox maxWidth="502.0" prefHeight="32.0" prefWidth="502.0" style="-fx-background-color: #4d4d4d;">
+                                       <children>
+                                          <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Room Information" wrappingWidth="225.80406188964844">
+                                             <font>
+                                                <Font name="Serif Regular" size="20.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets top="3.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                       </children>
+                                    </HBox>
+                                    <VBox>
+                                       <children>
+                                          <HBox spacing="25.0">
+                                             <children>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room nr ">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room type">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest nr">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                </Text>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City">
+                                                   <font>
+                                                      <Font name="Serif Bold Italic" size="17.0" />
+                                                   </font>
+                                                   <HBox.margin>
+                                                      <Insets left="25.0" />
+                                                   </HBox.margin>
+                                                </Text>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <HBox fx:id="roomInfoBox1" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="roomNr1" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomType1" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="guestNr1" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomCity1" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="-20.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox fx:id="roomInfoBox2" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="roomNr2" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomType2" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="guestNr2" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomCity2" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="roomInfoBox3" maxHeight="24.0" minHeight="24.0" prefHeight="24.0" prefWidth="621.0">
+                                       <children>
+                                          <Label fx:id="roomNr3" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomType3" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="guestNr3" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomCity3" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox fx:id="roomInfoBox4" maxHeight="24.0" minHeight="24.0" prefHeight="20.0" prefWidth="629.0">
+                                       <children>
+                                          <Label fx:id="roomNr4" prefHeight="17.0" prefWidth="63.0" text="101">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomType4" prefHeight="17.0" prefWidth="78.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="guestNr4" prefHeight="17.0" prefWidth="60.0" text="2">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="roomCity4" prefHeight="17.0" prefWidth="66.0" text="Växjö">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="20.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox maxWidth="498.0" prefHeight="29.0" prefWidth="498.0" style="-fx-background-color: #4d4d4d;">
+                                       <children>
+                                          <Text fill="#eb7a10" strokeType="OUTSIDE" strokeWidth="0.0" text="  Guest Information" wrappingWidth="225.80406188964844">
+                                             <font>
+                                                <Font name="Serif Regular" size="20.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets top="3.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Name">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstName" prefHeight="17.0" prefWidth="205.0" text="Single">
+                                             <HBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone nr">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstPhone" layoutX="112.0" prefHeight="17.0" prefWidth="295.0">
+                                             <HBox.margin>
+                                                <Insets left="45.0" top="5.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ID number">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstID" prefHeight="17.0" prefWidth="296.0">
+                                             <HBox.margin>
+                                                <Insets left="35.0" top="5.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card">
+                                             <font>
+                                                <Font name="Serif Bold Italic" size="17.0" />
+                                             </font>
+                                          </Text>
+                                          <Label fx:id="gstCredit" prefHeight="17.0" prefWidth="287.0">
+                                             <HBox.margin>
+                                                <Insets left="30.0" top="5.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font name="Serif Regular" size="13.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <BorderPane.margin>
+                                    <Insets left="100.0" right="30.0" top="25.0" />
+                                 </BorderPane.margin>
+                                 <padding>
+                                    <Insets left="20.0" />
+                                 </padding>
+                              </VBox>
+                           </center>
+                           <right>
+                              <VBox maxHeight="233.0" maxWidth="217.0" opacity="0.81" prefHeight="158.0" prefWidth="217.0" style="-fx-border-color: FE9939;" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="                Summary">
+                                       <VBox.margin>
+                                          <Insets top="3.0" />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Text>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nights:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="nights2" editable="false" labelFloat="true" onAction="#calculateNights" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="40.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
+                                             <HBox.margin>
+                                                <Insets left="15.0" top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="rooms2" editable="false" labelFloat="true" prefHeight="27.0" prefWidth="80.0" text="1" unFocusColor="WHITE">
+                                             <HBox.margin>
+                                                <Insets left="18.0" top="7.0" />
+                                             </HBox.margin>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefHeight="54.0" prefWidth="186.0">
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Price">
+                                             <HBox.margin>
+                                                <Insets top="15.0" />
+                                             </HBox.margin>
+                                          </Text>
+                                          <JFXTextField fx:id="totalPrice2" prefHeight="21.0" prefWidth="80.0">
+                                             <HBox.margin>
+                                                <Insets left="15.0" />
+                                             </HBox.margin>
+                                          </JFXTextField>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets left="15.0" top="50.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </right>
+                           <top>
+                              <VBox alignment="CENTER" prefHeight="99.0" prefWidth="1024.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="80.0" prefWidth="1024.0">
+                                       <children>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Find Room">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Guest">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                          <Line endX="150.0" opacity="0.3" startX="-150.0" stroke="#fe9939" strokeType="OUTSIDE">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </Line>
+                                          <VBox alignment="CENTER">
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="20.0" />
+                                             </HBox.margin>
+                                             <children>
+                                                <Circle fill="WHITE" opacity="0.7" radius="18.0" stroke="#07b22d" strokeLineJoin="BEVEL" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </Circle>
+                                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Confirm">
+                                                   <VBox.margin>
+                                                      <Insets top="3.0" />
+                                                   </VBox.margin>
+                                                </Text>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="3.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </top>
+                        </BorderPane>
+                        <Pane fx:id="pane" layoutX="10.0" layoutY="10.0" prefHeight="316.0" prefWidth="579.0" visible="false" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="100.0">
+                           <children>
+                              <Button fx:id="print" mnemonicParsing="false" onAction="#print" text="Print" />
+                              <Button fx:id="ret" layoutX="250.0" layoutY="250.0" mnemonicParsing="false" onAction="#moveToFirstTab" text="Return" />
+                              <Text layoutX="100.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation hase been done successfully ">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <HBox layoutX="10.0" layoutY="10.0" maxHeight="54.0" prefHeight="54.0" prefWidth="1029.0" style="-fx-background-color: FE9939; -fx-border-color: #111111; -fx-border-image-width: 3px;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="52.0" prefWidth="102.0">
+               <children>
+                  <Text fill="#4d4d4d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Manager">
+                     <font>
+                        <Font name="Brush Script MT Italic" size="35.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" top="-10.0" />
+               </HBox.margin>
+            </VBox>
+            <JFXButton fx:id="reserveButton" prefHeight="52.0" prefWidth="150.0" style="-jfx-disable-visual-focus: true; -fx-background-color: #fcb26c;" text="Reserve">
+               <HBox.margin>
+                  <Insets left="35.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="checkInButton" prefHeight="52.0" prefWidth="150.0" text="Check-in">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="checkOutButton" prefHeight="52.0" prefWidth="150.0" text="Check-out">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="guestButton" prefHeight="52.0" prefWidth="150.0" text="Guest Info">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <VBox alignment="CENTER" prefHeight="52.0" prefWidth="124.0">
+               <children>
+                  <Label fx:id="nameLabel" text="Label" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton fx:id="logOutBtn" prefHeight="27.0" prefWidth="93.0" text="Log Out">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="SIGN_OUT" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
