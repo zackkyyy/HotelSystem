@@ -495,6 +495,9 @@ public class ReserveController implements Initializable {
             ).forEach(list1::add);
 
         }
+        else{
+            list1=getFreeRoom();
+        }
         table.getItems().removeAll();
         ObservableList<Room> list = FXCollections.observableArrayList(list1);
         table.setItems(list);
