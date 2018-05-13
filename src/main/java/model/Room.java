@@ -12,23 +12,12 @@ import model.enums.*;
  */
 public class Room extends RecursiveTreeObject<Room> {
     private RoomType roomType;
-    private boolean booked;
     private int roomNr;
-    private Double price ;
+    private Double price;
     private City city;
     private Smoking smoking;
     private Adjacent adjoined;
     private Quality quality;
-
-
-
-    public Room(RoomType roomType, Boolean booked, int roomNr, Double price, City city) {
-        this.city=city;
-        this.booked = booked;
-        this.roomNr = roomNr;
-        this.price = price;
-        this.roomType=roomType;
-    }
 
 
     public Quality getQuality() {
@@ -38,6 +27,7 @@ public class Room extends RecursiveTreeObject<Room> {
     public void setQuality(Quality quality) {
         this.quality = quality;
     }
+
     public Smoking getSmoking() {
         return smoking;
     }
@@ -54,16 +44,6 @@ public class Room extends RecursiveTreeObject<Room> {
         this.adjoined = adjoined;
     }
 
-    public Room(RoomType roomType, boolean booked, int roomNr, Double price, City city, Smoking smooking, Adjacent adjoined) {
-
-        this.roomType = roomType;
-        this.booked = booked;
-        this.roomNr = roomNr;
-        this.price = price;
-        this.city = city;
-        this.smoking = smooking;
-        this.adjoined = adjoined;
-    }
 
     public Room() {
     }
@@ -72,7 +52,6 @@ public class Room extends RecursiveTreeObject<Room> {
     public String toString() {
         return "Room{" +
                 "roomType=" + roomType +
-                ", booked=" + booked +
                 ", roomNr=" + roomNr +
                 ", price=" + price +
                 ", city=" + city +
@@ -87,14 +66,6 @@ public class Room extends RecursiveTreeObject<Room> {
 
     public void setRoomType(model.enums.RoomType roomType) {
         this.roomType = roomType;
-    }
-
-    public boolean isBooked() {
-        return booked;
-    }
-
-    public void setBooked(boolean booked) {
-        this.booked = booked;
     }
 
     public int getRoomNr() {
@@ -116,7 +87,8 @@ public class Room extends RecursiveTreeObject<Room> {
     public model.enums.City getCity() {
         return city;
     }
-    public String getStringCity(){
+
+    public String getStringCity() {
         return city.toString();
     }
 
