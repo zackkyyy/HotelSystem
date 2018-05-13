@@ -344,7 +344,7 @@
                                           </VBox>
                                           <VBox alignment="TOP_CENTER">
                                              <children>
-                                                <FontAwesomeIconView fill="#ee8503" glyphName="BED" size="20" text="">
+                                                <FontAwesomeIconView fill="#ff870f" glyphName="HOME" size="20">
                                                    <VBox.margin>
                                                       <Insets bottom="3.0" />
                                                    </VBox.margin>
@@ -359,6 +359,9 @@
                                                    <opaqueInsets>
                                                       <Insets />
                                                    </opaqueInsets>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
                                                 </MenuButton>
                                              </children>
                                              <HBox.margin>
